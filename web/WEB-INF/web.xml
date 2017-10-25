@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
+         version="3.1">
+<!--- SERVLET -->
+    <servlet>
+        <servlet-name>accueil</servlet-name>
+        <servlet-class>servletPack.Accueil</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>accueil</servlet-name>
+        <url-pattern></url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>connection</servlet-name>
+        <servlet-class>servletPack.Connection</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>connection</servlet-name>
+        <url-pattern>/connection</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>inscription</servlet-name>
+        <servlet-class>servletPack.Inscription</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>inscription</servlet-name>
+        <url-pattern>/inscription</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>deconnection</servlet-name>
+        <servlet-class>servletPack.Deconnection</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>deconnection</servlet-name>
+        <url-pattern>/deconnection</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>user_profile</servlet-name>
+        <servlet-class>servletPack.Profile</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>user_profile</servlet-name>
+        <url-pattern>/profile</url-pattern>
+    </servlet-mapping>
+
+    <!--- FILTER -->
+    <filter>
+        <filter-name>RestrictionFilter</filter-name>
+        <filter-class>Filter.RestrictionFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>RestrictionFilter</filter-name>
+        <url-pattern>/RestrictAccess/*</url-pattern>
+    </filter-mapping>
+
+</web-app>
