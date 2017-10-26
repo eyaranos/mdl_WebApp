@@ -1,9 +1,12 @@
 package Form;
 
+import DAO.DAOFactory;
+import DAO.UtilisateurDao;
 import beans.Utilisateur;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class ConnexionForm {
@@ -13,6 +16,8 @@ public class ConnexionForm {
 
     private String              resultat;
     private Map<String, String> erreurs      = new HashMap<String, String>();
+
+
 
     public String getResultat() {
         return resultat;
@@ -46,8 +51,11 @@ public class ConnexionForm {
         }
         utilisateur.setMdp( motDePasse );
 
+        /* Vérification dans la db du mot de passe */
+        utilisateur = checkMailMdp(email,motDePasse);
+
         /* Initialisation du résultat global de la validation. */
-        if ( erreurs.isEmpty() ) {
+        if ( erreurs.isEmpty()&& (utilisateur!=null)) {
             resultat = "Succès de la connexion.";
         } else {
             resultat = "Échec de la connexion.";
@@ -96,5 +104,30 @@ public class ConnexionForm {
         } else {
             return valeur;
         }
+    }
+
+    /*
+    renvoie l'Utilisateur si le mail et le mdp correspond à un Utilisateur inscrit dans DB
+    sinon null
+     */
+
+    private Utilisateur checkMailMdp(String mail, String mdp){
+        UtilisateurDao utilisateurDao;
+        DAOFactory daoFactory=DAOFactory.getInstance();
+        utilisateurDao=daoFactory.getUtilisateurDao();
+
+        List<Utilisateur> utilisateurList=utilisateurDao.lister();
+
+        for (int i = 0; i < utilisateurList.size(); i++) {
+            String log = utilisateurList.get(i).getMail();
+            if (log.equals(mail)){
+                String p = utilisateurList.get(i).getMdp();
+                if (p.equals(mdp)){
+                    return utilisateurList.get(i);
+                }
+            }
+        }
+        return null;
+
     }
 }
