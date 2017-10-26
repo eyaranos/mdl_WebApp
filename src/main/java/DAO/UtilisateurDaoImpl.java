@@ -31,7 +31,7 @@ public class UtilisateurDaoImpl implements UtilisateurDao {
             preparedStatement.setString(4,utilisateur.getVille());
             preparedStatement.setString(5,utilisateur.getAdresse());
             preparedStatement.setString(6,utilisateur.getCodePostal());
-            preparedStatement.setString(7,utilisateur.getMail());
+            preparedStatement.setString(7,utilisateur.getEmail());
             preparedStatement.setString(8,utilisateur.getPays());
             preparedStatement.setString(9,utilisateur.getNumTel());
             preparedStatement.setDate(10, (Date) utilisateur.getDateNaissance());
@@ -78,7 +78,7 @@ public class UtilisateurDaoImpl implements UtilisateurDao {
                 utilisateur.setVille(ville);
                 utilisateur.setAdresse(adresse);
                 utilisateur.setCodePostal(code_postal);
-                utilisateur.setMail(mail);
+                utilisateur.setEmail(mail);
                 utilisateur.setPays(pays);
                 utilisateur.setNumTel(num_tel);
                 utilisateur.setDateNaissance(date_naissance);
