@@ -41,7 +41,7 @@ public class ConnexionForm {
         } catch ( Exception e ) {
             setErreur( CHAMP_EMAIL, e.getMessage() );
         }
-        utilisateur.setMail( email );
+        utilisateur.setEmail( email );
 
         /* Validation du champ mot de passe. */
         try {
@@ -119,7 +119,7 @@ public class ConnexionForm {
         List<Utilisateur> utilisateurList=utilisateurDao.lister();
 
         for (int i = 0; i < utilisateurList.size(); i++) {
-            String log = utilisateurList.get(i).getMail();
+            String log = utilisateurList.get(i).getEmail();
             if (log.equals(mail)){
                 String p = utilisateurList.get(i).getMdp();
                 if (p.equals(mdp)){

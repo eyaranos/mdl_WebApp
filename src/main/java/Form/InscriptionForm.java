@@ -53,7 +53,7 @@ public final class InscriptionForm {
         } catch ( Exception e ) {
             setErreur( CHAMP_EMAIL, e.getMessage() );
         }
-        utilisateur.setMail( email );
+        utilisateur.setEmail( email );
 
         try {
             validationMotsDePasse( motDePasse, confirmation );

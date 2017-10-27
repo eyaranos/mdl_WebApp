@@ -14,7 +14,7 @@ public class UtilisateurList {
         List<Utilisateur> utilisateurList=utilisateurDao.lister();
 
         for (int i = 0; i < utilisateurList.size(); i++) {
-            String log = utilisateurList.get(i).getMail();
+            String log = utilisateurList.get(i).getEmail();
             if (log.equals(mail)){
                 String p = utilisateurList.get(i).getMdp();
                 if (p.equals(mdp)){

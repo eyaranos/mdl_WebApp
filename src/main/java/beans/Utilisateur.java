@@ -8,7 +8,7 @@ public class Utilisateur {
     private String mdp;
     private String ville;
     private String codePostal;
-    private String mail;
+    private String email;
     private String adresse;
     private String pays;
     private String numTel;
@@ -54,12 +54,12 @@ public class Utilisateur {
         this.codePostal = codePostal;
     }
 
-    public String getMail() {
-        return mail;
+    public String getEmail() {
+        return email;
     }
 
-    public void setMail(String mail) {
-        this.mail = mail;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getAdresse() {
