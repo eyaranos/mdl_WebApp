@@ -18,7 +18,7 @@ public class ConnectAPI {
     private final String USER_AGENT = "Mozilla/5.0";
     public void insertUser(Utilisateur utilisateur) throws Exception {
 
-        String url="http://localhost:8080/restservices/UserController/insert/user";
+        String url="http://188.226.146.41:8080/MDL-API-0.0.1-SNAPSHOT/restservices/UserController/insert/user";
 
         URL object=new URL(url);
 
