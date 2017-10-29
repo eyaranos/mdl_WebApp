@@ -1,5 +1,6 @@
 package servletPack;
 
+import ConnecteurAPI.ConnectAPI;
 import DAO.DAOFactory;
 import DAO.UtilisateurDao;
 import Form.InscriptionForm;

@@ -1,4 +1,4 @@
-package servletPack;
+package ConnecteurAPI;
 
 import beans.Utilisateur;
 import org.json.JSONObject;
@@ -55,7 +55,7 @@ public class ConnectAPI {
 
     }
 
-    public void checkConnectionUser(Utilisateur utilisateur) throws IOException {
+    public boolean checkConnectionUser(Utilisateur utilisateur) throws IOException {
 
         String url=url_API+"connexion/user";
 
@@ -82,12 +82,20 @@ public class ConnectAPI {
         wr.write(urlParameters);
         wr.flush();
 
-        showBackMessage(conn);
+        String rep=showBackMessage(conn);
+
+        //TODO à cahnger avec renvoie Utilisateur
+        if( rep.equals("No Content")){
+            return false;
+        }else{
+            return true;
+        }
+
 
 
     }
 
-    private void showBackMessage(HttpURLConnection con) throws IOException {
+    private String showBackMessage(HttpURLConnection con) throws IOException {
         //display what returns the POST request
 
         StringBuilder sb = new StringBuilder();
@@ -101,8 +109,10 @@ public class ConnectAPI {
             }
             br.close();
             System.out.println("" + sb.toString());
+            return sb.toString();
         } else {
             System.out.println(con.getResponseMessage());
+            return con.getResponseMessage();
         }
     }
 
