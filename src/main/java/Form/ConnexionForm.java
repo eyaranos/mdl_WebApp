@@ -1,5 +1,6 @@
 package Form;
 
+import ConnecteurAPI.ConnectAPIUtilisateur;
 import DAO.DAOFactory;
 import DAO.UtilisateurDao;
 import beans.Utilisateur;
@@ -53,11 +54,11 @@ public class ConnexionForm {
         }
         utilisateur.setMdp( motDePasse );
 
-        /* Vérification dans la db du mot de passe */
+        /* Vérification par l'API dans la DB de l'existance de l'utilisateur et de son mdp */
         boolean check = false;
-        ConnectAPI connectAPI =new ConnectAPI();
+        ConnectAPIUtilisateur connectAPIUtilisateur =new ConnectAPIUtilisateur();
         try {
-            check= connectAPI.checkConnectionUser(utilisateur);
+            check= connectAPIUtilisateur.checkConnectionUser(utilisateur);
         } catch (IOException e) {
             resultat = "Échec de la connexion.";
 
