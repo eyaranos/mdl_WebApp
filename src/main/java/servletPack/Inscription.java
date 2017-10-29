@@ -11,11 +11,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.sql.Date;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.HashMap;
-import java.util.Map;
 
 @WebServlet(name = "Inscription")
 public class Inscription extends HttpServlet {
@@ -43,7 +38,13 @@ public class Inscription extends HttpServlet {
         request.setAttribute( ATT_USER, utilisateur );
 
         /* ajout du nouvel utilisateur dans la bd */
-        utilisateurDao.ajouter(utilisateur);
+       // utilisateurDao.ajouter(utilisateur);
+        HttpClientExample connectAPI=new HttpClientExample();
+        try {
+            connectAPI.insertUse(utilisateur);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         this.getServletContext().getRequestDispatcher( VUE ).forward( request, response );
 
