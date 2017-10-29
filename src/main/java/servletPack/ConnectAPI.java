@@ -32,29 +32,19 @@ public class ConnectAPI {
         con.setRequestProperty("Accept", "application/json");
         con.setRequestMethod("POST");
 
-        System.out.println("test");
+
         //Création du JSONObject à envoyer à l'API avec les info de l'utilisateur à ajouter
-        
-
-
-        System.out.println(utilisateur.getPrenom());
-        System.out.println(utilisateur.getNom());
-        System.out.println(utilisateur.getEmail());
-        System.out.println(utilisateur.getMdp());
 
         uJson.put("email",utilisateur.getEmail());
         uJson.put("nom",utilisateur.getNom());
         uJson.put("prénom",utilisateur.getPrenom());
         uJson.put("mdp",utilisateur.getMdp());
 
-        System.out.println(uJson.toString());
 
-        System.out.println(uJson.toString());
-        System.out.println("test");
+        //Envoie de l'objetJSON à l'API
         OutputStreamWriter wr = new OutputStreamWriter(con.getOutputStream());
         wr.write(uJson.toString());
         wr.flush();
-        System.out.println("test");
 
         //display what returns the POST request
 
