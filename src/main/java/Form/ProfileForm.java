@@ -2,12 +2,11 @@ package Form;
 
 import beans.Utilisateur;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
-
-public final class InscriptionForm {
+public final class ProfileForm {
 
     public static final String CHAMP_EMAIL = "email";
     public static final String CHAMP_PASS = "mdp";
@@ -32,7 +31,7 @@ public final class InscriptionForm {
         return erreurs;
     }
 
-    public Utilisateur inscrireUtilisateur(HttpServletRequest request ) {
+    public Utilisateur modifierUtilisateur(HttpServletRequest request ) {
 
         String email = getValeurChamp( request, CHAMP_EMAIL );
         String motDePasse = getValeurChamp( request, CHAMP_PASS );
@@ -61,7 +60,6 @@ public final class InscriptionForm {
             setErreur( CHAMP_PASS, e.getMessage() );
             setErreur( CHAMP_CONF, null );
         }
-        //TODO : hash mdp
         utilisateur.setMdp( motDePasse );
 
         utilisateur.setAdresse(adresse);
@@ -75,9 +73,9 @@ public final class InscriptionForm {
 
 
         if ( erreurs.isEmpty() ) {
-            resultat = "Succès de l'inscription.";
+            resultat = "Profile mis à jour";
         } else {
-            resultat = "Échec de l'inscription.";
+            resultat = "Un problème est survenu...";
         }
 
         return utilisateur;

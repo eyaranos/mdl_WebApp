@@ -22,27 +22,42 @@
             <%@ include file="/resources/header.jsp"%>
         </div>
 
-        <form method="post" action="connection">
-            <fieldset>
-                <legend>Connexion</legend>
-                <p>Vous pouvez vous connecter via ce formulaire.</p>
+        <div class="container-fluid">
+            <h3>Connexion</h3>
+            <form id= "form-connection" class="form-horizontal" method="post" action="connection">
+                <div class="form-group">
+                    <label for="email" class="col-sm-2 control-label">Email</label>
+                    <div class="col-sm-10">
+                        <input type="email" id="email" class="form-control" name="email" value="<c:out value="${utilisateur.email}"/>" size="20" maxlength="60" />
+                        <span class="erreur">${form.erreurs['email']}</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="motdepasse" class="col-sm-2 control-label">Password</label>
+                    <div class="col-sm-10">
+                        <input type="password" id="motdepasse" class="form-control" placeholder="Password" name="motdepasse" value="" size="20" maxlength="20" />
+                        <span class="erreur">${form.erreurs['motdepasse']}</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox"> Remember me
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <button type="submit" class="btn btn-default">Connexion</button>
+                    </div>
+                    <p class="${empty form.erreurs ? 'succes' : 'erreur'}">${form.resultat}</p>
+                </div>
+            </form>
 
-                <label for="email">Adresse email <span class="requis">*</span></label>
-                <input type="email" id="email" name="email" value="<c:out value="${utilisateur.email}"/>" size="20" maxlength="60" />
-                <span class="erreur">${form.erreurs['email']}</span>
-                <br />
+        </div>
 
-                <label for="motdepasse">Mot de passe <span class="requis">*</span></label>
-                <input type="password" id="motdepasse" name="motdepasse" value="" size="20" maxlength="20" />
-                <span class="erreur">${form.erreurs['motdepasse']}</span>
-                <br />
-
-                <input type="submit" value="Connexion" class="sansLabel" />
-                <br />
-
-                <p class="${empty form.erreurs ? 'succes' : 'erreur'}">${form.resultat}</p>
-            </fieldset>
-        </form>
     </div>
 
     <%@ include file="/resources/includeJS.html"%>

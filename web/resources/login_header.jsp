@@ -11,10 +11,13 @@
                 <a class="nav-item nav-link active" href="/">Home <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-item nav-link" href="/deconnection">Deconnexion</a>
+                <a class="nav-item nav-link" href="/profile">Profile</a>
             </li>
             <li class="nav-item">
-                <a class="nav-item nav-link" href="/profile">Profil</a>
+                <a class="nav-item nav-link" href="">Maps</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-item nav-link" href="/deconnection">Deconnexion</a>
             </li>
         </ul>
 
