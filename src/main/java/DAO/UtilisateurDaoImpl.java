@@ -24,7 +24,7 @@ public class UtilisateurDaoImpl implements UtilisateurDao {
 
         try {
             connexion = daoFactory.getConnection();
-            preparedStatement =connexion.prepareStatement("INSERT  INTO Client(nom,prenom,mdp,ville,adresse,code_postal,mail,pays,num_tel,date_naissance) VALUES (?,?,?,?,?,?,?,?,?,?)");
+            preparedStatement =connexion.prepareStatement("INSERT  INTO Client(nom,prenom,mdp,ville,adresse,code_postal,mail,pays,num_tel,date_de_naissance) VALUES (?,?,?,?,?,?,?,?,?,?)");
             preparedStatement.setString(1,utilisateur.getNom());
             preparedStatement.setString(2,utilisateur.getPrenom());
             preparedStatement.setString(3,utilisateur.getMdp());
@@ -55,7 +55,7 @@ public class UtilisateurDaoImpl implements UtilisateurDao {
             connexion = daoFactory.getConnection();
             statement = connexion.createStatement();
             //Execute request
-            resultSet=statement.executeQuery("SELECT nom,prenom,mdp,ville,adresse,code_postal,mail,pays,num_tel,date_naissance FROM Client;");
+            resultSet=statement.executeQuery("SELECT nom,prenom,mdp,ville,adresse,code_postal,mail,pays,num_tel,date_de_naissance FROM Client;");
 
             //Recup data
             while (resultSet.next()) {

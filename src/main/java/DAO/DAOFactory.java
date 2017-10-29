@@ -26,7 +26,7 @@ public class DAOFactory {
         }
 
         DAOFactory instance = new DAOFactory(
-                "jdbc:mysql://localhost:3306/mdl", "root", "Poi96fg19");
+                "jdbc:mysql://localhost:3306/mdl", "root", "1234");
         return instance;
     }
 
