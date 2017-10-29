@@ -22,10 +22,8 @@ public class ConnectAPIUtilisateur {
 
     public void insertUser(Utilisateur utilisateur) throws Exception {
 
-
         //Création de la connection à l'API
-
-        HttpURLConnection con = this.connectAPI.connectAPIJSON("insert/user/");
+        HttpURLConnection con = this.connectAPI.connectAPIJSON("insert/user/", "POST");
 
         //Création du JSONObject à envoyer à l'API avec les info de l'utilisateur à ajouter
         JSONObject uJson   = new JSONObject();
@@ -35,6 +33,33 @@ public class ConnectAPIUtilisateur {
         uJson.put("prénom",utilisateur.getPrenom());
         uJson.put("mdp",utilisateur.getMdp());
 
+        //Envoie de l'objetJSON à l'API
+        OutputStreamWriter wr = new OutputStreamWriter(con.getOutputStream());
+        wr.write(uJson.toString());
+        wr.flush();
+
+        connectAPI.showBackMessage(con);
+    }
+
+    public void updateUser(Utilisateur utilisateur) throws Exception {
+
+        //Création de la connection à l'API
+        HttpURLConnection con = this.connectAPI.connectAPIJSON("update/user/", "POST");
+
+        //Création du JSONObject à envoyer à l'API avec les info de l'utilisateur à ajouter
+        JSONObject uJson   = new JSONObject();
+
+        uJson.put("email",utilisateur.getEmail());
+        uJson.put("nom",utilisateur.getNom());
+        uJson.put("prénom",utilisateur.getPrenom());
+        uJson.put("mdp",utilisateur.getMdp());
+        uJson.put("id",utilisateur.getId());
+        uJson.put("ville",utilisateur.getVille());
+        uJson.put("adresse",utilisateur.getAdresse());
+        uJson.put("codeP",utilisateur.getCodePostal());
+        uJson.put("pays",utilisateur.getPays());
+        uJson.put("num",utilisateur.getNumTel());
+
 
         //Envoie de l'objetJSON à l'API
         OutputStreamWriter wr = new OutputStreamWriter(con.getOutputStream());
@@ -42,10 +67,9 @@ public class ConnectAPIUtilisateur {
         wr.flush();
 
         connectAPI.showBackMessage(con);
-
     }
 
-    public boolean checkConnectionUser(Utilisateur utilisateur) throws IOException {
+    public String checkConnectionUser(Utilisateur utilisateur) throws IOException {
 
         //Création URL pour connection à l'API
         String url=connectAPI.getUrl_API()+"connexion/user";
@@ -72,14 +96,16 @@ public class ConnectAPIUtilisateur {
 
         String rep=connectAPI.showBackMessage(conn);
 
-        //TODO à cahnger avec renvoie Utilisateur
-        if( rep.equals("No Content")){
-            return false;
-        }else{
-            return true;
-        }
+        return rep;
+    }
 
+    public String getUser(int id) throws IOException {
 
+        //Création de la connection à l'API
+        HttpURLConnection conn = this.connectAPI.connectAPIJSON("get/user/"+id, "GET");
 
+        String rep=connectAPI.showBackMessage(conn);
+
+        return rep;
     }
 }

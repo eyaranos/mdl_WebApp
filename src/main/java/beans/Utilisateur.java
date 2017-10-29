@@ -3,6 +3,8 @@ package beans;
 import java.util.Date;
 
 public class Utilisateur {
+
+    private int id;
     private String nom;
     private String prenom;
     private String mdp;
@@ -13,6 +15,14 @@ public class Utilisateur {
     private String pays;
     private String numTel;
     private Date dateNaissance;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getNom() {
         return nom;

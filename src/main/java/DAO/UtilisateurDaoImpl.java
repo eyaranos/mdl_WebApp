@@ -55,7 +55,7 @@ public class UtilisateurDaoImpl implements UtilisateurDao {
             connexion = daoFactory.getConnection();
             statement = connexion.createStatement();
             //Execute request
-            resultSet=statement.executeQuery("SELECT nom,prenom,mdp,ville,adresse,code_postal,mail,pays,num_tel,date_de_naissance FROM Client;");
+            resultSet=statement.executeQuery("SELECT nom,prenom,mdp,ville,adresse,code_postal,mail,pays,num_tel,date_naissance FROM Client;");
 
             //Recup data
             while (resultSet.next()) {

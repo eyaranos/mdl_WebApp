@@ -43,46 +43,46 @@
                                 <br>
 
                                 <label for="mdp">Mot de passe <span class="requis">*</span></label>
-                                <input type="password" id="mdp" name="mdp" value="" size="20" maxlength="20" />
+                                <input type="password" id="mdp" name="mdp" value="<c:out value="${utilisateur.mdp}"/>" size="20" maxlength="20" />
                                 <span class="erreur">${form.erreurs['mdp']}</span>
                                 <br />
 
                                 <label for="confirmation">Confirmation du mdp <span class="requis">*</span></label>
-                                <input type="password" id="confirmation" name="confirmation" value="" size="20" maxlength="20" />
+                                <input type="password" id="confirmation" name="confirmation" value="<c:out value="${utilisateur.mdp}"/>" size="20" maxlength="20" />
                                 <span class="erreur">${form.erreurs['confirmation']}</span>
                                 <br />
 
                                 <label for="nom">Nom </label>
-                                <input id="nom" name="nom" value="<c:out value="${param.nom}"/>" size="20" maxlength="20" />
+                                <input id="nom" name="nom" value="<c:out value="${utilisateur.nom}"/>" size="20" maxlength="20" />
                                 <br />
 
                                 <label for="prenom">Prenom</label>
-                                <input id="prenom" name="prenom" value="<c:out value="${param.prenom}"/>" size="20" maxlength="20" />
+                                <input id="prenom" name="prenom" value="<c:out value="${utilisateur.prenom}"/>" size="20" maxlength="20" />
                                 <br />
 
                                 <label for="adresse">Adresse</label>
-                                <input id="adresse" name="adresse" value="<c:out value="${param.adresse}"/>" size="20" maxlength="20" />
+                                <input id="adresse" name="adresse" value="<c:out value="${utilisateur.adresse}"/>" size="20" maxlength="20" />
                                 <br />
 
                                 <label for="code_postal">Zip</label>
-                                <input id="code_postal" name="code_postal" value="<c:out value="${param.code_postal}"/>" size="20" maxlength="20" />
+                                <input id="code_postal" name="code_postal" value="<c:out value="${utilisateur.codePostal}"/>" size="20" maxlength="20" />
                                 <br />
 
                                 <label for="ville">Ville</label>
-                                <input id="ville" name="ville" value="<c:out value="${param.ville}"/>" size="20" maxlength="20" />
+                                <input id="ville" name="ville" value="<c:out value="${utilisateur.ville}"/>" size="20" maxlength="20" />
                                 <br />
 
                                 <label for="pays">Pays</label>
-                                <input id="pays" name="pays" value="<c:out value="${param.pays}"/>" size="20" maxlength="20" />
+                                <input id="pays" name="pays" value="<c:out value="${utilisateur.pays}"/>" size="20" maxlength="20" />
                                 <br />
 
                                 <label for="num_tel">Telephone</label>
-                                <input id="num_tel" name="tel" value="<c:out value="${param.num_tel}"/>" size="20" maxlength="20" />
+                                <input id="num_tel" name="tel" value="<c:out value="${utilisateur.numTel}"/>" size="20" maxlength="20" />
                                 <br />
 
-                                <label for="date_naissance">Date de naissance</label>
-                                <input id="date_naissance" name="date_naissance" value="<c:out value="${param.date_naissance}"/>" size="20" maxlength="20" />
-                                <br />
+                                <%--<label for="date_naissance">Date de naissance</label>
+                                <input id="date_naissance" name="date_naissance" value="<c:out value="${utilisateur.date_naissance}"/>" size="20" maxlength="20" />
+                                <br />--%>
 
                                 <input type="submit" value="Modifier" class="sansLabel" />
                                 <br />

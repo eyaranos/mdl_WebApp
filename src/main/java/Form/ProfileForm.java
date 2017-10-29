@@ -31,7 +31,7 @@ public final class ProfileForm {
         return erreurs;
     }
 
-    public Utilisateur modifierUtilisateur(HttpServletRequest request ) {
+    public Utilisateur updateUtilisateur(HttpServletRequest request ) {
 
         String email = getValeurChamp( request, CHAMP_EMAIL );
         String motDePasse = getValeurChamp( request, CHAMP_PASS );
@@ -61,7 +61,6 @@ public final class ProfileForm {
             setErreur( CHAMP_CONF, null );
         }
         utilisateur.setMdp( motDePasse );
-
         utilisateur.setAdresse(adresse);
         utilisateur.setCodePostal(code_postal);
         //utilisateur.setDateNaissance(date_naissance);
