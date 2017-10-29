@@ -1,5 +1,7 @@
 package servletPack;
 
+import ConnecteurAPI.ConnectAPI;
+import ConnecteurAPI.ConnectAPIUtilisateur;
 import DAO.DAOFactory;
 import DAO.UtilisateurDao;
 import Form.InscriptionForm;
@@ -38,10 +40,9 @@ public class Inscription extends HttpServlet {
         request.setAttribute( ATT_USER, utilisateur );
 
         /* ajout du nouvel utilisateur dans la bd */
-        utilisateurDao.ajouter(utilisateur);
-        ConnectAPI connectAPI=new ConnectAPI();
+        ConnectAPIUtilisateur connectAPIUtilisateur=new ConnectAPIUtilisateur();
         try {
-            connectAPI.insertUser(utilisateur);
+            connectAPIUtilisateur.insertUser(utilisateur);
         } catch (Exception e) {
             e.printStackTrace();
         }

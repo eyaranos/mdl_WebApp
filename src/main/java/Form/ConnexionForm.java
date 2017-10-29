@@ -1,10 +1,13 @@
 package Form;
 
+import ConnecteurAPI.ConnectAPIUtilisateur;
 import DAO.DAOFactory;
 import DAO.UtilisateurDao;
 import beans.Utilisateur;
+import ConnecteurAPI.ConnectAPI;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -51,11 +54,19 @@ public class ConnexionForm {
         }
         utilisateur.setMdp( motDePasse );
 
-        /* Vérification dans la db du mot de passe */
-        utilisateur = checkMailMdp(email,motDePasse);
+        /* Vérification par l'API dans la DB de l'existance de l'utilisateur et de son mdp */
+        boolean check = false;
+        ConnectAPIUtilisateur connectAPIUtilisateur =new ConnectAPIUtilisateur();
+        try {
+            check= connectAPIUtilisateur.checkConnectionUser(utilisateur);
+        } catch (IOException e) {
+            resultat = "Échec de la connexion.";
+
+        }
+
 
         /* Initialisation du résultat global de la validation. */
-        if ( erreurs.isEmpty()&& (utilisateur!=null)) {
+        if ( erreurs.isEmpty()&& (utilisateur!=null)&&check) {
             resultat = "Succès de la connexion.";
         } else {
             resultat = "Échec de la connexion.";
