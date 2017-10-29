@@ -38,7 +38,6 @@ public class Inscription extends HttpServlet {
         request.setAttribute( ATT_USER, utilisateur );
 
         /* ajout du nouvel utilisateur dans la bd */
-        utilisateurDao.ajouter(utilisateur);
         ConnectAPI connectAPI=new ConnectAPI();
         try {
             connectAPI.insertUser(utilisateur);

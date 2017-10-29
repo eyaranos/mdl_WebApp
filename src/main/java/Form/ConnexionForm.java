@@ -3,8 +3,10 @@ package Form;
 import DAO.DAOFactory;
 import DAO.UtilisateurDao;
 import beans.Utilisateur;
+import servletPack.ConnectAPI;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -52,7 +54,13 @@ public class ConnexionForm {
         utilisateur.setMdp( motDePasse );
 
         /* Vérification dans la db du mot de passe */
-        utilisateur = checkMailMdp(email,motDePasse);
+        ConnectAPI connectAPI =new ConnectAPI();
+        try {
+            connectAPI.checkConnectionUser(utilisateur);
+        } catch (IOException e) {
+            resultat = "Échec de la connexion.";
+        }
+        //utilisateur = checkMailMdp(email,motDePasse);
 
         /* Initialisation du résultat global de la validation. */
         if ( erreurs.isEmpty()&& (utilisateur!=null)) {
