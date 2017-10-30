@@ -14,9 +14,9 @@ import java.io.IOException;
 @WebServlet(name = "ConnexionReparateur")
 public class ConnexionReparateur extends HttpServlet {
 
-    public static final String ATT_USER         = "utilisateur";
+    public static final String ATT_USER         = "reparateur";
     public static final String ATT_FORM         = "form";
-    public static final String ATT_SESSION_USER = "sessionUtilisateur";
+    public static final String ATT_SESSION_USER = "sessionReparateur";
     public static final String VUE              = "/WEB-INF/Connection.jsp";
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

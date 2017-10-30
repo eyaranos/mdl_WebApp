@@ -54,6 +54,17 @@
         <url-pattern>/profile</url-pattern>
     </servlet-mapping>
 
+    <!--Servlet Reparateur-->
+    <servlet>
+        <servlet-name>connexionReparateur</servlet-name>
+        <servlet-class>servletPackReparateur.ConnexionReparateur</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>connexionReparateur</servlet-name>
+        <url-pattern>/connexionReparateur</url-pattern>
+    </servlet-mapping>
+
     <!--- FILTER -->
     <filter>
         <filter-name>RestrictionFilter</filter-name>
