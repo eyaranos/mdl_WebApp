@@ -1,7 +1,7 @@
-package servletPack;
+package servletPackReparateur;
 
-import Form.ConnexionForm;
-import beans.Utilisateur;
+import FormReparateur.ConnexionFormReparateur;
+import beans.Reparateur;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,8 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-@WebServlet(name = "connection")
-public class Connection extends HttpServlet {
+@WebServlet(name = "ConnexionReparateur")
+public class ConnexionReparateur extends HttpServlet {
 
     public static final String ATT_USER         = "utilisateur";
     public static final String ATT_FORM         = "form";
@@ -20,13 +20,11 @@ public class Connection extends HttpServlet {
     public static final String VUE              = "/WEB-INF/Connection.jsp";
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-        //TODO a adapter au rep
         /* Préparation de l'objet formulaire */
-        ConnexionForm form = new ConnexionForm();
+        ConnexionFormReparateur form = new ConnexionFormReparateur();
 
         /* Traitement de la requête et récupération du bean en résultant */
-        Utilisateur utilisateur = form.connecterUtilisateur( request );
+        Reparateur reparateur = form.connecterReparateur( request );
 
         /* Récupération de la session depuis la requête */
         HttpSession session = request.getSession();
@@ -36,20 +34,19 @@ public class Connection extends HttpServlet {
          * Utilisateur à la session, sinon suppression du bean de la session.
          */
         if ( form.getErreurs().isEmpty() ) {
-            session.setAttribute( ATT_SESSION_USER, utilisateur );
+            session.setAttribute( ATT_SESSION_USER, reparateur );
         } else {
             session.setAttribute( ATT_SESSION_USER, null );
         }
 
         /* Stockage du formulaire et du bean dans l'objet request */
         request.setAttribute( ATT_FORM, form );
-        request.setAttribute( ATT_USER, utilisateur );
+        request.setAttribute( ATT_USER, reparateur );
 
         this.getServletContext().getRequestDispatcher( VUE ).forward( request, response );
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
         this.getServletContext().getRequestDispatcher(VUE).forward(request,response);
     }
 }
