@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.sql.SQLException;
 
 /**
  * Created by François on 29-10-17.
@@ -20,7 +21,7 @@ public class ConnectAPIUtilisateur {
     }
 
 
-    public void insertUser(Utilisateur utilisateur) throws Exception {
+    public void insertUser(Utilisateur utilisateur) throws SQLException, IOException {
 
         //Création de la connection à l'API
         HttpURLConnection con = this.connectAPI.connectAPIJSON("insert/user/", "POST");
@@ -38,6 +39,7 @@ public class ConnectAPIUtilisateur {
         wr.write(uJson.toString());
         wr.flush();
 
+        if (con.getResponseCode() == 400) throw new SQLException("Email existe deja");
         connectAPI.showBackMessage(con);
     }
 

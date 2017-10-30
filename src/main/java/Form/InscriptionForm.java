@@ -2,9 +2,15 @@ package Form;
 
 import beans.Utilisateur;
 
+import java.math.BigInteger;
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
+import java.security.spec.InvalidKeySpecException;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.crypto.SecretKeyFactory;
+import javax.crypto.spec.PBEKeySpec;
 import javax.servlet.http.HttpServletRequest;
 
 public final class InscriptionForm {
@@ -23,21 +29,20 @@ public final class InscriptionForm {
 
     private String resultat;
     private Map<String, String> erreurs = new HashMap<String, String>();
-
     public String getResultat() {
         return resultat;
     }
-
     public Map<String, String> getErreurs() {
         return erreurs;
     }
+    private String generatedSecuredPasswordHash;
 
-    public Utilisateur inscrireUtilisateur(HttpServletRequest request ) {
+    public Utilisateur inscrireUtilisateur(HttpServletRequest request) {
 
-        String email = getValeurChamp( request, CHAMP_EMAIL );
-        String motDePasse = getValeurChamp( request, CHAMP_PASS );
-        String confirmation = getValeurChamp( request, CHAMP_CONF );
-        String nom = getValeurChamp( request, CHAMP_NOM );
+        String email = getValeurChamp(request, CHAMP_EMAIL);
+        String motDePasse = getValeurChamp(request, CHAMP_PASS);
+        String confirmation = getValeurChamp(request, CHAMP_CONF);
+        String nom = getValeurChamp(request, CHAMP_NOM);
         String prenom = getValeurChamp(request, CHAMP_PRENOM);
         String ville = getValeurChamp(request, CHAMP_VILLE);
         String adresse = getValeurChamp(request, CHAMP_ADDRESS);
@@ -49,20 +54,29 @@ public final class InscriptionForm {
         Utilisateur utilisateur = new Utilisateur();
 
         try {
-            validationEmail( email );
-        } catch ( Exception e ) {
-            setErreur( CHAMP_EMAIL, e.getMessage() );
+            validationEmail(email);
+        } catch (Exception e) {
+            setErreur(CHAMP_EMAIL, e.getMessage());
         }
-        utilisateur.setEmail( email );
+        utilisateur.setEmail(email);
 
         try {
-            validationMotsDePasse( motDePasse, confirmation );
-        } catch ( Exception e ) {
-            setErreur( CHAMP_PASS, e.getMessage() );
-            setErreur( CHAMP_CONF, null );
+            validationMotsDePasse(motDePasse, confirmation);
+        } catch (Exception e) {
+            setErreur(CHAMP_PASS, e.getMessage());
+            setErreur(CHAMP_CONF, null);
         }
-        //TODO : hash mdp
-        utilisateur.setMdp( motDePasse );
+        //---------HASH du PWD--------------------------------------
+        try{
+            generatedSecuredPasswordHash = Utils.hashPassword.generateStrongPasswordHash(motDePasse);
+        }
+        catch(NoSuchAlgorithmException a){
+            a.printStackTrace();
+        }
+        catch(InvalidKeySpecException i){
+            i.printStackTrace();
+        }
+        utilisateur.setMdp(generatedSecuredPasswordHash);
 
         utilisateur.setAdresse(adresse);
         utilisateur.setCodePostal(code_postal);
@@ -74,7 +88,7 @@ public final class InscriptionForm {
         utilisateur.setVille(ville);
 
 
-        if ( erreurs.isEmpty() ) {
+        if (erreurs.isEmpty()) {
             resultat = "Succès de l'inscription.";
         } else {
             resultat = "Échec de l'inscription.";
@@ -84,42 +98,46 @@ public final class InscriptionForm {
     }
 
 
-    private void validationEmail( String email ) throws Exception {
-        if ( email != null ) {
-            if ( !email.matches( "([^.@]+)(\\.[^.@]+)*@([^.@]+\\.)+([^.@]+)" ) ) {
-                throw new Exception( "Merci de saisir une adresse mail valide." );
+    private void validationEmail(String email) throws Exception {
+        if (email != null) {
+            if (!email.matches("([^.@]+)(\\.[^.@]+)*@([^.@]+\\.)+([^.@]+)")) {
+                throw new Exception("Merci de saisir une adresse mail valide.");
             }
         } else {
-            throw new Exception( "Merci de saisir une adresse mail." );
+            throw new Exception("Merci de saisir une adresse mail.");
         }
     }
 
-    private void validationMotsDePasse( String motDePasse, String confirmation ) throws Exception {
-        if ( motDePasse != null && confirmation != null ) {
-            if ( !motDePasse.equals( confirmation ) ) {
-                throw new Exception( "Les mots de passe entrés sont différents, merci de les saisir à nouveau." );
-            } else if ( motDePasse.length() < 3 ) {
-                throw new Exception( "Les mots de passe doivent contenir au moins 3 caractères." );
+    private void validationMotsDePasse(String motDePasse, String confirmation) throws Exception {
+        if (motDePasse != null && confirmation != null) {
+            if (!motDePasse.equals(confirmation)) {
+                throw new Exception("Les mots de passe entrés sont différents, merci de les saisir à nouveau.");
+            } else if (motDePasse.length() < 3) {
+                throw new Exception("Les mots de passe doivent contenir au moins 3 caractères.");
             }
         } else {
-            throw new Exception( "Merci de saisir et confirmer votre mot de passe." );
+            throw new Exception("Merci de saisir et confirmer votre mot de passe.");
         }
     }
 
     /*
      * Ajoute un message correspondant au champ spécifié à la map des erreurs.
      */
-    private void setErreur( String champ, String message ) {
-        erreurs.put( champ, message );
+    public void setErreur(String champ, String message) {
+        erreurs.put(champ, message);
+    }
+
+    public void setResultat(String resultat) {
+        this.resultat = resultat;
     }
 
     /*
-     * Méthode utilitaire qui retourne null si un champ est vide, et son contenu
-     * sinon.
-     */
-    private static String getValeurChamp( HttpServletRequest request, String nomChamp ) {
-        String valeur = request.getParameter( nomChamp );
-        if ( valeur == null || valeur.trim().length() == 0 ) {
+         * Méthode utilitaire qui retourne null si un champ est vide, et son contenu
+         * sinon.
+         */
+    private static String getValeurChamp(HttpServletRequest request, String nomChamp) {
+        String valeur = request.getParameter(nomChamp);
+        if (valeur == null || valeur.trim().length() == 0) {
             return null;
         } else {
             return valeur.trim();

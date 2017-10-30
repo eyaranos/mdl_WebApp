@@ -36,7 +36,7 @@ public class Inscription extends HttpServlet {
         Utilisateur utilisateur = form.inscrireUtilisateur( request );
 
         /* Stockage du formulaire et du bean dans l'objet request */
-        request.setAttribute( ATT_FORM, form );
+        /*request.setAttribute( ATT_FORM, form );*/
         request.setAttribute( ATT_USER, utilisateur );
 
         /* ajout du nouvel utilisateur dans la bd */
@@ -44,8 +44,11 @@ public class Inscription extends HttpServlet {
         try {
             connectAPIUtilisateur.insertUser(utilisateur);
         } catch (Exception e) {
+            form.setErreur("email", "Email existe déjà");
+            form.setResultat("Echec de l'inscription");
             e.printStackTrace();
         }
+        request.setAttribute( ATT_FORM, form );
 
         this.getServletContext().getRequestDispatcher( VUE ).forward( request, response );
 

@@ -48,15 +48,15 @@ public class ConnectAPI {
         }
     }
 
-    /*
+    /**
     Cette fonction va généré une connection avec l'API Rest en fonction de l'url et ce sera des objets JSON qui seront envoyés
 
-    url = au type de requete que l'on veut faire à l'API
-    method String "GET" ou "POST"
-    Exemple : url ="/user/insert/"
-    Return un HttpURLConnection connecté à l'API selon le type de requete, on peut envoyer des objet JSON avec cette connection
+    @param url String = url correspondante à la requete désirée sur l'API (Exemple : url ="/user/insert/")
+    @param method String = "GET" ou "POST"
+    @return HttpURLConnection connecté à l'API selon le type de requete, on peut envoyer des objet JSON avec cette connection
 
      */
+
     public HttpURLConnection connectAPIJSON(String url, String method ) throws IOException {
         url=url_API+url;
 

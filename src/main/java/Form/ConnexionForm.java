@@ -8,9 +8,13 @@ import ConnecteurAPI.ConnectAPI;
 import jdk.nashorn.internal.parser.JSONParser;
 import org.json.*;
 
+import javax.crypto.SecretKeyFactory;
+import javax.crypto.spec.PBEKeySpec;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.io.StringReader;
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -19,6 +23,10 @@ public class ConnexionForm {
 
     private static final String CHAMP_EMAIL  = "email";
     private static final String CHAMP_PASS   = "motdepasse";
+    private static final String NOT_FOUND_EMAIL   = "noUserSendBAck";
+    private static final String NOT_FOUND_MDP   = "wrongPwd";
+    private String generatedSecuredPasswordHash;
+
 
     private String              resultat;
     private Map<String, String> erreurs      = new HashMap<String, String>();
@@ -33,7 +41,7 @@ public class ConnexionForm {
         return erreurs;
     }
 
-    public Utilisateur connecterUtilisateur(HttpServletRequest request ) {
+    public Utilisateur connecterUtilisateur(HttpServletRequest request ) throws IOException {
 
         /* Récupération des champs du formulaire */
         String email = getValeurChamp( request, CHAMP_EMAIL );
@@ -55,19 +63,43 @@ public class ConnexionForm {
         } catch ( Exception e ) {
             setErreur( CHAMP_PASS, e.getMessage() );
         }
-        utilisateur.setMdp( motDePasse );
+
+        //--------------HASH du PWD------------------------------------------------------
+        /*try{
+            generatedSecuredPasswordHash = Utils.hashPassword.generateStrongPasswordHash(motDePasse);
+        }
+        catch(NoSuchAlgorithmException a){
+            a.printStackTrace();
+        }
+        catch(InvalidKeySpecException i){
+            i.printStackTrace();
+        }
+        */
+        utilisateur.setMdp(motDePasse);
 
         /* Vérification par l'API dans la DB de l'existance de l'utilisateur et de son mdp */
-
         ConnectAPIUtilisateur connectAPIUtilisateur =new ConnectAPIUtilisateur();
-        try {
-            String infoUser= connectAPIUtilisateur.checkConnectionUser(utilisateur);
-            JSONObject obj = new JSONObject(infoUser);
-            utilisateur.setId(obj.getInt("id"));
 
-        } catch (IOException e) {
-            resultat = "Échec de la connexion.";
-        }
+            String infoUser= connectAPIUtilisateur.checkConnectionUser(utilisateur);
+            if (!infoUser.equals("Pas de Contenu")){
+                JSONObject obj = new JSONObject(infoUser);
+                utilisateur.setId(obj.getInt("id"));
+
+                try{
+                   if(!Utils.hashPassword.validatePassword(motDePasse, obj.getString("mdp"))){
+                       setErreur( NOT_FOUND_MDP,"Wrong password" );
+                   }
+                }
+                catch(NoSuchAlgorithmException a){
+
+                }
+                catch(InvalidKeySpecException e){
+
+                }
+            }
+            else{
+                setErreur( NOT_FOUND_EMAIL,"Wrong email" );
+            }
 
         /* Initialisation du résultat global de la validation. */
         if ( erreurs.isEmpty()) {

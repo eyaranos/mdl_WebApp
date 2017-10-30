@@ -60,6 +60,8 @@ public final class ProfileForm {
             setErreur( CHAMP_PASS, e.getMessage() );
             setErreur( CHAMP_CONF, null );
         }
+        //TODO : hash password
+
         utilisateur.setMdp( motDePasse );
         utilisateur.setAdresse(adresse);
         utilisateur.setCodePostal(code_postal);
