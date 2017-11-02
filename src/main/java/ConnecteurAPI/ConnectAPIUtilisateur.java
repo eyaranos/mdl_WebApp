@@ -24,7 +24,7 @@ public class ConnectAPIUtilisateur {
     public void insertUser(Utilisateur utilisateur) throws SQLException, IOException {
 
         //Création de la connection à l'API
-        HttpURLConnection con = this.connectAPI.connectAPIJSON("insert/user/", "POST");
+        HttpURLConnection con = this.connectAPI.connectAPIJSON("UserController/insert/user/", "POST");
 
         //Création du JSONObject à envoyer à l'API avec les info de l'utilisateur à ajouter
         JSONObject uJson   = new JSONObject();
@@ -74,7 +74,7 @@ public class ConnectAPIUtilisateur {
     public String checkConnectionUser(Utilisateur utilisateur) throws IOException {
 
         //Création URL pour connection à l'API
-        String url=connectAPI.getUrl_API()+"connexion/user";
+        String url=connectAPI.getUrl_API()+"UserController/connexion/user";
         URL object=new URL(url);
 
         //Création de la connection à l'API
@@ -104,7 +104,18 @@ public class ConnectAPIUtilisateur {
     public String getUser(int id) throws IOException {
 
         //Création de la connection à l'API
-        HttpURLConnection conn = this.connectAPI.connectAPIJSON("get/user/"+id, "GET");
+        HttpURLConnection conn = this.connectAPI.connectAPIJSON("UserController/get/user/"+id, "GET");
+
+        String rep=connectAPI.showBackMessage(conn);
+
+        return rep;
+    }
+
+
+    public String getBikes() throws IOException {
+
+        //Création de la connection à l'API
+        HttpURLConnection conn = this.connectAPI.connectAPIJSON("BikeController/get/bikes", "GET");
 
         String rep=connectAPI.showBackMessage(conn);
 
