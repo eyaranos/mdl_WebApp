@@ -2,9 +2,8 @@
 .wrap-all {
     width: 1200px;
     margin: 0 auto;
-    border: 1px solid #454545;
     min-height : 700px;
-    box-shadow: 3px 3px 10px #454545;
+
 }
 
 fieldset {
@@ -15,6 +14,12 @@ fieldset {
 legend {
     font-weight: bold;
     color: #0568CD;
+}
+
+/*---------------------Nav----------------------------------*/
+.navCustom{
+    border-bottom: 1px solid #bacbdd;
+    padding-bottom: 0px;
 }
 
 /*------------------------------------------------ Forms ----------------------------------------------------- */
@@ -48,4 +53,12 @@ form .erreur {
 
 form .succes {
     color: #159902;
+}
+
+
+/*-------------MAP---------------*/
+#map {
+    width: 100%;
+    height: 500px;
+    background-color: grey;
 }

@@ -7,7 +7,7 @@
 
 
 <c:if test="${empty sessionScope.sessionUtilisateur}">
-    <nav class="navbar navbar-inverse fixed-top bg-inverse">
+    <nav class="navbar navbar-inverse fixed-top bg-inverse navCustom">
         <a class="navbar-brand" href="#">Carousel</a>
 
             <ul class="nav mr-auto">

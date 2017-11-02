@@ -20,7 +20,7 @@ public class Profile extends HttpServlet {
 
     public static final String ATT_USER = "utilisateur";
     public static final String ATT_FORM = "form";
-    public static final String VUE = "/RestrictAccess/Profile.jsp";
+    public static final String VUE = "/RestrictAccess/Profile/Profile.jsp";
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         /* Préparation de l'objet formulaire */
@@ -42,7 +42,7 @@ public class Profile extends HttpServlet {
         request.setAttribute( ATT_FORM, form );
         request.setAttribute( ATT_USER, utilisateur );
 
-        /* ajout du nouvel utilisateur dans la bd */
+        /* update des infos utilisateur dans la bd */
         ConnectAPIUtilisateur connectAPIUtilisateur=new ConnectAPIUtilisateur();
         try {
             connectAPIUtilisateur.updateUser(utilisateur);

@@ -21,7 +21,7 @@ public class ConnectAPI {
 
     private final String USER_AGENT = "Mozilla/5.0";
     /*private String url_API ="http://188.226.146.41:8080/MDL-API-0.0.1-SNAPSHOT/restservices/UserController/";*/
-    private String url_API ="http://localhost:8080/restservices/UserController/";
+    private String url_API ="http://localhost:8080/restservices/";
 
     /*
     Affiche dans le terminal le message recu dans la HttpURLConnection con

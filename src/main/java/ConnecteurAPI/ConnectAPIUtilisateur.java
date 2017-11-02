@@ -130,9 +130,12 @@ public class ConnectAPIUtilisateur {
     public String getBikes() throws IOException {
 
         //Création de la connection à l'API
-        HttpURLConnection conn = this.connectAPI.connectAPIJSON("BikeController/get/bikes", "GET");
+        HttpURLConnection conn = this.connectAPI.connectAPIJSON("VeloController/getvelos", "GET");
 
         String rep=connectAPI.showBackMessage(conn);
+
+
+
 
         return rep;
     }

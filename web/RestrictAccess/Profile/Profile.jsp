@@ -19,7 +19,9 @@
         <%@ include file="/resources/header.jsp" %>
     </div>
 
-    <div class="container-fluid" style="margin-top:30px;">
+    <%@ include file="/resources/profile_header.jsp" %>
+
+    <div class="container-fluid">
             <div class="row">
                 <div class="col-md-12">
                     <div style="margin-top:25px;">
