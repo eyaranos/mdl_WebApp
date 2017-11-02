@@ -42,7 +42,9 @@ public class Inscription extends HttpServlet {
         /* ajout du nouvel utilisateur dans la bd */
         ConnectAPIUtilisateur connectAPIUtilisateur=new ConnectAPIUtilisateur();
         try {
-            connectAPIUtilisateur.insertUser(utilisateur);
+            boolean inscriptionValide= connectAPIUtilisateur.insertUser(utilisateur);
+            //Test si l'utilisateur a été ajouté dans la BD del'API
+            if (inscriptionValide) {form.setResultat("Echec de l'inscription");}
         } catch (Exception e) {
             form.setErreur("email", "Email existe déjà");
             form.setResultat("Echec de l'inscription");

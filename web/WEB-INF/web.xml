@@ -54,6 +54,7 @@
         <url-pattern>/profile</url-pattern>
     </servlet-mapping>
 
+
     <servlet>
         <servlet-name>map</servlet-name>
         <servlet-class>servletPack.Map</servlet-class>
@@ -62,6 +63,17 @@
     <servlet-mapping>
         <servlet-name>map</servlet-name>
         <url-pattern>/map</url-pattern>
+    </servlet-mapping>
+
+    <!--Servlet Reparateur-->
+    <servlet>
+        <servlet-name>connexionReparateur</servlet-name>
+        <servlet-class>servletPackReparateur.ConnexionReparateur</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>connexionReparateur</servlet-name>
+        <url-pattern>/connexionReparateur</url-pattern>
     </servlet-mapping>
 
     <!--- FILTER -->

@@ -21,7 +21,12 @@ public class ConnectAPIUtilisateur {
     }
 
 
-    public void insertUser(Utilisateur utilisateur) throws SQLException, IOException {
+    /*
+    Envoie dans un objet JSOn les données de l'utilisateur
+    return true si l'API a ajouté l'utilisateur à la db
+    Sinon false
+     */
+    public boolean insertUser(Utilisateur utilisateur) throws SQLException, IOException {
 
         //Création de la connection à l'API
         HttpURLConnection con = this.connectAPI.connectAPIJSON("UserController/insert/user/", "POST");
@@ -33,6 +38,13 @@ public class ConnectAPIUtilisateur {
         uJson.put("nom",utilisateur.getNom());
         uJson.put("prénom",utilisateur.getPrenom());
         uJson.put("mdp",utilisateur.getMdp());
+        uJson.put("id",utilisateur.getId());
+        uJson.put("ville",utilisateur.getVille());
+        uJson.put("adresse",utilisateur.getAdresse());
+        uJson.put("codeP",utilisateur.getCodePostal());
+        uJson.put("pays",utilisateur.getPays());
+        uJson.put("num",utilisateur.getNumTel());
+
 
         //Envoie de l'objetJSON à l'API
         OutputStreamWriter wr = new OutputStreamWriter(con.getOutputStream());
@@ -40,7 +52,10 @@ public class ConnectAPIUtilisateur {
         wr.flush();
 
         if (con.getResponseCode() == 400) throw new SQLException("Email existe deja");
-        connectAPI.showBackMessage(con);
+        String rep= connectAPI.showBackMessage(con);
+
+        //TODO ajouter la phrase renvoyé par la db pour dire ok
+        return rep.equals("");
     }
 
     public void updateUser(Utilisateur utilisateur) throws Exception {
