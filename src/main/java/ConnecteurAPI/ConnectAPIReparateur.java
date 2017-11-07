@@ -38,10 +38,10 @@ public class ConnectAPIReparateur {
         connectAPI.showBackMessage(con);
     }
 
-    public String checkConnectionUser(Reparateur reparateur) throws IOException {
+    public String checkConnectionRepa(Reparateur reparateur) throws IOException {
 
         //Création URL pour connection à l'API
-        String url=connectAPI.getUrl_API()+"connexion/user";
+        String url=connectAPI.getUrl_API()+"ReparateurController/connexion/reparateur";
         URL object=new URL(url);
 
         //Création de la connection à l'API

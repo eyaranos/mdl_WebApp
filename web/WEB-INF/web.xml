@@ -73,8 +73,19 @@
 
     <servlet-mapping>
         <servlet-name>connexionReparateur</servlet-name>
-        <url-pattern>/connexionReparateur</url-pattern>
+        <url-pattern>/connection/reparateur</url-pattern>
     </servlet-mapping>
+
+    <servlet>
+        <servlet-name>ListeVeloReparateur</servlet-name>
+        <servlet-class>servletPackReparateur.ListeVeloReparateur</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>ListeVeloReparateur</servlet-name>
+        <url-pattern> /work/reparateur/liste</url-pattern>
+    </servlet-mapping>
+
 
     <!--- FILTER -->
     <filter>

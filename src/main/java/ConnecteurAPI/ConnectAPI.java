@@ -51,7 +51,7 @@ public class ConnectAPI {
     /**
     Cette fonction va généré une connection avec l'API Rest en fonction de l'url et ce sera des objets JSON qui seront envoyés
 
-    @param url String = url correspondante à la requete désirée sur l'API (Exemple : url ="/user/insert/")
+    @param url String = url correspondante à la requete désirée sur l'API (Exemple : url ="UserController/user/insert/")
     @param method String = "GET" ou "POST"
     @return HttpURLConnection connecté à l'API selon le type de requete, on peut envoyer des objet JSON avec cette connection
 

@@ -6,6 +6,8 @@ import org.json.JSONObject;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -13,6 +15,8 @@ public class ConnexionFormReparateur {
 
     private static final String CHAMP_EMAIL  = "email";
     private static final String CHAMP_PASS   = "motdepasse";
+    private static final String NOT_FOUND_EMAIL   = "noUserSendBAck";
+    private static final String NOT_FOUND_MDP   = "wrongPwd";
 
     private String              resultat;
     private Map<String, String> erreurs      = new HashMap<String, String>();
@@ -23,6 +27,7 @@ public class ConnexionFormReparateur {
         /* Récupération des champs du formulaire */
         String email = getValeurChamp( request, CHAMP_EMAIL );
         String motDePasse = getValeurChamp( request, CHAMP_PASS );
+        String infoUser = "Pas de Contenu";
 
         Reparateur reparateur = new Reparateur();
 
@@ -43,17 +48,34 @@ public class ConnexionFormReparateur {
         reparateur.setMdp( motDePasse );
 
         /* Vérification par l'API dans la DB de l'existance de l'reparateur et de son mdp */
-
-        //TODO récup l'reparateur et ps un bool (API ne renvoie pa tout il faudrait)
         ConnectAPIReparateur connectAPIReparateur =new ConnectAPIReparateur();
-        try {
-            String infoUser= connectAPIReparateur.checkConnectionUser(reparateur);
-            JSONObject obj = new JSONObject(infoUser);
-            reparateur.setId(obj.getInt("id"));
 
-        } catch (IOException e) {
-            resultat = "Échec de la connexion.";
+        try{
+           infoUser= connectAPIReparateur.checkConnectionRepa(reparateur);
         }
+        catch( IOException e){
+
+        }
+        if (!infoUser.equals("Introuvable")){
+            JSONObject obj = new JSONObject(infoUser);
+           reparateur.setId(obj.getInt("id"));
+
+            try{
+                if(!Utils.hashPassword.validatePassword(motDePasse, obj.getString("mdp"))){
+                    setErreur( NOT_FOUND_MDP,"Wrong password" );
+                }
+            }
+            catch(NoSuchAlgorithmException a){
+
+            }
+            catch(InvalidKeySpecException e){
+
+            }
+        }
+        else{
+            setErreur( NOT_FOUND_EMAIL,"Wrong email" );
+        }
+
 
         /* Initialisation du résultat global de la validation. */
         if ( erreurs.isEmpty()) {

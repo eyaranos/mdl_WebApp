@@ -17,7 +17,8 @@ public class ConnexionReparateur extends HttpServlet {
     public static final String ATT_USER         = "reparateur";
     public static final String ATT_FORM         = "form";
     public static final String ATT_SESSION_USER = "sessionReparateur";
-    public static final String VUE              = "/WEB-INF/Connection.jsp";
+    public static final String VUE              = "/WEB-INF/Connection_Repa.jsp";
+    public static final String VUE_AFTER_CONN   = "/WEB-INF/Accueil.jsp";
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         /* Préparation de l'objet formulaire */
@@ -43,7 +44,12 @@ public class ConnexionReparateur extends HttpServlet {
         request.setAttribute( ATT_FORM, form );
         request.setAttribute( ATT_USER, reparateur );
 
-        this.getServletContext().getRequestDispatcher( VUE ).forward( request, response );
+        if ( form.getErreurs().isEmpty() ) {
+            this.getServletContext().getRequestDispatcher(VUE_AFTER_CONN).forward( request, response );
+        }
+        else{
+            this.getServletContext().getRequestDispatcher(VUE).forward( request, response );
+        }
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

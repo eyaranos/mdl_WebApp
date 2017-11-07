@@ -16,6 +16,11 @@
             <li class="nav-item">
                 <a class="nav-item nav-link" href="/map">Maps</a>
             </li>
+            <c:if test="${!empty sessionScope.sessionReparateur}">
+                <li class="nav-item">
+                    <a class="nav-item nav-link" href="/work/reparateur/liste">Liste vélos</a>
+                </li>
+            </c:if>
             <li class="nav-item">
                 <a class="nav-item nav-link" href="/deconnection">Deconnexion</a>
             </li>

@@ -81,7 +81,7 @@ public class ConnexionForm {
         ConnectAPIUtilisateur connectAPIUtilisateur =new ConnectAPIUtilisateur();
 
             String infoUser= connectAPIUtilisateur.checkConnectionUser(utilisateur);
-            if (!infoUser.equals("Pas de Contenu")){
+            if (!infoUser.equals("Introuvable")){
                 JSONObject obj = new JSONObject(infoUser);
                 utilisateur.setId(obj.getInt("id"));
 

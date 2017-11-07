@@ -5,8 +5,12 @@
     <%@ include file="/resources/login_header.jsp"%>
 </c:if>
 
+<c:if test="${!empty sessionScope.sessionReparateur}">
+    <%@ include file="/resources/login_header.jsp"%>
+</c:if>
 
-<c:if test="${empty sessionScope.sessionUtilisateur}">
+
+<c:if test="${empty sessionScope.sessionUtilisateur and empty sessionScope.sessionReparateur}">
     <nav class="navbar navbar-inverse fixed-top bg-inverse navCustom">
         <a class="navbar-brand" href="#">Carousel</a>
 

@@ -22,7 +22,6 @@ public class Connection extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        //TODO a adapter au rep
         /* Préparation de l'objet formulaire */
         ConnexionForm form = new ConnexionForm();
 
@@ -46,7 +45,13 @@ public class Connection extends HttpServlet {
         request.setAttribute( ATT_FORM, form );
         request.setAttribute( ATT_USER, utilisateur );
 
-        this.getServletContext().getRequestDispatcher( VUE_AFTER_CONN ).forward( request, response );
+        if ( form.getErreurs().isEmpty() ) {
+            this.getServletContext().getRequestDispatcher(VUE_AFTER_CONN).forward( request, response );
+        }
+        else{
+            this.getServletContext().getRequestDispatcher(VUE).forward( request, response );
+        }
+
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
