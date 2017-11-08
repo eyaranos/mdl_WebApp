@@ -14,6 +14,7 @@ public class Utilisateur {
     private String adresse;
     private String pays;
     private String numTel;
+    private String token;
     private Date dateNaissance;
 
     public int getId() {
@@ -102,5 +103,13 @@ public class Utilisateur {
 
     public void setDateNaissance(Date dateNaissance) {
         this.dateNaissance = dateNaissance;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 }

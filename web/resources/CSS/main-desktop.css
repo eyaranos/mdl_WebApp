@@ -8,7 +8,7 @@
 
 fieldset {
     padding: 10px;
-    border: 1px #0568CD solid;
+    /*border: 1px #0568CD solid;*/
 }
 
 legend {
@@ -20,7 +20,30 @@ legend {
 .navCustom{
     border-bottom: 1px solid #bacbdd;
     padding-bottom: 0px;
+    background-color: #e9ecef;
 }
+/*-----INSCRIPTION-------*/
+
+#inscr-main-col{
+    margin-left:30%
+}
+
+#inscr-top-col{
+    margin-top: 20px;
+    margin-left: 30%;
+}
+
+#select_form_btn{
+    margin-left:37%;
+}
+#submit_form_inscription{
+    margin-left: 138px;
+}
+
+
+
+
+
 
 /*------------------------------------------------ Forms ----------------------------------------------------- */
 
@@ -43,7 +66,7 @@ form .requis {
     color: #c00;
 }
 
-#form-inscription{
+#form-inscription-complet{
     margin: 50px 20px 0 20px;
 }
 

@@ -35,6 +35,16 @@
     </servlet-mapping>
 
     <servlet>
+        <servlet-name>activation</servlet-name>
+        <servlet-class>servletPack.Activation</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>activation</servlet-name>
+        <url-pattern>/activation</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
         <servlet-name>deconnection</servlet-name>
         <servlet-class>servletPack.Deconnection</servlet-class>
     </servlet>
@@ -96,5 +106,26 @@
         <filter-name>RestrictionFilter</filter-name>
         <url-pattern>/RestrictAccess/*</url-pattern>
     </filter-mapping>
+
+    <!-- SMTP Configuration -->
+    <context-param>
+        <param-name>host</param-name>
+        <param-value>smtp.gmail.com</param-value>
+    </context-param>
+
+    <context-param>
+        <param-name>port</param-name>
+        <param-value>587</param-value>
+    </context-param>
+
+    <context-param>
+        <param-name>user</param-name>
+        <param-value>eyaranossian@gmail.com</param-value>
+    </context-param>
+
+    <context-param>
+        <param-name>pass</param-name>
+        <param-value>E06061993E</param-value>
+    </context-param>
 
 </web-app>

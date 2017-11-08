@@ -8,6 +8,7 @@ import java.security.SecureRandom;
 import java.security.spec.InvalidKeySpecException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
@@ -78,6 +79,10 @@ public final class InscriptionForm {
         }
         utilisateur.setMdp(generatedSecuredPasswordHash);
 
+        //-- generation du token pour la confirmation --//
+        String uniqueID = UUID.randomUUID().toString();
+        utilisateur.setToken(uniqueID);
+
         utilisateur.setAdresse(adresse);
         utilisateur.setCodePostal(code_postal);
         //utilisateur.setDateNaissance(date_naissance);
@@ -89,7 +94,8 @@ public final class InscriptionForm {
 
 
         if (erreurs.isEmpty()) {
-            resultat = "Succès de l'inscription.";
+            resultat = "Succès de l'inscription ! Un email vous a été envoyé à l'adresse spécifié. " +
+                    "Veuillez le consulter et suivre les instructions pour finaliser votre compte.";
         } else {
             resultat = "Échec de l'inscription.";
         }

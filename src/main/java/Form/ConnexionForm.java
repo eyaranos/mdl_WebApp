@@ -25,6 +25,7 @@ public class ConnexionForm {
     private static final String CHAMP_PASS   = "motdepasse";
     private static final String NOT_FOUND_EMAIL   = "noUserSendBAck";
     private static final String NOT_FOUND_MDP   = "wrongPwd";
+    private static final String NOT_ACTIVATED  = "not_activated";
     private String generatedSecuredPasswordHash;
 
 
@@ -85,6 +86,10 @@ public class ConnexionForm {
                 JSONObject obj = new JSONObject(infoUser);
                 utilisateur.setId(obj.getInt("id"));
 
+                if (!obj.getString("token").equals("activated")){
+                    setErreur( NOT_ACTIVATED,"Votre compte n'est pas encore activé" );
+                }
+
                 try{
                    if(!Utils.hashPassword.validatePassword(motDePasse, obj.getString("mdp"))){
                        setErreur( NOT_FOUND_MDP,"Wrong password" );
@@ -100,6 +105,7 @@ public class ConnexionForm {
             else{
                 setErreur( NOT_FOUND_EMAIL,"Wrong email" );
             }
+
 
         /* Initialisation du résultat global de la validation. */
         if ( erreurs.isEmpty()) {

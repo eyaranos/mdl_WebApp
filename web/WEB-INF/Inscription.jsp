@@ -21,67 +21,113 @@
             <div class="container-fluid">
                 <%@ include file="/resources/header.jsp"%>
             </div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-5" id="inscr-top-col">
+                        <p>Si vous ne souhaitez pas compléter un formulaire complet, vous pouvez réduire celui-ci grâce au bouton
+                            ci-dessous
+                        </p>
+                        <input type="submit" id="select_form_btn" value="Normale" class="btn btn-primary" />
+                    </div>
+                </div>
 
-            <form id="form-inscription" method="post" action="inscription">
-                <fieldset>
-                    <legend>Inscription</legend>
-                    <p>Vous pouvez vous inscrire via ce formulaire.</p>
+                <div class="row">
+                    <div class="col-md-6" id="inscr-main-col">
+                        <form id="form-inscription-complet" method="post" action="inscription">
+                            <fieldset>
 
-                    <label for="email">Adresse email <span class="requis">*</span></label>
-                    <input id="email" name="email" value="<c:out value="${utilisateur.email}"/>" size="20" maxlength="60" />
-                    <span class="erreur">${form.erreurs['email']}</span>
-                    <br />
+                                <label for="email">Adresse email <span class="requis">*</span></label>
+                                <input id="email" name="email" value="<c:out value="${utilisateur.email}"/>" size="20" maxlength="60" />
+                                <span class="erreur">${form.erreurs['email']}</span>
+                                <br />
 
-                    <label for="mdp">Mot de passe <span class="requis">*</span></label>
-                    <input type="password" id="mdp" name="mdp" value="" size="20" maxlength="20" />
-                    <span class="erreur">${form.erreurs['mdp']}</span>
-                    <br />
+                                <label for="mdp">Mot de passe <span class="requis">*</span></label>
+                                <input type="password" id="mdp" name="mdp" value="" size="20" maxlength="20" />
+                                <span class="erreur">${form.erreurs['mdp']}</span>
+                                <br />
 
-                    <label for="confirmation">Confirmation du mdp <span class="requis">*</span></label>
-                    <input type="password" id="confirmation" name="confirmation" value="" size="20" maxlength="20" />
-                    <span class="erreur">${form.erreurs['confirmation']}</span>
-                    <br />
+                                <label for="confirmation">Confirmation du mdp <span class="requis">*</span></label>
+                                <input type="password" id="confirmation" name="confirmation" value="" size="20" maxlength="20" />
+                                <span class="erreur">${form.erreurs['confirmation']}</span>
+                                <br />
 
-                    <label for="nom">Nom </label>
-                    <input id="nom" name="nom" value="<c:out value="${param.nom}"/>" size="20" maxlength="20" />
-                    <br />
+                                <label for="nom" class="not_anonyme">Nom </label>
+                                <input id="nom" class="not_anonyme" name="nom" value="<c:out value="${param.nom}"/>" size="20" maxlength="20" />
+                                <br />
 
-                    <label for="prenom">Prenom</label>
-                    <input id="prenom" name="prenom" value="<c:out value="${param.prenom}"/>" size="20" maxlength="20" />
-                    <br />
+                                <label for="prenom" class="not_anonyme">Prenom</label>
+                                <input id="prenom" class="not_anonyme" name="prenom" value="<c:out value="${param.prenom}"/>" size="20" maxlength="20" />
+                                <br />
 
-                    <label for="adresse">Adresse</label>
-                        <input id="adresse" name="adresse" value="<c:out value="${param.adresse}"/>" size="20" maxlength="20" />
-                    <br />
+                                <label for="adresse" class="not_anonyme">Adresse</label>
+                                <input id="adresse"  class="not_anonyme" name="adresse" value="<c:out value="${param.adresse}"/>" size="20" maxlength="20" />
+                                <br />
 
-                    <label for="code_postal">Zip</label>
-                    <input id="code_postal" name="code_postal" value="<c:out value="${param.code_postal}"/>" size="20" maxlength="20" />
-                    <br />
+                                <label for="code_postal" class="not_anonyme">Zip</label>
+                                <input id="code_postal" class="not_anonyme" name="code_postal" value="<c:out value="${param.code_postal}"/>" size="20" maxlength="20" />
+                                <br />
 
-                    <label for="ville">Ville</label>
-                    <input id="ville" name="ville" value="<c:out value="${param.ville}"/>" size="20" maxlength="20" />
-                    <br />
+                                <label for="ville" class="not_anonyme">Ville</label>
+                                <input id="ville" class="not_anonyme"  name="ville" value="<c:out value="${param.ville}"/>" size="20" maxlength="20" />
+                                <br />
 
-                    <label for="pays">Pays</label>
-                    <input id="pays" name="pays" value="<c:out value="${param.pays}"/>" size="20" maxlength="20" />
-                    <br />
+                                <label for="pays" class="not_anonyme">Pays</label>
+                                <input id="pays" class="not_anonyme" name="pays" value="<c:out value="${param.pays}"/>" size="20" maxlength="20" />
+                                <br />
 
-                    <label for="num_tel">Telephone</label>
-                    <input id="num_tel" name="tel" value="<c:out value="${param.num_tel}"/>" size="20" maxlength="20" />
-                    <br />
+                                <label for="num_tel" class="not_anonyme">Telephone</label>
+                                <input id="num_tel" class="not_anonyme" name="tel" value="<c:out value="${param.num_tel}"/>" size="20" maxlength="20" />
+                                <br />
 
-                    <label for="date_naissance">Date de naissance</label>
-                    <input id="date_naissance" name="date_naissance" value="<c:out value="${param.date_naissance}"/>" size="20" maxlength="20" />
-                    <br />
+                                <label for="date_naissance" class="not_anonyme">Date de naissance</label>
+                                <input id="date_naissance" class="not_anonyme" name="date_naissance" value="<c:out value="${param.date_naissance}"/>" size="20" maxlength="20" />
+                                <br />
 
-                    <input type="submit" value="Inscription" class="sansLabel" />
-                    <br />
+                                <input id="submit_form_inscription" class="btn btn-primary" type="submit" value="Inscription" class="sansLabel" />
+                                <br />
 
-                    <p class="${empty form.erreurs ? 'succes' : 'erreur'}">${form.resultat}</p>
-                </fieldset>
-            </form>
-
+                                <p class="${empty form.erreurs ? 'succes' : 'erreur'}">${form.resultat}</p>
+                            </fieldset>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div>
         <%@ include file="/resources/includeJS.html"%>
+    <script>
+        $( document ).ready( function() {
+            $("#select_form_btn").click(function(){
+                $(".not_anonyme").fadeToggle("slow");
+                if ($("#select_form_btn").val() == "Normale"){
+                    $("#select_form_btn").val("Anonyme");
+                    setCss($("#submit_form_inscription"));
+
+                }
+                else{
+                    $("#select_form_btn").val("Normale");
+                    unsetCss($("#submit_form_inscription"));
+                }
+            });
+        });
+
+        function setCss(btn){
+            btn.css("position", "absolute");
+            btn.css("margin-top", "-170px");
+            btn.removeClass("btn-primary");
+            btn.addClass("btn-secondary");
+            $("#select_form_btn").removeClass("btn-primary");
+            $("#select_form_btn").addClass("btn-secondary");
+        }
+
+        function unsetCss(btn){
+            btn.css("position", "relative");
+            btn.css("margin-top", "20px");
+            btn.removeClass("btn-secondary");
+            btn.addClass("btn-primary");
+            $("#select_form_btn").removeClass("btn-secondary");
+            $("#select_form_btn").addClass("btn-primary");
+        }
+
+    </script>
     </body>
 </html>

@@ -44,6 +44,7 @@ public class ConnectAPIUtilisateur {
         uJson.put("codeP",utilisateur.getCodePostal());
         uJson.put("pays",utilisateur.getPays());
         uJson.put("num",utilisateur.getNumTel());
+        uJson.put("token",utilisateur.getToken());
 
 
         //Envoie de l'objetJSON à l'API
@@ -126,6 +127,16 @@ public class ConnectAPIUtilisateur {
         return rep;
     }
 
+    public String getUserActivated(String token) throws IOException {
+
+        //Création de la connection à l'API
+        HttpURLConnection conn = this.connectAPI.connectAPIJSON("UserController/get/user/activation/"+token, "GET");
+
+        String rep=connectAPI.showBackMessage(conn);
+
+        return rep;
+    }
+
 
     public String getBikes() throws IOException {
 
@@ -133,9 +144,6 @@ public class ConnectAPIUtilisateur {
         HttpURLConnection conn = this.connectAPI.connectAPIJSON("VeloController/getvelos", "GET");
 
         String rep=connectAPI.showBackMessage(conn);
-
-
-
 
         return rep;
     }
