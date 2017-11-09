@@ -67,33 +67,33 @@ public final class InscriptionForm {
             setErreur(CHAMP_PASS, e.getMessage());
             setErreur(CHAMP_CONF, null);
         }
-        //---------HASH du PWD--------------------------------------
-        try{
-            generatedSecuredPasswordHash = Utils.hashPassword.generateStrongPasswordHash(motDePasse);
-        }
-        catch(NoSuchAlgorithmException a){
-            a.printStackTrace();
-        }
-        catch(InvalidKeySpecException i){
-            i.printStackTrace();
-        }
-        utilisateur.setMdp(generatedSecuredPasswordHash);
-
-        //-- generation du token pour la confirmation --//
-        String uniqueID = UUID.randomUUID().toString();
-        utilisateur.setToken(uniqueID);
-
-        utilisateur.setAdresse(adresse);
-        utilisateur.setCodePostal(code_postal);
-        //utilisateur.setDateNaissance(date_naissance);
-        utilisateur.setNumTel(num_tel);
-        utilisateur.setNom(nom);
-        utilisateur.setPrenom(prenom);
-        utilisateur.setPays(pays);
-        utilisateur.setVille(ville);
-
 
         if (erreurs.isEmpty()) {
+            //---------HASH du PWD--------------------------------------
+            try{
+                generatedSecuredPasswordHash = Utils.hashPassword.generateStrongPasswordHash(motDePasse);
+            }
+            catch(NoSuchAlgorithmException a){
+                a.printStackTrace();
+            }
+            catch(InvalidKeySpecException i){
+                i.printStackTrace();
+            }
+            utilisateur.setMdp(generatedSecuredPasswordHash);
+
+            //-- generation du token pour la confirmation --//
+            String uniqueID = UUID.randomUUID().toString();
+            utilisateur.setToken(uniqueID);
+
+            utilisateur.setAdresse(adresse);
+            utilisateur.setCodePostal(code_postal);
+            //utilisateur.setDateNaissance(date_naissance);
+            utilisateur.setNumTel(num_tel);
+            utilisateur.setNom(nom);
+            utilisateur.setPrenom(prenom);
+            utilisateur.setPays(pays);
+            utilisateur.setVille(ville);
+
             resultat = "Succès de l'inscription ! Un email vous a été envoyé à l'adresse spécifié. " +
                     "Veuillez le consulter et suivre les instructions pour finaliser votre compte.";
         } else {

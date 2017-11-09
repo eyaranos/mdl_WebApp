@@ -57,6 +57,7 @@
                             <p class="${empty form.erreurs ? 'succes' : 'erreur'}">${form.resultat}</p>
                         </div>
                     </form>
+                    <a href="forgetPassword">Mot de passe oublié ?</a>
                 </div>
             </div>
         </div>

@@ -1,6 +1,9 @@
 package servletPack;
 
 import ConnecteurAPI.ConnectAPIUtilisateur;
+import beans.Utilisateur;
+import com.google.gson.Gson;
+import org.json.JSONObject;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -22,6 +25,7 @@ public class Activation extends HttpServlet {
 
 
         String token = request.getParameter("token");
+        Gson gson = new Gson();
 
         ConnectAPIUtilisateur connectAPIUtilisateur =new ConnectAPIUtilisateur();
         String activatedUser = connectAPIUtilisateur.getUserActivated(token);

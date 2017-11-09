@@ -62,7 +62,7 @@ public class ConnectAPIUtilisateur {
     public void updateUser(Utilisateur utilisateur) throws Exception {
 
         //Création de la connection à l'API
-        HttpURLConnection con = this.connectAPI.connectAPIJSON("update/user/", "POST");
+        HttpURLConnection con = this.connectAPI.connectAPIJSON("UserController/update/user/", "POST");
 
         //Création du JSONObject à envoyer à l'API avec les info de l'utilisateur à ajouter
         JSONObject uJson   = new JSONObject();
@@ -77,7 +77,6 @@ public class ConnectAPIUtilisateur {
         uJson.put("codeP",utilisateur.getCodePostal());
         uJson.put("pays",utilisateur.getPays());
         uJson.put("num",utilisateur.getNumTel());
-
 
         //Envoie de l'objetJSON à l'API
         OutputStreamWriter wr = new OutputStreamWriter(con.getOutputStream());
