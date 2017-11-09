@@ -3,6 +3,8 @@ package Form;
 import beans.Utilisateur;
 
 import javax.servlet.http.HttpServletRequest;
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -45,6 +47,8 @@ public final class ProfileForm {
         String num_tel = getValeurChamp(request, CHAMP_TEL);
         //String date_naissance =  getValeurChamp(request, CHAMP_NAISSANCE);
 
+        String generatedSecuredPasswordHash = null;
+
         Utilisateur utilisateur = new Utilisateur();
 
         try {
@@ -60,9 +64,18 @@ public final class ProfileForm {
             setErreur( CHAMP_PASS, e.getMessage() );
             setErreur( CHAMP_CONF, null );
         }
-        //TODO : hash password
+        //---------HASH du PWD--------------------------------------
+        try{
+            generatedSecuredPasswordHash = Utils.hashPassword.generateStrongPasswordHash(motDePasse);
+        }
+        catch(NoSuchAlgorithmException a){
+            a.printStackTrace();
+        }
+        catch(InvalidKeySpecException i){
+            i.printStackTrace();
+        }
 
-        utilisateur.setMdp( motDePasse );
+        utilisateur.setMdp(generatedSecuredPasswordHash);
         utilisateur.setAdresse(adresse);
         utilisateur.setCodePostal(code_postal);
         //utilisateur.setDateNaissance(date_naissance);

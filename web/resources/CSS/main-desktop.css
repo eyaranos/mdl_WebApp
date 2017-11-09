@@ -39,7 +39,17 @@ legend {
 #submit_form_inscription{
     margin-left: 138px;
 }
+/*-----PROFILE-------*/
+#profile-main-col{
+    margin-top: 100px;
+}
 
+#ul_nav_profile{
+    border: 1px solid #acbcce;
+    border-radius: 4px;
+    padding: 10px 20px 10px 20px;
+    margin-top: 66px
+}
 
 
 

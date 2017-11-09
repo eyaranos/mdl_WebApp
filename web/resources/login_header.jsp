@@ -18,7 +18,7 @@
             </li>
             <c:if test="${!empty sessionScope.sessionReparateur}">
                 <li class="nav-item">
-                    <a class="nav-item nav-link" href="/work/reparateur/liste">Liste vélos</a>
+                    <a class="nav-item nav-link" href="/work/reparateur/liste">Liste velos</a>
                 </li>
             </c:if>
             <li class="nav-item">
