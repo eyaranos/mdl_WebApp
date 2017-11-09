@@ -65,17 +65,6 @@ public class ConnexionForm {
             setErreur( CHAMP_PASS, e.getMessage() );
         }
 
-        //--------------HASH du PWD------------------------------------------------------
-        /*try{
-            generatedSecuredPasswordHash = Utils.hashPassword.generateStrongPasswordHash(motDePasse);
-        }
-        catch(NoSuchAlgorithmException a){
-            a.printStackTrace();
-        }
-        catch(InvalidKeySpecException i){
-            i.printStackTrace();
-        }
-        */
         utilisateur.setMdp(motDePasse);
 
         /* Vérification par l'API dans la DB de l'existance de l'utilisateur et de son mdp */
