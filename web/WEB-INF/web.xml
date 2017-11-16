@@ -55,6 +55,16 @@
     </servlet-mapping>
 
     <servlet>
+        <servlet-name>forgetPassword</servlet-name>
+        <servlet-class>servletPack.ForgetPassword</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>forgetPassword</servlet-name>
+        <url-pattern>/forgetPassword</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
         <servlet-name>user_profile</servlet-name>
         <servlet-class>servletPack.Profile</servlet-class>
     </servlet>
@@ -73,6 +83,26 @@
     <servlet-mapping>
         <servlet-name>map</servlet-name>
         <url-pattern>/map</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>addCreditCard</servlet-name>
+        <servlet-class>servletPack.AddCreditCard</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>addCreditCard</servlet-name>
+        <url-pattern>/profile/add/creditCard</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>updateCreditCard</servlet-name>
+        <servlet-class>servletPack.UpdateCreditCard</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>updateCreditCard</servlet-name>
+        <url-pattern>/profile/update/creditCard</url-pattern>
     </servlet-mapping>
 
     <!--Servlet Reparateur-->
@@ -106,6 +136,23 @@
         <filter-name>RestrictionFilter</filter-name>
         <url-pattern>/RestrictAccess/*</url-pattern>
     </filter-mapping>
+
+   <!-- <filter>
+        <filter-name>Set Character Encoding</filter-name>
+        <filter-class>org.apache.catalina.filters.SetCharacterEncodingFilter</filter-class>
+        <init-param>
+            <param-name>encoding</param-name>
+            <param-value>UTF-8</param-value>
+        </init-param>
+        <init-param>
+            <param-name>ignore</param-name>
+            <param-value>false</param-value>
+        </init-param>
+    </filter>
+    <filter-mapping>
+        <filter-name>Set Character Encoding</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>-->
 
     <!-- SMTP Configuration -->
     <context-param>

@@ -1,8 +1,13 @@
 package beans;
 
+import java.util.List;
+
 public class Velo {
-    private Position position;
+
     private int id;
+    private Position position;
+    private List<Dommage> listeDommages;
+
 
     public Position getPosition() {
         return position;
@@ -18,5 +23,13 @@ public class Velo {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public List<Dommage> getListeDommages() {
+        return listeDommages;
+    }
+
+    public void setListeDommages(List<Dommage> dommages) {
+        this.listeDommages = dommages;
     }
 }

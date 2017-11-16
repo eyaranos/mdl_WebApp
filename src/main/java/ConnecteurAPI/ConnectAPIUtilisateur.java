@@ -146,4 +146,34 @@ public class ConnectAPIUtilisateur {
 
         return rep;
     }
+
+    public String insertUserCreditCard(int id, String customerId, String partialCardNumber) throws SQLException, IOException {
+
+        //Création de la connection à l'API
+        HttpURLConnection con = this.connectAPI.connectAPIJSON("", "POST");
+
+        //Création du JSONObject à envoyer à l'API avec les info de l'utilisateur à ajouter
+        JSONObject uJson   = new JSONObject();
+
+        uJson.put("id_cli",id);
+        uJson.put("customerId",customerId);
+        uJson.put("partial_cardNumber",partialCardNumber);
+
+        //Envoie de l'objetJSON à l'API
+        OutputStreamWriter wr = new OutputStreamWriter(con.getOutputStream());
+        wr.write(uJson.toString());
+        wr.flush();
+
+        return connectAPI.showBackMessage(con);
+    }
+
+    public String getUserCustomerId(int id) throws IOException {
+
+        //Création de la connection à l'API
+        HttpURLConnection conn = this.connectAPI.connectAPIJSON(""+id, "GET");
+
+        String rep=connectAPI.showBackMessage(conn);
+
+        return rep;
+    }
 }

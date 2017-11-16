@@ -6,7 +6,10 @@
                 <a class="nav-link active" href="/profile/trips">Trips</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="">Wallet</a>
+                <a class="nav-link" href="/profile/add/creditCard">Add credit card</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/profile/update/creditCard">Update credit card</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="">Settings</a>

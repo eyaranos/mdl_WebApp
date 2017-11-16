@@ -32,56 +32,57 @@
                 </div>
 
                 <div class="row">
-                    <div class="col-md-6" id="inscr-main-col">
+                    <div class="col-md-5" id="inscr-main-col">
                         <form id="form-inscription-complet" method="post" action="inscription">
                             <fieldset>
 
-                                <label for="email">Adresse email <span class="requis">*</span></label>
-                                <input id="email" name="email" value="<c:out value="${utilisateur.email}"/>" size="20" maxlength="60" />
-                                <span class="erreur">${form.erreurs['email']}</span>
-                                <br />
-
-                                <label for="mdp">Mot de passe <span class="requis">*</span></label>
-                                <input type="password" id="mdp" name="mdp" value="" size="20" maxlength="20" />
-                                <span class="erreur">${form.erreurs['mdp']}</span>
-                                <br />
-
-                                <label for="confirmation">Confirmation du mdp <span class="requis">*</span></label>
-                                <input type="password" id="confirmation" name="confirmation" value="" size="20" maxlength="20" />
-                                <span class="erreur">${form.erreurs['confirmation']}</span>
-                                <br />
-
-                                <label for="nom" class="not_anonyme">Nom </label>
-                                <input id="nom" class="not_anonyme" name="nom" value="<c:out value="${param.nom}"/>" size="20" maxlength="20" />
-                                <br />
-
-                                <label for="prenom" class="not_anonyme">Prenom</label>
-                                <input id="prenom" class="not_anonyme" name="prenom" value="<c:out value="${param.prenom}"/>" size="20" maxlength="20" />
-                                <br />
-
-                                <label for="adresse" class="not_anonyme">Adresse</label>
-                                <input id="adresse"  class="not_anonyme" name="adresse" value="<c:out value="${param.adresse}"/>" size="20" maxlength="20" />
-                                <br />
-
-                                <label for="code_postal" class="not_anonyme">Zip</label>
-                                <input id="code_postal" class="not_anonyme" name="code_postal" value="<c:out value="${param.code_postal}"/>" size="20" maxlength="20" />
-                                <br />
-
-                                <label for="ville" class="not_anonyme">Ville</label>
-                                <input id="ville" class="not_anonyme"  name="ville" value="<c:out value="${param.ville}"/>" size="20" maxlength="20" />
-                                <br />
-
-                                <label for="pays" class="not_anonyme">Pays</label>
-                                <input id="pays" class="not_anonyme" name="pays" value="<c:out value="${param.pays}"/>" size="20" maxlength="20" />
-                                <br />
-
-                                <label for="num_tel" class="not_anonyme">Telephone</label>
-                                <input id="num_tel" class="not_anonyme" name="tel" value="<c:out value="${param.num_tel}"/>" size="20" maxlength="20" />
-                                <br />
-
-                                <label for="date_naissance" class="not_anonyme">Date de naissance</label>
-                                <input id="date_naissance" class="not_anonyme" name="date_naissance" value="<c:out value="${param.date_naissance}"/>" size="20" maxlength="20" />
-                                <br />
+                                <div class="form-group">
+                                    <label for="email">Adresse email <span class="requis">*</span></label>
+                                    <input id="email" name="email" class="form-control" value="<c:out value="${utilisateur.email}"/>" size="20" maxlength="60" />
+                                    <span class="erreur">${form.erreurs['email']}</span>
+                                </div>
+                                <div class="form-group">
+                                    <label for="mdp">Mot de passe <span class="requis">*</span></label>
+                                    <input type="password" class="form-control"  id="mdp" name="mdp" value="" size="20" maxlength="20" />
+                                    <span class="erreur">${form.erreurs['mdp']}</span>
+                                </div>
+                                <div class="form-group">
+                                    <label for="confirmation">Confirmation du mdp <span class="requis">*</span></label>
+                                    <input type="password" class="form-control"   id="confirmation" name="confirmation" value="" size="20" maxlength="20" />
+                                    <span class="erreur">${form.erreurs['confirmation']}</span>
+                                </div>
+                                <div class="form-group">
+                                    <label for="nom" class="not_anonyme">Nom </label>
+                                    <input id="nom" class="not_anonyme form-control" name="nom" value="<c:out value="${param.nom}"/>" size="20" maxlength="20" />
+                                </div>
+                                <div class="form-group">
+                                    <label for="prenom" class="not_anonyme">Prenom</label>
+                                    <input id="prenom" class="not_anonyme form-control" name="prenom" value="<c:out value="${param.prenom}"/>" size="20" maxlength="20" />
+                                </div>
+                                <div class="form-group">
+                                    <label for="adresse" class="not_anonyme">Adresse</label>
+                                    <input id="adresse"  class="not_anonyme form-control" name="adresse" value="<c:out value="${param.adresse}"/>" size="20" maxlength="20" />
+                                </div>
+                                <div class="form-group">
+                                    <label for="code_postal" class="not_anonyme">Zip</label>
+                                    <input id="code_postal" class="not_anonyme form-control" name="code_postal" value="<c:out value="${param.code_postal}"/>" size="20" maxlength="20" />
+                                </div>
+                                <div class="form-group">
+                                    <label for="ville" class="not_anonyme">Ville</label>
+                                    <input id="ville" class="not_anonyme form-control"  name="ville" value="<c:out value="${param.ville}"/>" size="20" maxlength="20" />
+                                </div>
+                                <div class="form-group">
+                                    <label for="pays" class="not_anonyme">Pays</label>
+                                    <input id="pays" class="not_anonyme form-control" name="pays" value="<c:out value="${param.pays}"/>" size="20" maxlength="20" />
+                                </div>
+                                <div class="form-group">
+                                    <label for="num_tel" class="not_anonyme">Telephone</label>
+                                    <input id="num_tel" class="not_anonyme form-control" name="tel" value="<c:out value="${param.num_tel}"/>" size="20" maxlength="20" />
+                                </div>
+                                <div class="form-group">
+                                    <label for="date_naissance" class="not_anonyme">Date de naissance</label>
+                                    <input id="date_naissance" class="not_anonyme form-control" name="date_naissance" value="<c:out value="${param.date_naissance}"/>" size="20" maxlength="20" />
+                                </div>
 
                                 <input id="submit_form_inscription" class="btn btn-primary" type="submit" value="Inscription" class="sansLabel" />
                                 <br />
@@ -112,7 +113,7 @@
 
         function setCss(btn){
             btn.css("position", "absolute");
-            btn.css("margin-top", "-170px");
+            btn.css("margin-top", "0");
             btn.removeClass("btn-primary");
             btn.addClass("btn-secondary");
             $("#select_form_btn").removeClass("btn-primary");

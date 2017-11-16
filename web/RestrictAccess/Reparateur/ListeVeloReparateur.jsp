@@ -23,30 +23,26 @@
     <table class="table table-hover">
         <thead>
         <tr>
-            <th scope="col">#</th>
-            <th scope="col">First Name</th>
-            <th scope="col">Last Name</th>
-            <th scope="col">Username</th>
+            <th scope="col">ID</th>
+            <th scope="col">Dommages</th>
+            <th scope="col">Prise en charge</th>
+            <th scope="col">Terminer</th>
         </tr>
         </thead>
         <tbody>
-        <tr>
-            <th scope="row">1</th>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>@mdo</td>
-        </tr>
-        <tr>
-            <th scope="row">2</th>
-            <td>Jacob</td>
-            <td>Thornton</td>
-            <td>@fat</td>
-        </tr>
-        <tr>
-            <th scope="row">3</th>
-            <td colspan="2">Larry the Bird</td>
-            <td>@twitter</td>
-        </tr>
+            <c:forEach var="velo" items="${liste_velos}" >
+                <tr>
+                    <th scope="row">${velo.id}</th>
+                    <td>
+                    <c:forEach var="dommage" items="${velo.listeDommages}" >
+                        ${dommage.nom}<br>
+                    </c:forEach>
+                    </td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </c:forEach>
         </tbody>
     </table>
     .

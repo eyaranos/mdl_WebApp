@@ -4,6 +4,7 @@ import ConnecteurAPI.ConnectAPIUtilisateur;
 import DAO.UtilisateurDao;
 import Form.InscriptionForm;
 import Form.ProfileForm;
+import Utils.UserUtility;
 import beans.Utilisateur;
 import com.google.gson.Gson;
 
@@ -32,10 +33,9 @@ public class Profile extends HttpServlet {
         HttpSession session = request.getSession();
 
         //cast de l'obj du beans Utilisateur qui se trouve dans la session pour recup l'id du user
-        Object obj = session.getAttribute("sessionUtilisateur");
-        Class<Utilisateur> u = Utilisateur.class;
-        Utilisateur tempUser = u.cast(obj);
-        utilisateur.setId(tempUser.getId());
+        Utilisateur user = UserUtility.getUserFromSession(request);
+        int id = user.getId();
+        utilisateur.setId(id);
         //-----------------------------------------------------------------------------------------
 
         /* Stockage du formulaire et du bean dans l'objet request */
@@ -61,11 +61,8 @@ public class Profile extends HttpServlet {
         Gson gson = new Gson();
 
         //cast de l'obj du beans Utilisateur qui se trouve dans la session pour recup l'id du user
-        HttpSession session = request.getSession();
-        Object obj = session.getAttribute("sessionUtilisateur");
-        Class<Utilisateur> u = Utilisateur.class;
-        Utilisateur tempUser = u.cast(obj);
-        int id = tempUser.getId();
+        Utilisateur user = UserUtility.getUserFromSession(request);
+        int id = user.getId();
         //-----------------------------------------------------------------------------------------
 
         /* recup infos utilisateur dans la bd */

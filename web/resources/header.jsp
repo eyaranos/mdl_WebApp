@@ -12,7 +12,7 @@
 
 <c:if test="${empty sessionScope.sessionUtilisateur and empty sessionScope.sessionReparateur}">
     <nav class="navbar navbar-inverse fixed-top bg-inverse navCustom">
-        <a class="navbar-brand" href="#">Carousel</a>
+        <a class="navbar-brand" href="#">Velib </a>
 
             <ul class="nav mr-auto">
                 <li class="nav-item">

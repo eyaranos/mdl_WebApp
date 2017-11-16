@@ -68,7 +68,25 @@ public class ConnectAPIReparateur {
         return rep;
     }
 
+    public String getBikesToFix(int id_centre) throws IOException {
 
+        //Création de la connection à l'API
+        HttpURLConnection conn = this.connectAPI.connectAPIJSON("ReparateurController/getVelos/"+id_centre, "GET");
+
+        String rep=connectAPI.showBackMessage(conn);
+
+        return rep;
+    }
+
+    public String getIdCentreRepa(int id_employe) throws IOException {
+
+        //Création de la connection à l'API
+        HttpURLConnection conn = this.connectAPI.connectAPIJSON("ReparateurController/getCentreReparation/"+id_employe, "GET");
+
+        String rep=connectAPI.showBackMessage(conn);
+
+        return rep;
+    }
 
 
 
