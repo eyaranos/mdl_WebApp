@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.sql.SQLException;
 
 public class ConnectAPIReparateur {
     private ConnectAPI connectAPI;
@@ -88,6 +89,81 @@ public class ConnectAPIReparateur {
         return rep;
     }
 
+    /**
+     *
+     * @param id_velo int
+     * @param type int qui vaut 1 ou 2.
+     *             1 = cas B (cfr doc), "date_fin_rep is not null" || 2 = cas A (cfr doc), "date_fin_rep is null"
+     * @return String reponse de l'api
+     * @throws IOException si erreur E/S
+     */
+    public String getInfoReparation(int id_velo, int type) throws IOException {
 
+        //Création de la connection à l'API
+        HttpURLConnection conn = this.connectAPI.connectAPIJSON("ReparateurController/getInfoReparation/"+id_velo+"/"+type, "GET");
 
+        String rep=connectAPI.showBackMessage(conn);
+
+        return rep;
+    }
+
+    /**
+     * Permet de savoir si un velo précis est deja en train d'être réparé par un employé
+     *
+     * @param id_velo du velo que l'on veut tester
+     * @return String la reponse json ou le code d'erreur http
+     * @throws IOException si erreru E/S
+     */
+    public JSONObject getIfBikeFixing(int id_velo) throws IOException {
+
+        //Création de la connection à l'API
+        HttpURLConnection conn = this.connectAPI.connectAPIJSON("ReparateurController/getIfBikeFixing/"+id_velo, "GET");
+
+        String rep=connectAPI.showBackMessage(conn);
+
+        JSONObject jsonResponse = new JSONObject(rep);
+
+        return jsonResponse;
+    }
+
+    /**
+     * Insert dans la table "a_repare", les info nécessaire pour représenter un velo en train d'etre réparé
+     *
+     * @param id_employe int
+     * @param id_velo in
+     * @return true si pas d'erreur
+     * @throws IOException si erreur E/S
+     */
+    public boolean insertBikeFixing(int id_employe, int id_velo) throws IOException {
+
+        //Création de la connection à l'API
+        HttpURLConnection con = this.connectAPI.connectAPIJSON("ReparateurController/insert/bikeToFix/"+id_velo+"/"+id_employe, "POST");
+
+        if (con.getResponseCode() == 200) {
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
+    /**
+     * Update dans la table "a_repare", la date a laquelle un velo particulier a été réparé (date_fin_rep)
+     *
+     * @param id_velo int
+     * @return true si pas d'erreur
+     * @throws IOException si erreur E/S
+     */
+    public boolean updateBikeTerminated(int id_velo) throws IOException {
+
+        //Création de la connection à l'API
+        HttpURLConnection con = this.connectAPI.connectAPIJSON("ReparateurController/update/bikeToFix/"+id_velo, "POST");
+
+        if (con.getResponseCode() == 200) {
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
 }

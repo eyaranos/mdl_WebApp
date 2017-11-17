@@ -46,7 +46,6 @@ public class ConnectAPIUtilisateur {
         uJson.put("num",utilisateur.getNumTel());
         uJson.put("token",utilisateur.getToken());
 
-
         //Envoie de l'objetJSON à l'API
         OutputStreamWriter wr = new OutputStreamWriter(con.getOutputStream());
         wr.write(uJson.toString());

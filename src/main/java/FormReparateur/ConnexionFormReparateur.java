@@ -56,7 +56,7 @@ public class ConnexionFormReparateur {
         catch( IOException e){
 
         }
-        if (!infoUser.equals("Introuvable")){
+        if (!infoUser.equals("400") && !infoUser.equals("404")){
             JSONObject obj = new JSONObject(infoUser);
            reparateur.setId(obj.getInt("id"));
 

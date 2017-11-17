@@ -26,13 +26,9 @@ public class ConnexionForm {
     private static final String NOT_FOUND_EMAIL   = "noUserSendBAck";
     private static final String NOT_FOUND_MDP   = "wrongPwd";
     private static final String NOT_ACTIVATED  = "not_activated";
-    private String generatedSecuredPasswordHash;
-
 
     private String              resultat;
     private Map<String, String> erreurs      = new HashMap<String, String>();
-
-
 
     public String getResultat() {
         return resultat;
@@ -71,7 +67,7 @@ public class ConnexionForm {
         ConnectAPIUtilisateur connectAPIUtilisateur =new ConnectAPIUtilisateur();
 
             String infoUser= connectAPIUtilisateur.checkConnectionUser(utilisateur);
-            if (!infoUser.equals("Introuvable")){
+            if (!infoUser.equals("400") && !infoUser.equals("404")){
                 JSONObject obj = new JSONObject(infoUser);
                 utilisateur.setId(obj.getInt("id"));
 
@@ -146,30 +142,5 @@ public class ConnexionForm {
         } else {
             return valeur;
         }
-    }
-
-    /*
-    renvoie l'Utilisateur si le mail et le mdp correspond à un Utilisateur inscrit dans DB
-    sinon null
-     */
-
-    private Utilisateur checkMailMdp(String mail, String mdp){
-        UtilisateurDao utilisateurDao;
-        DAOFactory daoFactory=DAOFactory.getInstance();
-        utilisateurDao=daoFactory.getUtilisateurDao();
-
-        List<Utilisateur> utilisateurList=utilisateurDao.lister();
-
-        for (int i = 0; i < utilisateurList.size(); i++) {
-            String log = utilisateurList.get(i).getEmail();
-            if (log.equals(mail)){
-                String p = utilisateurList.get(i).getMdp();
-                if (p.equals(mdp)){
-                    return utilisateurList.get(i);
-                }
-            }
-        }
-        return null;
-
     }
 }

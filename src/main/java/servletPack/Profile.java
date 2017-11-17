@@ -60,6 +60,7 @@ public class Profile extends HttpServlet {
         Utilisateur utilisateur = new Utilisateur();
         Gson gson = new Gson();
 
+        //TODO : gestion des reparateur
         //cast de l'obj du beans Utilisateur qui se trouve dans la session pour recup l'id du user
         Utilisateur user = UserUtility.getUserFromSession(request);
         int id = user.getId();

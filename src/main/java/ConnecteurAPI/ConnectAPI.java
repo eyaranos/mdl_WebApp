@@ -43,8 +43,8 @@ public class ConnectAPI {
             System.out.println("" + sb.toString());
             return sb.toString();
         } else {
-            System.out.println(con.getResponseMessage());
-            return con.getResponseMessage();
+            System.out.println(con.getResponseCode());
+            return String.valueOf(con.getResponseCode());
         }
     }
 

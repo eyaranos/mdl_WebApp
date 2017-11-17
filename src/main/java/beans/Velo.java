@@ -6,7 +6,7 @@ public class Velo {
 
     private int id;
     private Position position;
-    private List<Dommage> listeDommages;
+
 
 
     public Position getPosition() {
@@ -25,11 +25,5 @@ public class Velo {
         this.id = id;
     }
 
-    public List<Dommage> getListeDommages() {
-        return listeDommages;
-    }
 
-    public void setListeDommages(List<Dommage> dommages) {
-        this.listeDommages = dommages;
-    }
 }
