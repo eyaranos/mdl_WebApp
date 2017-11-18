@@ -32,9 +32,9 @@ public class AddCreditCard extends HttpServlet {
         String token = request.getParameter("stripeToken");
 
         //get just the 4 last number of the card number to zllow user to know which card is currently active
-        String cardNumber = request.getParameter("cardnumber");
-        String fourLastDigit = cardNumber.substring(cardNumber.length()-4, cardNumber.length()-1);
-
+       // String cardNumber = request.getParameter("cardnumber");
+       // String fourLastDigit = cardNumber.substring(cardNumber.length()-4, cardNumber.length()-1);
+        String fourLastDigit = "bla";
 
         // Create a Customer:
         Map<String, Object> customerParams = new HashMap<String, Object>();
@@ -57,7 +57,7 @@ public class AddCreditCard extends HttpServlet {
         //customerId insert into the db. To user to charge client in the future
         ConnectAPIUtilisateur connectAPIUtilisateur=new ConnectAPIUtilisateur();
         try{
-            connectAPIUtilisateur.insertUserCreditCard(user.getId(),  customer.getId(),fourLastDigit);
+            connectAPIUtilisateur.insertCreditCard(user.getId(),  customer.getId(),fourLastDigit);
             request.setAttribute("succes", "Votre carte a bien été ajoutée !");
         }catch(SQLException e){
 
