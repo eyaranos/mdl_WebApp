@@ -115,6 +115,13 @@ public class ConnectAPIUtilisateur {
         return rep;
     }
 
+    /**
+     * Permet de récupérer l'utilisateur sur base de son id
+     *
+     * @param id int, id de l'utilisateur que l'on veut récupérer
+     * @return String response de l'api, bean utilisateur formatté en json
+     * @throws IOException
+     */
     public String getUser(int id) throws IOException {
 
         //Création de la connection à l'API
@@ -125,6 +132,13 @@ public class ConnectAPIUtilisateur {
         return rep;
     }
 
+    /**
+     * Permet de récupérer l'utilisateur sur base de son token + d'activer son compte (effacer le token et mettre "activated")
+     *
+     * @param token String, token fixé lors de l'inscription de l'user
+     * @return String reponse de l'api, bean utilisateur dormatté json
+     * @throws IOException si erreur E/S
+     */
     public String getUserActivated(String token) throws IOException {
 
         //Création de la connection à l'API
@@ -135,7 +149,12 @@ public class ConnectAPIUtilisateur {
         return rep;
     }
 
-
+    /**
+     * Permet de récupérer l'ensemble des vélos pour les afficher sur la carte coté utilisateur
+     *
+     * @return String reponse de l'api, liste de beans vélo formatté json
+     * @throws IOException si erreur E/S
+     */
     public String getBikes() throws IOException {
 
         //Création de la connection à l'API
@@ -146,6 +165,16 @@ public class ConnectAPIUtilisateur {
         return rep;
     }
 
+    /**
+     * Permet d'insérer les infos nécessaire à des futurs paiement de l'utilisateur
+     *
+     * @param id_client int id du client sui ajoute une carte
+     * @param customerId String, généré par api Stripe
+     * @param partialCardNumber String, 4 dernier chiffre pour que le client puisse quand même identifier quelle est la carte en action
+     * @return String reponse de l'api, code 200 ou 400
+     * @throws SQLException
+     * @throws IOException
+     */
     public String insertCreditCard(int id_client, String customerId, String partialCardNumber) throws SQLException, IOException {
 
         //Création de la connection à l'API
@@ -154,6 +183,13 @@ public class ConnectAPIUtilisateur {
         return connectAPI.showBackMessage(con);
     }
 
+    /**
+     * Permet de récupérer le customerId pour pouvoir déduire l'argent de la carte du client
+     *
+     * @param id_client int, id du client concerné
+     * @return String reponse de l'api, customerId
+     * @throws IOException
+     */
     public String getUserCustomerId(int id_client) throws IOException {
 
         //Création de la connection à l'API

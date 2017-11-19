@@ -69,6 +69,13 @@ public class ConnectAPIReparateur {
         return rep;
     }
 
+    /**
+     * Sur base de l'id du centre, on recupère l'ensemble des vélos à réparer présent dans celui ci
+     *
+     * @param id_centre int id
+     * @return Strinf reponse de l'api, tableau json de bean VeloToFix
+     * @throws IOException si erreur E/S
+     */
     public String getBikesToFix(int id_centre) throws IOException {
 
         //Création de la connection à l'API
@@ -79,6 +86,13 @@ public class ConnectAPIReparateur {
         return rep;
     }
 
+    /**
+     * Sur base de l'idée d'un employé, on recupère l'id du centre dans lequel il travaille
+     *
+     * @param id_employe int id de l'employe
+     * @return String reponse de l'api, id_centre
+     * @throws IOException si erreur E/S
+     */
     public String getIdCentreRepa(int id_employe) throws IOException {
 
         //Création de la connection à l'API
@@ -90,11 +104,13 @@ public class ConnectAPIReparateur {
     }
 
     /**
+     * Permet de récupérer l'état d'un vélo dans un centre de réparation : En cours de réparation, terminé ou aucun des deux.
+     * Une seule méthode pour 3 états différents d'ou la présence d'un param type pour utiliser la même méthode pour chaque état.
+     * Si type vaut 1 = cas B (cfr doc), "date_fin_rep is not null" || Si type vaut 2 = cas A (cfr doc), "date_fin_rep is null"
      *
      * @param id_velo int
-     * @param type int qui vaut 1 ou 2.
-     *             1 = cas B (cfr doc), "date_fin_rep is not null" || 2 = cas A (cfr doc), "date_fin_rep is null"
-     * @return String reponse de l'api
+     * @param type int qui vaut 1 ou 2
+     * @return String reponse de l'api, beans employe
      * @throws IOException si erreur E/S
      */
     public String getInfoReparation(int id_velo, int type) throws IOException {
@@ -139,7 +155,7 @@ public class ConnectAPIReparateur {
         //Création de la connection à l'API
         HttpURLConnection con = this.connectAPI.connectAPIJSON("ReparateurController/insert/bikeToFix/"+id_velo+"/"+id_employe, "POST");
 
-        if (con.getResponseCode() == 200) {
+         if (con.getResponseCode() == 200) {
             return true;
         }
         else{
