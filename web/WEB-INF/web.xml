@@ -74,6 +74,25 @@
         <url-pattern>/profile</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>abonnement</servlet-name>
+        <servlet-class>servletPack.Abonnement</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>abonnement</servlet-name>
+        <url-pattern>/profile/abonnements</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>formules</servlet-name>
+        <servlet-class>servletPack.Formule</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>formules</servlet-name>
+        <url-pattern>/profile/formules</url-pattern>
+    </servlet-mapping>
 
     <servlet>
         <servlet-name>map</servlet-name>

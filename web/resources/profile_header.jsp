@@ -3,7 +3,7 @@
     <nav class="navbar" style="margin-top:30px;">
         <ul class="nav flex-column mr-auto" id="ul_nav_profile">
             <li class="nav-item">
-                <a class="nav-link active" href="/profile/trips">Trips</a>
+                <a class="nav-link active" href="/profile/abonnements">Abonnements</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="/profile/add/creditCard">Add credit card</a>

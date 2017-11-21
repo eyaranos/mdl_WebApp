@@ -22,6 +22,7 @@ import java.util.Map;
 public class AddCreditCard extends HttpServlet {
 
     public static final String VUE = "/RestrictAccess/Profile/AddCreditCard.jsp";
+    public static final String REDIRECT = "/RestrictAccess/Profile/Abonnement.jsp";
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
@@ -32,9 +33,9 @@ public class AddCreditCard extends HttpServlet {
         String token = request.getParameter("stripeToken");
 
         //get just the 4 last number of the card number to zllow user to know which card is currently active
-       // String cardNumber = request.getParameter("cardnumber");
-       // String fourLastDigit = cardNumber.substring(cardNumber.length()-4, cardNumber.length()-1);
-        String fourLastDigit = "bla";
+        String cardNumber = request.getParameter("cardnumber");
+        String fourLastDigitTemp = cardNumber.substring(cardNumber.length()-4, cardNumber.length()-1);
+        String fourLastDigit = "xxxxxxxxxxxxxxxx-"+fourLastDigitTemp;
 
         // Create a Customer:
         Map<String, Object> customerParams = new HashMap<String, Object>();
@@ -57,13 +58,17 @@ public class AddCreditCard extends HttpServlet {
         //customerId insert into the db. To user to charge client in the future
         ConnectAPIUtilisateur connectAPIUtilisateur=new ConnectAPIUtilisateur();
         try{
-            connectAPIUtilisateur.insertCreditCard(user.getId(),  customer.getId(),fourLastDigit);
-            request.setAttribute("succes", "Votre carte a bien été ajoutée !");
+            if(connectAPIUtilisateur.insertCreditCard(user.getId(),  customer.getId(),fourLastDigit).equals("ok")){
+                request.setAttribute("succesInsertCard", "Votre carte a bien été ajoutée !");
+                this.getServletContext().getRequestDispatcher( REDIRECT).forward( request, response );
+            }
+            else{
+                request.setAttribute("errorInsertCard", "Un erreur est survenu lors de l'ajout de votre carte...");
+                this.getServletContext().getRequestDispatcher(VUE).forward( request, response );
+            }
         }catch(SQLException e){
 
         }
-
-        this.getServletContext().getRequestDispatcher( VUE ).forward( request, response );
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

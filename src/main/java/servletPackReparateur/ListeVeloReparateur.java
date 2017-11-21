@@ -79,6 +79,7 @@ public class ListeVeloReparateur extends HttpServlet {
         ConnectAPIReparateur connectAPIReparateur = new ConnectAPIReparateur();
 
         /*-------------------- PARTIE liste des velos dans un centre en particulier ---------------*/
+        //TODO : check that apiResponse doesnt send back an error (shouldnt append)
         String apiResponse = connectAPIReparateur.getIdCentreRepa(employe.getId());
         //converti string response en json response
         JSONObject jsonResponse = new JSONObject(apiResponse);

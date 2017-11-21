@@ -40,7 +40,7 @@
                         <div id="card-errors" role="alert"></div>
 
                         <!-- Used to display if succes -->
-                   <%--     <div id="card-succes" class="alert alert-success"> ${succes}</div>--%>
+                        <div id="card-error" role="alert"> <c:if test="${!errorInsertCard == null}">${errorInsertCard}</c:if></div>
                     </div>
 
                     <button class="btn" >Add credit card</button>

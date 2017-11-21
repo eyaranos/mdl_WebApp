@@ -180,7 +180,12 @@ public class ConnectAPIUtilisateur {
         //Création de la connection à l'API
         HttpURLConnection con = this.connectAPI.connectAPIJSON("CreditCardController/insertCreditCard/"+id_client+"/"+customerId+"/"+partialCardNumber, "PUT");
 
-        return connectAPI.showBackMessage(con);
+        if (con.getResponseCode() == 400 ){
+           throw new SQLException("Erreur lors de l'insertion de la carte");
+        }
+        else{
+           return "ok" ;
+        }
     }
 
     /**
@@ -194,6 +199,78 @@ public class ConnectAPIUtilisateur {
 
         //Création de la connection à l'API
         HttpURLConnection conn = this.connectAPI.connectAPIJSON("CreditCardController/getCustomerId/"+id_client, "GET");
+
+        String rep=connectAPI.showBackMessage(conn);
+
+        return rep;
+    }
+
+    /**
+     * Recupère l'ensemble des abonnements (passés et présents) pour un utilisateur donné
+     *
+     * @param id_client int, id du client
+     * @return String reponse de l'api, liste de Abonnement
+     * @throws IOException si erreur E/S
+     */
+    public String getAbonnements(int id_client) throws IOException {
+
+        //Création de la connection à l'API
+        HttpURLConnection conn = this.connectAPI.connectAPIJSON("AbonnementController/getAbonnements/"+id_client, "GET");
+
+        String rep=connectAPI.showBackMessage(conn);
+
+        return rep;
+    }
+
+    /**
+     * Retourne la liste des différentes type de formules possibles pour un abonnement
+     *
+     * @return String, reponse de l'api, liste de Formule
+     * @throws IOException
+     */
+    public String getFormules() throws IOException {
+
+        //Création de la connection à l'API
+        HttpURLConnection conn = this.connectAPI.connectAPIJSON("AbonnementController/getFormules", "GET");
+
+        String rep=connectAPI.showBackMessage(conn);
+
+        return rep;
+    }
+
+    /**
+     * Lorsque le client choisi une formule à laquelle s'abonner, on l'insert dans la db
+     *
+     * @param id_client int , id du client concerné
+     * @param id_formule int, id de la formule choisie par le client
+     * @return String reponse de l'api
+     * @throws SQLException
+     * @throws IOException
+     */
+    public String insertAbonnement(int id_client, int id_formule) throws SQLException, IOException {
+
+        //Création de la connection à l'API
+        HttpURLConnection con = this.connectAPI.connectAPIJSON("AbonnementController/insertAbonnement/"+id_client+"/"+id_formule, "POST");
+
+        if (con.getResponseCode() == 400 ){
+            throw new SQLException("Erreur lors de l'insertion de la carte");
+        }
+        else{
+            return "ok" ;
+        }
+    }
+
+    /**
+     * Recupere les infos à propos d'une formule en particulier
+     *
+     * @param id_formule int, l'id de la formule en db
+     * @return String reponse de l'api
+     * @throws IOException
+     */
+    public String getFormule(int id_formule) throws IOException {
+
+        //Création de la connection à l'API
+        HttpURLConnection conn = this.connectAPI.connectAPIJSON("AbonnementController/getFormule/"+id_formule, "GET");
 
         String rep=connectAPI.showBackMessage(conn);
 
