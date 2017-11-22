@@ -79,7 +79,7 @@ public final class ProfileForm {
         utilisateur.setAdresse(adresse);
         utilisateur.setCodePostal(code_postal);
         //utilisateur.setDateNaissance(date_naissance);
-        utilisateur.setNumTel(num_tel);
+        utilisateur.setNum(num_tel);
         utilisateur.setNom(nom);
         utilisateur.setPrenom(prenom);
         utilisateur.setPays(pays);

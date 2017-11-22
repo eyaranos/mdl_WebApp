@@ -9,11 +9,11 @@ public class Utilisateur {
     private String prenom;
     private String mdp;
     private String ville;
-    private String codePostal;
+    private String codeP;
     private String email;
     private String adresse;
     private String pays;
-    private String numTel;
+    private String num;
     private String token;
     private Date dateNaissance;
 
@@ -58,11 +58,11 @@ public class Utilisateur {
     }
 
     public String getCodePostal() {
-        return codePostal;
+        return codeP;
     }
 
     public void setCodePostal(String codePostal) {
-        this.codePostal = codePostal;
+        this.codeP= codePostal;
     }
 
     public String getEmail() {
@@ -89,12 +89,12 @@ public class Utilisateur {
         this.pays = pays;
     }
 
-    public String getNumTel() {
-        return numTel;
+    public String getNum() {
+        return num;
     }
 
-    public void setNumTel(String numTel) {
-        this.numTel = numTel;
+    public void setNum(String num) {
+        this.num = num;
     }
 
     public Date getDateNaissance() {

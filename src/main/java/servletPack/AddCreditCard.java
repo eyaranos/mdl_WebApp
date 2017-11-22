@@ -32,10 +32,11 @@ public class AddCreditCard extends HttpServlet {
         Stripe.apiKey = "sk_test_INynjhmwE2v6sEuUl19b8mIr";
         String token = request.getParameter("stripeToken");
 
+        //todo : fix bug null pointer exception l37
         //get just the 4 last number of the card number to zllow user to know which card is currently active
-        String cardNumber = request.getParameter("cardnumber");
-        String fourLastDigitTemp = cardNumber.substring(cardNumber.length()-4, cardNumber.length()-1);
-        String fourLastDigit = "xxxxxxxxxxxxxxxx-"+fourLastDigitTemp;
+        /*String cardNumber = request.getParameter("cardnumber");
+        String fourLastDigitTemp = cardNumber.substring(cardNumber.length()-4, cardNumber.length()-1);*/
+        String fourLastDigit = "xxxx"; /*"xxxxxxxxxxxxxxxx-"+fourLastDigitTemp;*/
 
         // Create a Customer:
         Map<String, Object> customerParams = new HashMap<String, Object>();

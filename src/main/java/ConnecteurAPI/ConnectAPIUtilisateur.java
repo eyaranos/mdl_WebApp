@@ -36,14 +36,14 @@ public class ConnectAPIUtilisateur {
 
         uJson.put("email",utilisateur.getEmail());
         uJson.put("nom",utilisateur.getNom());
-        uJson.put("prénom",utilisateur.getPrenom());
+        uJson.put("prenom",utilisateur.getPrenom());
         uJson.put("mdp",utilisateur.getMdp());
         uJson.put("id",utilisateur.getId());
         uJson.put("ville",utilisateur.getVille());
         uJson.put("adresse",utilisateur.getAdresse());
         uJson.put("codeP",utilisateur.getCodePostal());
         uJson.put("pays",utilisateur.getPays());
-        uJson.put("num",utilisateur.getNumTel());
+        uJson.put("num",utilisateur.getNum());
         uJson.put("token",utilisateur.getToken());
 
         //Envoie de l'objetJSON à l'API
@@ -68,14 +68,14 @@ public class ConnectAPIUtilisateur {
 
         uJson.put("email",utilisateur.getEmail());
         uJson.put("nom",utilisateur.getNom());
-        uJson.put("prénom",utilisateur.getPrenom());
+        uJson.put("prenom",utilisateur.getPrenom());
         uJson.put("mdp",utilisateur.getMdp());
         uJson.put("id",utilisateur.getId());
         uJson.put("ville",utilisateur.getVille());
         uJson.put("adresse",utilisateur.getAdresse());
         uJson.put("codeP",utilisateur.getCodePostal());
         uJson.put("pays",utilisateur.getPays());
-        uJson.put("num",utilisateur.getNumTel());
+        uJson.put("num",utilisateur.getNum());
 
         //Envoie de l'objetJSON à l'API
         OutputStreamWriter wr = new OutputStreamWriter(con.getOutputStream());

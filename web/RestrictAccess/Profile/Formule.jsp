@@ -46,13 +46,13 @@
             <tr>
                 <td>Votre choix</td>
                 <c:forEach var="formule" items="${listeFormules}" >
-                    <td><form class="form-formule" action="/profile/formules"><input type="checkbox" value="${formule.id}" class="checkbox-formule" name="checkbox-formule"></form></td>
+                    <td><form class="form-formule" action="/profile/formules"><input type="checkbox" value="${formule.id}" <c:if test="${noCreditCard != null}">disabled</c:if> class="checkbox-formule" name="checkbox-formule"></form></td>
                 </c:forEach>
             </tr>
         </tbody>
     </table>
 
-   <button id="btn-choose-formule" type="submit" class="btn btn-primary" disabled <c:if test="${noCreditCard != null}">disabled</c:if> >Choisir</button>
+   <button id="btn-choose-formule" type="submit" class="btn btn-primary" disabled  >Choisir</button>
     <c:if test="${noCreditCard != null}">
         <p style="color:darkred;">${noCreditCard}</p>
         <p>Vous pouvez en ajouter une en suivant ce <a href="/profile/add/creditCard">lien</a> </p>

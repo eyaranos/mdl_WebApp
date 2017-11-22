@@ -74,7 +74,7 @@
                         <br />
 
                         <label for="num_tel">Telephone</label>
-                        <input id="num_tel" name="tel" value="<c:out value="${utilisateur.numTel}"/>" size="20" maxlength="20" />
+                        <input id="num_tel" name="tel" value="<c:out value="${utilisateur.num}"/>" size="20" maxlength="20" />
                         <br />
 
                         <%--<label for="date_naissance">Date de naissance</label>

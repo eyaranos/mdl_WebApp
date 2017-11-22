@@ -42,7 +42,7 @@ public class Formule extends HttpServlet {
             connectAPIUtilisateur.insertAbonnement(user.getId(), id_formule);
         }
         catch(SQLException e){
-            this.erreurs = "Une erreur est survenue, veuillez réessayer";
+            this.erreurs = "Une erreur est survenue, veuillez réessayer 0";
         }
 
         /*---------------------- GET le customerId de la DB ---------------------*/
@@ -54,32 +54,36 @@ public class Formule extends HttpServlet {
         /*--------------------------- GET la formule demandé par le client --------*/
         String apiResponse2 = connectAPIUtilisateur.getFormule(id_formule);
         JSONObject jsonResponse2 = new JSONObject(apiResponse2);
-        beans.Formule formule = new Gson().fromJson(jsonResponse2.toString(), beans.Formule.class);
+        JSONObject formule = jsonResponse2.getJSONObject("object");
+        String tempPrix = String.valueOf(formule.getDouble("prix"));
+        String ifd = tempPrix.replace(".","");
+        int prix = Integer.valueOf(ifd);
+        //beans.Formule formule = new Gson().fromJson(jsonResponse2.toString(), beans.Formule.class);
         /*-------------------------------------------------------------------------*/
 
         /*--------------------- On fait payer le client -------------------------*/
         Stripe.apiKey = "sk_test_INynjhmwE2v6sEuUl19b8mIr";
 
         Map<String, Object> chargeParams = new HashMap<String, Object>();
-        chargeParams.put("amount", formule.getPrix());
+        chargeParams.put("amount", prix);
         chargeParams.put("currency", "eur");
         chargeParams.put("customer", customerId);
 
         try{
             Charge charge = Charge.create(chargeParams);
         }catch(AuthenticationException a){
-            this.erreurs = "Une erreur est survenue, veuillez réessayer";
+            this.erreurs = "Une erreur est survenue, veuillez réessayer 1";
         }catch(InvalidRequestException i){
-            this.erreurs = "Une erreur est survenue, veuillez réessayer";
+            this.erreurs = "Une erreur est survenue, veuillez réessayer 2";
         }catch(APIConnectionException p){
-            this.erreurs = "Une erreur est survenue, veuillez réessayer";
+            this.erreurs = "Une erreur est survenue, veuillez réessayer 3";
         }catch(CardException c){
-            this.erreurs = "Une erreur est survenue, veuillez réessayer";
+            this.erreurs = "Une erreur est survenue, veuillez réessayer 4";
         }catch(APIException e) {
-            this.erreurs = "Une erreur est survenue, veuillez réessayer";
+            this.erreurs = "Une erreur est survenue, veuillez réessayer 5";
         }
 
-        if (this.erreurs != null){
+        if (this.erreurs == null){
             this.getServletContext().getRequestDispatcher(REDIRECT).forward( request, response );
         }
         else{
@@ -114,12 +118,12 @@ public class Formule extends HttpServlet {
         }
 
         String apiResponse2 = connectAPIUtilisateur.getUserCustomerId(user.getId());
-        JSONObject obj = new JSONObject(apiResponse2);
 
-        if(obj.get("object") == null){
+        if (apiResponse2.equals("400")){
             request.setAttribute("noCreditCard", "Vous devez d'abord introduire une carte de crédit pour pouvoir souscrire un abonnement");
         }
 
+        // TODO : dont know yet if we still need this next line ??
         request.setAttribute("erreur-abonnement", "");
         this.getServletContext().getRequestDispatcher(VUE).forward( request, response );
     }
