@@ -134,10 +134,16 @@ public class ConnectAPIReparateur {
 
         //Création de la connection à l'API
         HttpURLConnection conn = this.connectAPI.connectAPIJSON("ReparateurController/getIfBikeFixing/"+id_velo, "GET");
+        JSONObject jsonResponse;
 
         String rep=connectAPI.showBackMessage(conn);
 
-        JSONObject jsonResponse = new JSONObject(rep);
+        if (rep.equals("400")){
+            jsonResponse = new JSONObject("{status : 400}");
+        }
+        else{
+            jsonResponse = new JSONObject(rep);
+        }
 
         return jsonResponse;
     }
@@ -167,15 +173,36 @@ public class ConnectAPIReparateur {
      * Update dans la table "a_repare", la date a laquelle un velo particulier a été réparé (date_fin_rep)
      *
      * @param id_velo int
+     * @param commentaire String, eventuel commentaire du réparateur à propos de la réparation effectuée
      * @return true si pas d'erreur
      * @throws IOException si erreur E/S
      */
-    public boolean updateBikeTerminated(int id_velo) throws IOException {
+    public boolean updateBikeTerminated(int id_velo, String commentaire) throws IOException {
+
+        //Création URL pour connection à l'API
+        String url=connectAPI.getUrl_API()+"ReparateurController/update/bikeToFix";
+        URL object=new URL(url);
 
         //Création de la connection à l'API
-        HttpURLConnection con = this.connectAPI.connectAPIJSON("ReparateurController/update/bikeToFix/"+id_velo, "POST");
+        HttpURLConnection conn= (HttpURLConnection) object.openConnection();
+        conn.setDoOutput( true );
+        conn.setInstanceFollowRedirects( false );
+        conn.setRequestMethod( "POST" );
+        conn.setRequestProperty( "Content-Type", "application/x-www-form-urlencoded");
+        conn.setRequestProperty( "charset", "utf-8");
+        conn.setUseCaches( false );
 
-        if (con.getResponseCode() == 200) {
+        //Création des params pour l'url
+        String urlParameters;
+        urlParameters="id_velo="+id_velo;
+        urlParameters=urlParameters+"&commentaire="+commentaire;
+
+        //Envoie des param à l'API (email et mdp)
+        OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream());
+        wr.write(urlParameters);
+        wr.flush();
+
+        if (conn.getResponseCode() == 200) {
             return true;
         }
         else{

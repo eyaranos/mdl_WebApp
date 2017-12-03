@@ -41,7 +41,7 @@ public class Map extends HttpServlet {
             e.printStackTrace();
         }
 
-        System.out.println(obj.get("object").toString());
+      //  System.out.println(obj.get("object").toString());
 
         //envoi des velos à la vue
         request.setAttribute( "liste_velo",obj.get("object").toString() );

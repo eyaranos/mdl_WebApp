@@ -5,6 +5,7 @@ public class Formule {
     private int id;
     private int duree;
     private String nom;
+    private String description;
     private float prix;
 
     public int getId() {
@@ -37,5 +38,13 @@ public class Formule {
 
     public void setPrix(float prix) {
         this.prix = prix;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

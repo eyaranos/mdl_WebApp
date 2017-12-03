@@ -43,38 +43,39 @@ public class Inscription extends HttpServlet {
 
         /* ajout du nouvel utilisateur dans la bd */
         ConnectAPIUtilisateur connectAPIUtilisateur=new ConnectAPIUtilisateur();
+        boolean inscriptionValide = false;
         try {
-            boolean inscriptionValide= connectAPIUtilisateur.insertUser(utilisateur);
-            //Test si l'utilisateur a été ajouté dans la BD del'API
-            if (inscriptionValide) {form.setResultat("Echec de l'inscription");}
+          inscriptionValide = connectAPIUtilisateur.insertUser(utilisateur);
+
         } catch (Exception e) {
             form.setErreur("email", "Email existe déjà");
             form.setResultat("Echec de l'inscription");
             e.printStackTrace();
         }
+        if(inscriptionValide){
+            //---envoi du mail de confirmation------------------------//
+            // reads SMTP server setting from web.xml file
+            ServletContext context = getServletContext();
+            String host = context.getInitParameter("host");
+            String port = context.getInitParameter("port");
+            String user = context.getInitParameter("user");
+            String pass = context.getInitParameter("pass");
 
-        //---envoi du mail de confirmation------------------------//
-        // reads SMTP server setting from web.xml file
-        ServletContext context = getServletContext();
-        String host = context.getInitParameter("host");
-        String port = context.getInitParameter("port");
-        String user = context.getInitParameter("user");
-        String pass = context.getInitParameter("pass");
+            // reads form fields
+            String recipient = utilisateur.getEmail();
+            String subject = "Confirmation de votre inscription sur Velib";
+            String content = "Veuillez suivre ce lien pour activer votre compte http://localhost:8081/activation?token="+utilisateur.getToken();
 
-        // reads form fields
-        String recipient = utilisateur.getEmail();
-        String subject = "Confirmation de votre inscription sur Velib";
-        String content = "Veuillez suivre ce lien pour activer votre compte http://localhost:8081/activation?token="+utilisateur.getToken();
-
-        try {
-            EmailUtility.sendEmail(host, port, user, pass, recipient, subject,
-                    content);
-        } catch (Exception ex) {
-            ex.printStackTrace();
-            form.setErreur("confirmation", "Un probleme est survenu dans l'envoie de la confirmation");
-            form.setResultat("Echec de l'inscription");
+            try {
+                EmailUtility.sendEmail(host, port, user, pass, recipient, subject,
+                        content);
+            } catch (Exception ex) {
+                ex.printStackTrace();
+                form.setErreur("confirmation", "Un probleme est survenu dans l'envoie de la confirmation");
+                form.setResultat("Echec de l'inscription");
+            }
+            //--------------------end send mail ----------------------------------////
         }
-        //--------------------end send mail ----------------------------------////
 
         request.setAttribute( ATT_FORM, form );
 

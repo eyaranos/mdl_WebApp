@@ -84,11 +84,15 @@ public class Formule extends HttpServlet {
         }
 
         if (this.erreurs == null){
-            this.getServletContext().getRequestDispatcher(REDIRECT).forward( request, response );
+
+            response.setContentType("text/plain");  // Set content type of the response so that jQuery knows what it can expect.
+            response.setCharacterEncoding("UTF-8");
+            response.getWriter().write("200");       // Write response body.
         }
         else{
-            request.setAttribute("erreur-abonnement", this.erreurs);
-            this.getServletContext().getRequestDispatcher(VUE).forward( request, response );
+            response.setContentType("text/plain");  // Set content type of the response so that jQuery knows what it can expect.
+            response.setCharacterEncoding("UTF-8");
+            response.getWriter().write("400");       // Write response body.
         }
     }
 
@@ -117,14 +121,24 @@ public class Formule extends HttpServlet {
             request.setAttribute("listeFormules", listeFormules);
         }
 
+        /*-------------------- Check if user has a valid credit card ----------------------*/
         String apiResponse2 = connectAPIUtilisateur.getUserCustomerId(user.getId());
-
         if (apiResponse2.equals("400")){
             request.setAttribute("noCreditCard", "Vous devez d'abord introduire une carte de crédit pour pouvoir souscrire un abonnement");
         }
 
-        // TODO : dont know yet if we still need this next line ??
-        request.setAttribute("erreur-abonnement", "");
+        /*----------- Check if user already has a valid subscription ----------------*/
+        String apiResponse3 = connectAPIUtilisateur.getActuelAbonnement(user.getId());
+        if (!apiResponse3.equals("400")){
+            JSONObject obj3 = new JSONObject(apiResponse3);
+            int reponse = obj3.getInt("object");
+            if (reponse == 0){
+                request.setAttribute("erreur_abonnement", 1);
+            }
+            else{
+                request.setAttribute("erreur_abonnement", 0);
+            }
+        }
         this.getServletContext().getRequestDispatcher(VUE).forward( request, response );
     }
 }

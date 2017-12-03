@@ -34,6 +34,16 @@ public class ListeVeloReparateur extends HttpServlet {
         Reparateur reparateur = Utils.UserUtility.getReparateurFromSession(request);
         int id_employe = reparateur.getId();
         ConnectAPIReparateur connectAPIReparateur = new ConnectAPIReparateur();
+        String commentaire_repa;
+
+        //todo : seems like it wont go through the else part.
+        if (request.getParameter("commentaire") != null){
+            commentaire_repa = request.getParameter("commentaire");
+        }
+        else{
+            commentaire_repa = "No comment";
+        }
+
         boolean isInsert = false;
         int id_velo;
 
@@ -58,13 +68,15 @@ public class ListeVeloReparateur extends HttpServlet {
             }
         }
         else{
-            if(!connectAPIReparateur.updateBikeTerminated(id_velo)){
+            if(!connectAPIReparateur.updateBikeTerminated(id_velo, commentaire_repa)){
                 this.msg = "Une erreur est survenue...";
             }
             else{
                 this.msg = "Vous avez terminé la réparation du vélo "+id_velo;
             }
         }
+
+      //  response.sendRedirect("http://localhost:8081/work/reparateur/liste");
 
         response.setContentType("text/plain");
         response.setCharacterEncoding("UTF-8");
@@ -89,41 +101,44 @@ public class ListeVeloReparateur extends HttpServlet {
         String listeVeloToFix = connectAPIReparateur.getBikesToFix(id_centre);
         //on converti la reponse string en objet json
         JSONObject obj = new JSONObject(listeVeloToFix);
-        //on recupere la partie qui nous interesse, le table de velo
-        JSONArray array = obj.getJSONArray("object");
 
         //nouvelle liste de velo que l'on renverra à la jsp
         List<VeloToFix> listeVelo = new ArrayList<VeloToFix>();
 
-        for(int i=0;i<array.length();i++){
+            //on recupere la partie qui nous interesse, le table de velo
+            JSONArray array = obj.getJSONArray("object");
 
-            JSONObject veloJson = array.getJSONObject(i);
-            VeloToFix velo = new Gson().fromJson(veloJson.toString(), VeloToFix.class);
+            for(int i=0;i<array.length();i++){
+
+                JSONObject veloJson = array.getJSONObject(i);
+                VeloToFix velo = new Gson().fromJson(veloJson.toString(), VeloToFix.class);
 
             /*-------------------- PARTIE informations sur un vélo particulier ---------------*/
-            String tempResponse = connectAPIReparateur.getInfoReparation(velo.getId(), 2);
-            if (tempResponse.equals("400") || tempResponse.equals("404")){
-                String tempResponse2 = connectAPIReparateur.getInfoReparation(velo.getId(), 1);
-                if (tempResponse2.equals("400") || tempResponse2.equals("404")){
-                    velo.setReparateur(null); //cas C
+                String tempResponse = connectAPIReparateur.getInfoReparation(velo.getId(), 2);
+                if (tempResponse.equals("400") || tempResponse.equals("404")){
+                    String tempResponse2 = connectAPIReparateur.getInfoReparation(velo.getId(), 1);
+                    if (tempResponse2.equals("400") || tempResponse2.equals("404")){
+                        velo.setReparateur(null); //cas C
+                    }
+                    else{
+                        JSONObject objResponse2 = new JSONObject(tempResponse2);
+                        Reparateur reparateur = new Gson().fromJson(objResponse2.getJSONObject("object").toString(), Reparateur.class);
+                        velo.setReparateur(reparateur);  //cas B
+                        velo.setType("terminated");
+                    }
                 }
                 else{
-                    JSONObject objResponse2 = new JSONObject(tempResponse2);
-                    Reparateur reparateur = new Gson().fromJson(objResponse2.getJSONObject("object").toString(), Reparateur.class);
-                    velo.setReparateur(reparateur);  //cas B
-                    velo.setType("terminated");
+                    JSONObject objResponse = new JSONObject(tempResponse);
+                    Reparateur reparateur = new Gson().fromJson(objResponse.getJSONObject("object").toString(), Reparateur.class);
+                    velo.setReparateur(reparateur); //cas A
+                    velo.setType("pending");
                 }
-            }
-            else{
-                JSONObject objResponse = new JSONObject(tempResponse);
-                Reparateur reparateur = new Gson().fromJson(objResponse.getJSONObject("object").toString(), Reparateur.class);
-                velo.setReparateur(reparateur); //cas A
-                velo.setType("pending");
-            }
             /*---------------------------------------------------------------------------------*/
-            listeVelo.add(velo);
-        }
+                listeVelo.add(velo);
+            }
         /*---------------------------------------------------------------------------------*/
+
+
         request.setAttribute("liste_velos", listeVelo);
 
         this.getServletContext().getRequestDispatcher(VUE).forward(request, response);

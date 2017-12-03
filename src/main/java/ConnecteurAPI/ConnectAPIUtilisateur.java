@@ -50,12 +50,16 @@ public class ConnectAPIUtilisateur {
         OutputStreamWriter wr = new OutputStreamWriter(con.getOutputStream());
         wr.write(uJson.toString());
         wr.flush();
-
-        if (con.getResponseCode() == 400) throw new SQLException("Email existe deja");
+/*
+        if (con.getResponseCode() == 400) throw new SQLException("Email existe deja");*/
         String rep= connectAPI.showBackMessage(con);
 
-        //TODO ajouter la phrase renvoyé par la db pour dire ok
-        return rep.equals("");
+        if (con.getResponseCode() == 400){
+            throw new SQLException("Email existe deja");
+        }
+        else{
+            return true;
+        }
     }
 
     public void updateUser(Utilisateur utilisateur) throws Exception {
@@ -271,6 +275,42 @@ public class ConnectAPIUtilisateur {
 
         //Création de la connection à l'API
         HttpURLConnection conn = this.connectAPI.connectAPIJSON("AbonnementController/getFormule/"+id_formule, "GET");
+
+        String rep=connectAPI.showBackMessage(conn);
+
+        return rep;
+    }
+
+    /**
+     * Recupere l'id de l'abonnement en cours d'un client
+     *
+     * @param id_client int, id du client concerné
+     * @return String, repose de l'api, 0 si pas d'abonnement en cours, sinon id de l'abonnement
+     * @throws IOException
+     */
+    public String getActuelAbonnement(int id_client) throws IOException {
+
+        //Création URL pour connection à l'API
+        String url=connectAPI.getUrl_API()+"AbonnementController/getAbonnementValable";
+        URL object=new URL(url);
+
+        //Création de la connection à l'API
+        HttpURLConnection conn= (HttpURLConnection) object.openConnection();
+        conn.setDoOutput( true );
+        conn.setInstanceFollowRedirects( false );
+        conn.setRequestMethod( "POST" );
+        conn.setRequestProperty( "Content-Type", "application/x-www-form-urlencoded");
+        conn.setRequestProperty( "charset", "utf-8");
+        conn.setUseCaches( false );
+
+        //Création des params pour l'url
+        String urlParameters;
+        urlParameters="idClient="+id_client;
+
+        //Envoie des param à l'API (email et mdp)
+        OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream());
+        wr.write(urlParameters);
+        wr.flush();
 
         String rep=connectAPI.showBackMessage(conn);
 

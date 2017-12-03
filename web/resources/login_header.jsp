@@ -25,5 +25,12 @@
                 <a class="nav-item nav-link" href="/deconnection">Deconnexion</a>
             </li>
         </ul>
-
+        <p>
+            <c:if test="${!empty sessionScope.sessionReparateur}">
+                ${sessionScope.sessionReparateur.email}
+            </c:if>
+            <c:if test="${!empty sessionScope.sessionUtilisateur}">
+                ${sessionScope.sessionUtilisateur.email}
+            </c:if>
+        </p>
 </nav>

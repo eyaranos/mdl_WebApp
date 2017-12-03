@@ -5,6 +5,7 @@ import DAO.UtilisateurDao;
 import Form.InscriptionForm;
 import Form.ProfileForm;
 import Utils.UserUtility;
+import beans.Reparateur;
 import beans.Utilisateur;
 import com.google.gson.Gson;
 
@@ -59,11 +60,18 @@ public class Profile extends HttpServlet {
         String userJson;
         Utilisateur utilisateur = new Utilisateur();
         Gson gson = new Gson();
+        int id;
 
-        //TODO : gestion des reparateur
+
         //cast de l'obj du beans Utilisateur qui se trouve dans la session pour recup l'id du user
         Utilisateur user = UserUtility.getUserFromSession(request);
-        int id = user.getId();
+        if (user == null){
+            Reparateur repa = UserUtility.getReparateurFromSession(request);
+            id = repa.getId();
+        }
+        else{
+            id = user.getId();
+        }
         //-----------------------------------------------------------------------------------------
 
         /* recup infos utilisateur dans la bd */

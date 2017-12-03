@@ -41,7 +41,6 @@
                     <%-- 3 cas différents pour l'affichage des 2 dernières cololnes --%>
                     <c:if test="${velo.type == 'pending'}">
                         <td><b>${velo.reparateur.nom}</b> est en train de réparer ce vélo</td>
-                        <%--TODO : disable this checkbox for everybody but the one who started to fix it--%>
                         <td><form class="form-repa-terminer" action="/work/reparateur/liste"> <input type="checkbox" name="checkbox-repa-terminated" value="${velo.id}" class="checkbox-repa-trigger" <c:if test="${!(velo.reparateur.id == sessionScope.sessionReparateur.id)}">disabled </c:if></form></td>
                     </c:if>
 
@@ -52,27 +51,53 @@
 
                     <c:if test="${empty velo.reparateur}">
                         <td><form class="form-repa-encours" action="/work/reparateur/liste"> <input type="checkbox" name="checkbox-repa-pending" value="${velo.id}" class="checkbox-repa-trigger"></form></td>
-                        <td><form class="form-repa-terminer" action="/work/reparateur/liste"> <input type="checkbox" name="checkbox-repa-terminated" value="${velo.id}" class="checkbox-repa-trigger"></form></td>
+                        <td><form class="form-repa-terminer" action="/work/reparateur/liste"><input type="checkbox" name="checkbox-repa-terminated" value="${velo.id}" class="checkbox-repa-trigger"></form></td>
                     </c:if>
+
+                    <td><textarea name="commentaire_repa" class="commentaire_repa" cols="30" rows="5"></textarea></td>
                 </tr>
             </c:forEach>
         </tbody>
     </table>
+    <c:if test="${empty liste_velos}">
+        <p>Pas de vélo à réparé...</p>
+    </c:if>
+
     <p style="color:#f8cb76" id="erreur-repa"></p>
+    <p style="color:#0b8b10" id="ok-repa"></p>
 
 
 </div>
 <%@ include file="/resources/includeJS.html" %>
+
 <script>
     $('.checkbox-repa-trigger').on('change', function(){
 
         var id_velo = $(this).val();
         var keyForServlet = $(this).attr("name");
-        $.post('/work/reparateur/liste',{idVelo:id_velo, type:keyForServlet}, function(responseText){
-            $('#erreur-repa').text(responseText);
-            /*window.location.replace("http://localhost:8081/work/reparateur/liste");*/
+        var commentaire = $('.commentaire_repa').val();
+       var ajax = $.post('/work/reparateur/liste',{idVelo:id_velo, type:keyForServlet, commentaire:commentaire}, function(responseText){
+           $('#ok-repa').text(responseText);
+           setTimeout(function() {
+               window.location.href = "";
+           }, 2000);
         })
+            .fail(function(){
+                $('#erreur-repa').text(responseText);
+            });
     });
+
+    $(".commentaire_repa").on('change', function(){
+
+        if ($(this).val().length == 0){
+            $('input[type=text], textarea').prop('disabled', false);
+        }
+        else{
+            //textarea not empty
+            $('input[type=text], textarea').not(this).prop('disabled', true);
+        }
+    })
 </script>
+
 </body>
 </html>
