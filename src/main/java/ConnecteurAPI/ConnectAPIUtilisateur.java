@@ -184,7 +184,7 @@ public class ConnectAPIUtilisateur {
         //Création de la connection à l'API
         HttpURLConnection con = this.connectAPI.connectAPIJSON("CreditCardController/insertCreditCard/"+id_client+"/"+customerId+"/"+partialCardNumber, "PUT");
 
-        if (con.getResponseCode() == 400 ){
+        if (con.getResponseCode() != 200 ){
            throw new SQLException("Erreur lors de l'insertion de la carte");
         }
         else{
@@ -315,5 +315,73 @@ public class ConnectAPIUtilisateur {
         String rep=connectAPI.showBackMessage(conn);
 
         return rep;
+    }
+
+    /**
+     * Permet de récupérer l'ensemble des trajets effectués par un client
+     *
+     * @param id_client int, le client concerné
+     * @return reponse de l'api, la liste de trajets
+     * @throws IOException si erreur E/S
+     */
+    public String getTrajets(int id_client) throws IOException {
+
+        //Création de la connection à l'API
+        HttpURLConnection conn = this.connectAPI.connectAPIJSON("UserController/getTrajets/"+id_client, "GET");
+
+        String rep=connectAPI.showBackMessage(conn);
+
+        return rep;
+    }
+
+    /**
+     *  Récupère l'ensemble des zones de lock
+     * @return reponse de l'api String, soit code d'erreur soit la liste des zone de lock
+     * @throws IOException
+     */
+    public String getZoneLock() throws IOException {
+
+        //Création de la connection à l'API
+        HttpURLConnection conn = this.connectAPI.connectAPIJSON("ZoneLockController/getZoneLock", "GET");
+
+        String rep=connectAPI.showBackMessage(conn);
+
+        return rep;
+    }
+
+    public String getLast4(int id_client) throws IOException {
+
+        //Création de la connection à l'API
+        HttpURLConnection conn = this.connectAPI.connectAPIJSON("CreditCardController/getLast4/"+id_client, "GET");
+
+        String rep=connectAPI.showBackMessage(conn);
+
+        return rep;
+    }
+
+    public String updateCreditCard(String customerId, String partialCardNumber) throws SQLException, IOException {
+
+        //Création de la connection à l'API
+        HttpURLConnection con = this.connectAPI.connectAPIJSON("CreditCardController/updateCreditCard/"+customerId+"/"+partialCardNumber, "PUT");
+
+        if (con.getResponseCode() != 200 ){
+            throw new SQLException("Erreur lors de la mise a jour de la carte");
+        }
+        else{
+            return "ok" ;
+        }
+    }
+
+    public String deleteCreditCard(String customerId) throws SQLException, IOException {
+
+        //Création de la connection à l'API
+        HttpURLConnection con = this.connectAPI.connectAPIJSON("CreditCardController/deleteCreditCard/"+customerId, "DELETE");
+
+        if (con.getResponseCode() != 200 ){
+            throw new SQLException("Erreur lors de la suppression de la carte");
+        }
+        else{
+            return "ok" ;
+        }
     }
 }

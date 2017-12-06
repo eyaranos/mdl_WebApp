@@ -43,8 +43,37 @@
                         <div id="card-error" role="alert"> <c:if test="${!errorInsertCard == null}">${errorInsertCard}</c:if></div>
                     </div>
 
-                    <button class="btn" >Add credit card</button>
+                    <c:if test="${!empty cardExistAlready}">
+                        <button class="btn" disabled >Add credit card</button>
+                        <p  style="color:#f8c74b;">${cardExistAlready}</p>
+                    </c:if>
+
+
+                    <c:if test="${empty cardExistAlready}">
+                        <button class="btn">Add credit card</button>
+                    </c:if>
+
                 </form>
+
+                <div class="row" style="margin-top:50px;">
+                    <div class="card" style="text-align:center;">
+                        <h4 class="card-header">Carte active</h4>
+                        <div class="card-block" style="padding:30px;">
+                            <p class="card-text">${last4}</p>
+                            <a href="/profile/update/creditCard" class="btn btn-outline-primary btn-sm">Mettre à jour</a>
+                            <a href="/profile/delete/creditCard" class="btn btn-outline-danger btn-sm">Supprimer</a>
+                        </div>
+                    </div>
+                </div>
+
+                <c:if test="${!empty errorDeleteCard}">
+                    <p style="color:darkred;">${errorDeleteCard}</p>
+                </c:if>
+
+
+                <c:if test="${!empty okDeleteCard}">
+                    <p style="color:darkgreen;">${okDeleteCard}</p>
+                </c:if>
 
             </div>
         </div>

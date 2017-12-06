@@ -28,23 +28,34 @@ public class Map extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         String velosJson = null;
+        String zonesJson = null;
         JSONObject obj = null;
+        JSONObject obj2 = null;
 
         /* recup velos dans la bd */
         ConnectAPIUtilisateur connectAPIUtilisateur=new ConnectAPIUtilisateur();
         try {
             velosJson = connectAPIUtilisateur.getBikes();
-
             obj = new JSONObject(velosJson);
+            //envoi des velos à la vue
+            request.setAttribute( "liste_velo",obj.get("object").toString());
 
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-      //  System.out.println(obj.get("object").toString());
+        /*recup des zone de lock dans la bd*/
+        try{
+            zonesJson = connectAPIUtilisateur.getZoneLock();
+            obj2 = new JSONObject(zonesJson);
+            //envoi des zone à la vue
+            request.setAttribute( "liste_zone",obj2.get("object").toString());
 
-        //envoi des velos à la vue
-        request.setAttribute( "liste_velo",obj.get("object").toString() );
+        } catch(Exception e){
+            e.printStackTrace();
+        }
+
+
 
         this.getServletContext().getRequestDispatcher(VUE).forward(request,response);
     }

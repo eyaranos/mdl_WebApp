@@ -37,20 +37,36 @@
         });
 
 
-        var results = ${liste_velo};
+        var results_velo = ${liste_velo};
 
-        $.each(results, function(key, data){
+        $.each(results_velo, function(key, data){
 
             var latLng = new google.maps.LatLng(data.latitude, data.longitude);
 
             var marker = new google.maps.Marker({
                 position: latLng,
-                map: map,
-                title: data.id
+                map: map
+                //title: data.id
             });
             bindInfoWindow(marker, map, infowindow);
 
-        })
+        });
+
+        var results_zone = ${liste_zone};
+
+        $.each(results_zone, function(key, data) {
+
+            var cityCircle = new google.maps.Circle({
+                strokeColor: '#f8c74b',
+                strokeOpacity: 0.8,
+                strokeWeight: 2,
+                fillColor: '#f8c74b',
+                fillOpacity: 0.35,
+                map: map,
+                center: {lat:data.lat, lng:data.lon},
+                radius: data.rayon
+            });
+        });
     }
 
     var infowindow = new google.maps.InfoWindow();

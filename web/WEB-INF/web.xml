@@ -85,6 +85,16 @@
     </servlet-mapping>
 
     <servlet>
+        <servlet-name>trajet</servlet-name>
+        <servlet-class>servletPack.Trajet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>trajet</servlet-name>
+        <url-pattern>/profile/trajets</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
         <servlet-name>formules</servlet-name>
         <servlet-class>servletPack.Formule</servlet-class>
     </servlet>
@@ -112,6 +122,16 @@
     <servlet-mapping>
         <servlet-name>addCreditCard</servlet-name>
         <url-pattern>/profile/add/creditCard</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>deleteCreditCard</servlet-name>
+        <servlet-class>servletPack.DeleteCreditCard</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>deleteCreditCard</servlet-name>
+        <url-pattern>/profile/delete/creditCard</url-pattern>
     </servlet-mapping>
 
     <servlet>

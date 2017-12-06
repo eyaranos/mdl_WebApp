@@ -5,7 +5,10 @@ import Utils.UserUtility;
 import beans.Utilisateur;
 import com.stripe.Stripe;
 import com.stripe.exception.*;
+import com.stripe.model.Card;
 import com.stripe.model.Customer;
+import com.stripe.model.ExternalAccount;
+import org.json.JSONObject;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -16,6 +19,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @WebServlet(name = "AddCreditCard")
@@ -31,12 +35,6 @@ public class AddCreditCard extends HttpServlet {
 
         Stripe.apiKey = "sk_test_INynjhmwE2v6sEuUl19b8mIr";
         String token = request.getParameter("stripeToken");
-
-        //todo : fix bug null pointer exception l37
-        //get just the 4 last number of the card number to zllow user to know which card is currently active
-        /*String cardNumber = request.getParameter("cardnumber");
-        String fourLastDigitTemp = cardNumber.substring(cardNumber.length()-4, cardNumber.length()-1);*/
-        String fourLastDigit = "xxxx"; /*"xxxxxxxxxxxxxxxx-"+fourLastDigitTemp;*/
 
         // Create a Customer:
         Map<String, Object> customerParams = new HashMap<String, Object>();
@@ -56,6 +54,11 @@ public class AddCreditCard extends HttpServlet {
 
         }
 
+        List<ExternalAccount> carteTemp = customer.getSources().getData();
+        Card carte = (Card)carteTemp.get(0);
+        String fourLastDigit = carte.getLast4();
+
+
         //customerId insert into the db. To user to charge client in the future
         ConnectAPIUtilisateur connectAPIUtilisateur=new ConnectAPIUtilisateur();
         try{
@@ -68,12 +71,28 @@ public class AddCreditCard extends HttpServlet {
                 this.getServletContext().getRequestDispatcher(VUE).forward( request, response );
             }
         }catch(SQLException e){
-
+            request.setAttribute("errorInsertCard", "Un erreur est survenu lors de l'ajout de votre carte...");
+            this.getServletContext().getRequestDispatcher(VUE).forward( request, response );
         }
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+
+        Utilisateur user = UserUtility.getUserFromSession(request);
+        ConnectAPIUtilisateur connectAPIUtilisateur=new ConnectAPIUtilisateur();
+        String last4 = null;
+        String apiResponse;
+
+        if ((apiResponse = connectAPIUtilisateur.getLast4(user.getId())).equals("400")){
+            request.setAttribute("last4", "Vous n'avez pas encore de carte liée à votre compte...");
+        }
+        else{
+            JSONObject obj = new JSONObject(apiResponse);
+            last4 = obj.getString("object");
+            request.setAttribute("last4", "xxxx-xxxx-xxxx-"+last4);
+            request.setAttribute("cardExistAlready", "Vous ne pouvez utiliser qu'une seule carte...");
+        }
 
         this.getServletContext().getRequestDispatcher(VUE).forward(request,response);
     }

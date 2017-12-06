@@ -6,16 +6,13 @@
                 <a class="nav-link active" href="/profile/abonnements">Abonnements</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="">Voir carte active</a>
+                <a class="nav-link active" href="/profile/trajets">Mes trajets</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/profile/add/creditCard">Ajouter une carte de crédit</a>
+                <a class="nav-link" href="/profile/add/creditCard">Carte de credit</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/profile/update/creditCard">Mettre à jour une carte</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="">Paramètres</a>
+                <a class="nav-link" href="">Parametres</a>
             </li>
         </ul>
     </nav>

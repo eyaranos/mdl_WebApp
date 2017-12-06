@@ -46,6 +46,10 @@
                     <button class="btn" >Update credit card</button>
                 </form>
 
+                <c:if test="${!empty errorUpdateCard}">
+                    <p class="alert alert-danger alert-dismissible fade show" role="alert">${errorUpdateCard}</p>
+                </c:if>
+
             </div>
         </div>
     </div>
