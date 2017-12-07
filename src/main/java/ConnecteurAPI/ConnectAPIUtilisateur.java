@@ -257,7 +257,7 @@ public class ConnectAPIUtilisateur {
         HttpURLConnection con = this.connectAPI.connectAPIJSON("AbonnementController/insertAbonnement/"+id_client+"/"+id_formule, "POST");
 
         if (con.getResponseCode() == 400 ){
-            throw new SQLException("Erreur lors de l'insertion de la carte");
+            throw new SQLException("Erreur lors de l'insertion de l'abonnement");
         }
         else{
             return "ok" ;
@@ -349,6 +349,12 @@ public class ConnectAPIUtilisateur {
         return rep;
     }
 
+    /**
+     * Recupere les 4 derniers chiffre de la carte de credit du client pour lui faire savoir qu'elle carte il utilise
+     * @param id_client int, le client concerné
+     * @return api response String
+     * @throws IOException si erreur E/S
+     */
     public String getLast4(int id_client) throws IOException {
 
         //Création de la connection à l'API
@@ -359,6 +365,15 @@ public class ConnectAPIUtilisateur {
         return rep;
     }
 
+    /**
+     * Permet de mettre à jour les infos d'une carte de credit liée à un client.
+     *
+     * @param customerId
+     * @param partialCardNumber
+     * @return
+     * @throws SQLException
+     * @throws IOException
+     */
     public String updateCreditCard(String customerId, String partialCardNumber) throws SQLException, IOException {
 
         //Création de la connection à l'API

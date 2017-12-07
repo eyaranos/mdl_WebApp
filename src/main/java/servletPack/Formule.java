@@ -28,7 +28,7 @@ public class Formule extends HttpServlet {
 
     public static final String VUE = "/RestrictAccess/Profile/Formule.jsp";
     public static final String REDIRECT = "/RestrictAccess/Profile/Abonnement.jsp";
-    private String erreurs;
+    private String erreurs = null;
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
@@ -42,7 +42,7 @@ public class Formule extends HttpServlet {
             connectAPIUtilisateur.insertAbonnement(user.getId(), id_formule);
         }
         catch(SQLException e){
-            this.erreurs = "Une erreur est survenue, veuillez réessayer 0";
+            e.printStackTrace();
         }
 
         /*---------------------- GET le customerId de la DB ---------------------*/

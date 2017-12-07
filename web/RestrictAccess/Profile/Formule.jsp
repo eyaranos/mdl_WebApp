@@ -59,13 +59,13 @@
         </tbody>
     </table>
 
-    <c:if test="${erreur_abonnement == 1}">
+  <%--  <c:if test="${erreur_abonnement == 1}">--%>
         <button id="btn-choose-formule" type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-confirm" disabled>Choisir</button>
-    </c:if>
+   <%-- </c:if>--%>
 
-    <c:if test="${erreur_abonnement == 0}">
+ <%--   <c:if test="${erreur_abonnement == 0}">
         <p style="color:#f8c74b;">Vous avez déjà un abonnement en cours...</p>
-    </c:if>
+    </c:if>--%>
 
     <c:if test="${noCreditCard != null}">
         <p style="color:darkred;">${noCreditCard}</p>
