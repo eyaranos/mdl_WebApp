@@ -59,6 +59,7 @@ public class ConnexionFormReparateur {
         if (!infoUser.equals("400") && !infoUser.equals("404")){
             JSONObject obj = new JSONObject(infoUser);
            reparateur.setId(obj.getInt("id"));
+           reparateur.setAuth(obj.getString("auth"));
 
             try{
                 if(!Utils.hashPassword.validatePassword(motDePasse, obj.getString("mdp"))){

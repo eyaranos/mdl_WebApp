@@ -70,22 +70,29 @@ public class ForgetPassword extends HttpServlet {
         ConnectAPIUtilisateur connectAPIUtilisateur=new ConnectAPIUtilisateur();
         //todo : check si la reponse recue est un 404 (= user pas trouvé car email pas nexistant dans le systeme)
         String infoUser = connectAPIUtilisateur.checkConnectionUser(user);
-        user = gson.fromJson(infoUser, Utilisateur.class);
 
-        //------------ hash du new temp password + update de l'user en db
-        try{
-           String generatedSecuredPasswordHash = Utils.hashPassword.generateStrongPasswordHash(newPwd);
-            user.setMdp(generatedSecuredPasswordHash);
-            connectAPIUtilisateur.updateUser(user);
+        if(!infoUser.equals("404") && !infoUser.equals("400")){
+
+            user = gson.fromJson(infoUser, Utilisateur.class);
+
+            //------------ hash du new temp password + update de l'user en db
+            try{
+                String generatedSecuredPasswordHash = Utils.hashPassword.generateStrongPasswordHash(newPwd);
+                user.setMdp(generatedSecuredPasswordHash);
+                connectAPIUtilisateur.updateUser(user);
+            }
+            catch(NoSuchAlgorithmException a){
+                a.printStackTrace();
+            }
+            catch(InvalidKeySpecException i){
+                i.printStackTrace();
+            }
+            catch(Exception e){
+                e.printStackTrace();
+            }
         }
-        catch(NoSuchAlgorithmException a){
-            a.printStackTrace();
-        }
-        catch(InvalidKeySpecException i){
-            i.printStackTrace();
-        }
-        catch(Exception e){
-            e.printStackTrace();
+        else{
+            setErreur(CHAMP_EMAIL, "erreur email incorrect ou inexistant" );
         }
 
         if (erreurs.isEmpty()) {

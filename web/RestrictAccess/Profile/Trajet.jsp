@@ -43,7 +43,9 @@
 
         </tbody>
     </table>
-
+    <c:if test="${empty listeTrajets}">
+        <p>Vous n'avez pas encore effectué de trajet</p>
+    </c:if>
 
 </div>
 <%@ include file="/resources/includeJS.html" %>

@@ -4,6 +4,7 @@ import beans.Utilisateur;
 import org.json.JSONObject;
 
 
+import javax.servlet.http.HttpSession;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -22,11 +23,19 @@ public class ConnectAPI {
     private final String USER_AGENT = "Mozilla/5.0";
     private String url_API ="http://188.226.175.148:8080/MDL-API-0.0.1-SNAPSHOT/restservices/";
    //private String url_API ="http://localhost:8080/restservices/";
+    private String auth;
+
+
+    public ConnectAPI(String auth){
+        this.auth = auth;
+    }
+
+
+    public ConnectAPI(){ }
 
     /*
     Affiche dans le terminal le message recu dans la HttpURLConnection con
      */
-
     public String showBackMessage(HttpURLConnection con) throws IOException {
         //display what returns the POST request
 
@@ -68,12 +77,22 @@ public class ConnectAPI {
         con.setDoInput(true);
         con.setRequestProperty("Content-Type", "application/json");
         con.setRequestProperty("Accept", "application/json");
+        con.setRequestProperty("Authorization", getAuth() );
         con.setRequestMethod(method);
+
 
         return con;
     }
 
     public String getUrl_API() {
         return url_API;
+    }
+
+    public String getAuth() {
+        return auth;
+    }
+
+    public void setAuth(String auth) {
+        this.auth = auth;
     }
 }

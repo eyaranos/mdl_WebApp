@@ -54,7 +54,7 @@
                         <td><form class="form-repa-terminer" action="/work/reparateur/liste"><input type="checkbox" name="checkbox-repa-terminated" value="${velo.id}" class="checkbox-repa-trigger"></form></td>
                     </c:if>
 
-                    <td><textarea name="commentaire_repa" class="commentaire_repa" cols="30" rows="5"></textarea></td>
+                    <td><textarea name="commentaire_repa" class="commentaire_repa" cols="30" rows="5" placeholder="Commentaire : "></textarea></td>
                 </tr>
             </c:forEach>
         </tbody>

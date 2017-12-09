@@ -16,6 +16,7 @@ public class Utilisateur {
     private String num;
     private String token;
     private Date dateNaissance;
+    private String auth;
 
     public int getId() {
         return id;
@@ -111,5 +112,21 @@ public class Utilisateur {
 
     public void setToken(String token) {
         this.token = token;
+    }
+
+    public String getCodeP() {
+        return codeP;
+    }
+
+    public void setCodeP(String codeP) {
+        this.codeP = codeP;
+    }
+
+    public String getAuth() {
+        return auth;
+    }
+
+    public void setAuth(String auth) {
+        this.auth = auth;
     }
 }

@@ -25,7 +25,7 @@ public class DeleteCreditCard extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         Utilisateur user = UserUtility.getUserFromSession(request);
-        ConnectAPIUtilisateur connectAPIUtilisateur=new ConnectAPIUtilisateur();
+        ConnectAPIUtilisateur connectAPIUtilisateur=new ConnectAPIUtilisateur(user.getAuth());
         String apiResponse = connectAPIUtilisateur.getUserCustomerId(user.getId());
 
         JSONObject obj = new JSONObject(apiResponse);

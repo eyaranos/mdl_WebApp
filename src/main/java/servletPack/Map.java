@@ -1,6 +1,8 @@
 package servletPack;
 
 import ConnecteurAPI.ConnectAPIUtilisateur;
+import Utils.UserUtility;
+import beans.Utilisateur;
 import beans.Velo;
 import com.google.gson.Gson;
 import jdk.nashorn.internal.parser.JSONParser;
@@ -31,9 +33,10 @@ public class Map extends HttpServlet {
         String zonesJson = null;
         JSONObject obj = null;
         JSONObject obj2 = null;
+        Utilisateur user = UserUtility.getUserFromSession(request);
 
         /* recup velos dans la bd */
-        ConnectAPIUtilisateur connectAPIUtilisateur=new ConnectAPIUtilisateur();
+        ConnectAPIUtilisateur connectAPIUtilisateur=new ConnectAPIUtilisateur(user.getAuth());
         try {
             velosJson = connectAPIUtilisateur.getBikes();
             obj = new JSONObject(velosJson);
@@ -54,8 +57,6 @@ public class Map extends HttpServlet {
         } catch(Exception e){
             e.printStackTrace();
         }
-
-
 
         this.getServletContext().getRequestDispatcher(VUE).forward(request,response);
     }

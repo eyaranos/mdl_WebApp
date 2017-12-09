@@ -13,8 +13,12 @@ import java.sql.SQLException;
 public class ConnectAPIReparateur {
     private ConnectAPI connectAPI;
 
+    public ConnectAPIReparateur(String auth){
+        this.connectAPI =new ConnectAPI(auth);
+    }
+
     public ConnectAPIReparateur(){
-        this.connectAPI =new ConnectAPI();
+
     }
 
 

@@ -14,6 +14,7 @@ public class Reparateur {
     private String pays;
     private String numTel;
     private Date dateNaissance;
+    private String auth;
 
     public int getId() {
         return id;
@@ -101,5 +102,13 @@ public class Reparateur {
 
     public void setDateNaissance(Date dateNaissance) {
         this.dateNaissance = dateNaissance;
+    }
+
+    public String getAuth() {
+        return auth;
+    }
+
+    public void setAuth(String auth) {
+        this.auth = auth;
     }
 }

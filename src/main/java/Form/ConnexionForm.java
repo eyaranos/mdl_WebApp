@@ -70,6 +70,7 @@ public class ConnexionForm {
             if (!infoUser.equals("400") && !infoUser.equals("404")){
                 JSONObject obj = new JSONObject(infoUser);
                 utilisateur.setId(obj.getInt("id"));
+                utilisateur.setAuth(obj.getString("auth"));
 
                 if (!obj.getString("token").equals("activated")){
                     setErreur( NOT_ACTIVATED,"Votre compte n'est pas encore activé" );

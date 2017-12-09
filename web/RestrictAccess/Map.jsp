@@ -46,8 +46,12 @@
             var marker = new google.maps.Marker({
                 position: latLng,
                 map: map
-                //title: data.id
             });
+
+            var infowindow = new google.maps.InfoWindow({
+                content: "id vélo : " +(data.id).toString()
+            });
+
             bindInfoWindow(marker, map, infowindow);
 
         });
@@ -64,12 +68,10 @@
                 fillOpacity: 0.35,
                 map: map,
                 center: {lat:data.lat, lng:data.lon},
-                radius: data.rayon
+                radius: (111195*data.rayon)
             });
         });
     }
-
-    var infowindow = new google.maps.InfoWindow();
 
     function bindInfoWindow(marker, map, infowindow) {
         google.maps.event.addListener(marker, 'click', function () {

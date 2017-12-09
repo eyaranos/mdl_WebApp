@@ -15,17 +15,29 @@ import java.sql.SQLException;
 public class ConnectAPIUtilisateur {
 
     private ConnectAPI connectAPI;
+    private String auth;
 
-    public ConnectAPIUtilisateur(){
-        this.connectAPI =new ConnectAPI();
+
+    public ConnectAPIUtilisateur(String auth){
+
+        this.connectAPI = new ConnectAPI(auth);
+        this.auth = auth;
     }
 
+    public ConnectAPIUtilisateur(){
+
+        this.connectAPI = new ConnectAPI();
+    }
+
+    public String getAuth() {
+        return auth;
+    }
 
     /*
-    Envoie dans un objet JSOn les données de l'utilisateur
-    return true si l'API a ajouté l'utilisateur à la db
-    Sinon false
-     */
+        Envoie dans un objet JSOn les données de l'utilisateur
+        return true si l'API a ajouté l'utilisateur à la db
+        Sinon false
+         */
     public boolean insertUser(Utilisateur utilisateur) throws SQLException, IOException {
 
         //Création de la connection à l'API
@@ -301,6 +313,7 @@ public class ConnectAPIUtilisateur {
         conn.setRequestMethod( "POST" );
         conn.setRequestProperty( "Content-Type", "application/x-www-form-urlencoded");
         conn.setRequestProperty( "charset", "utf-8");
+        conn.setRequestProperty("Authorization", this.getAuth() );
         conn.setUseCaches( false );
 
         //Création des params pour l'url

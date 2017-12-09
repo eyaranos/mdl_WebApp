@@ -28,7 +28,7 @@ public class Abonnement extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         Utilisateur user = Utils.UserUtility.getUserFromSession(request);
-        ConnectAPIUtilisateur connectAPIUtilisateur=new ConnectAPIUtilisateur();
+        ConnectAPIUtilisateur connectAPIUtilisateur=new ConnectAPIUtilisateur(user.getAuth());
         List<beans.Abonnement> listeAbos = new ArrayList<beans.Abonnement>();
 
         String apiResponse = connectAPIUtilisateur.getAbonnements(user.getId());

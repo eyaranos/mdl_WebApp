@@ -44,7 +44,7 @@ public class Profile extends HttpServlet {
         request.setAttribute( ATT_USER, utilisateur );
 
         /* update des infos utilisateur dans la bd */
-        ConnectAPIUtilisateur connectAPIUtilisateur=new ConnectAPIUtilisateur();
+        ConnectAPIUtilisateur connectAPIUtilisateur=new ConnectAPIUtilisateur(user.getAuth());
         try {
             connectAPIUtilisateur.updateUser(utilisateur);
         } catch (Exception e) {
@@ -75,7 +75,7 @@ public class Profile extends HttpServlet {
         //-----------------------------------------------------------------------------------------
 
         /* recup infos utilisateur dans la bd */
-        ConnectAPIUtilisateur connectAPIUtilisateur=new ConnectAPIUtilisateur();
+        ConnectAPIUtilisateur connectAPIUtilisateur=new ConnectAPIUtilisateur(user.getAuth());
         try {
             userJson = connectAPIUtilisateur.getUser(id);
             //map l'objet json recup de la bd à notre beans utilisateur

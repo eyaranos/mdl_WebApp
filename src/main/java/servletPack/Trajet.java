@@ -27,7 +27,7 @@ public class Trajet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         Utilisateur user = Utils.UserUtility.getUserFromSession(request);
-        ConnectAPIUtilisateur connectAPIUtilisateur=new ConnectAPIUtilisateur();
+        ConnectAPIUtilisateur connectAPIUtilisateur=new ConnectAPIUtilisateur(user.getAuth());
         List<beans.Trajet> listeTrajet = new ArrayList<beans.Trajet>();
 
         String apiResponse = connectAPIUtilisateur.getTrajets(user.getId());

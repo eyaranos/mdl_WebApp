@@ -33,7 +33,7 @@ public class ListeVeloReparateur extends HttpServlet {
         //recup des variables nécessaire au process
         Reparateur reparateur = Utils.UserUtility.getReparateurFromSession(request);
         int id_employe = reparateur.getId();
-        ConnectAPIReparateur connectAPIReparateur = new ConnectAPIReparateur();
+        ConnectAPIReparateur connectAPIReparateur = new ConnectAPIReparateur(reparateur.getAuth());
         String commentaire_repa;
 
         //todo : seems like it wont go through the else part.
@@ -88,7 +88,7 @@ public class ListeVeloReparateur extends HttpServlet {
         //recup le reparateur en session
         Reparateur employe = UserUtility.getReparateurFromSession(request);
         //connection + query l'API
-        ConnectAPIReparateur connectAPIReparateur = new ConnectAPIReparateur();
+        ConnectAPIReparateur connectAPIReparateur = new ConnectAPIReparateur(employe.getAuth());
 
         /*-------------------- PARTIE liste des velos dans un centre en particulier ---------------*/
         //TODO : check that apiResponse doesnt send back an error (shouldnt append)
@@ -99,11 +99,13 @@ public class ListeVeloReparateur extends HttpServlet {
         int id_centre = Integer.valueOf(jsonResponse.getString("object"));
         //query l'API avec cet id
         String listeVeloToFix = connectAPIReparateur.getBikesToFix(id_centre);
-        //on converti la reponse string en objet json
-        JSONObject obj = new JSONObject(listeVeloToFix);
 
         //nouvelle liste de velo que l'on renverra à la jsp
         List<VeloToFix> listeVelo = new ArrayList<VeloToFix>();
+
+        if (!listeVeloToFix.equals("400")){
+            //on converti la reponse string en objet json
+            JSONObject obj = new JSONObject(listeVeloToFix);
 
             //on recupere la partie qui nous interesse, le table de velo
             JSONArray array = obj.getJSONArray("object");
@@ -138,7 +140,7 @@ public class ListeVeloReparateur extends HttpServlet {
             }
         /*---------------------------------------------------------------------------------*/
 
-
+        }
         request.setAttribute("liste_velos", listeVelo);
 
         this.getServletContext().getRequestDispatcher(VUE).forward(request, response);

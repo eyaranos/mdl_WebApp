@@ -29,7 +29,7 @@
 
             <div class="col-md-6" id="profile-main-col">
 
-                <h3>Profile</h3>
+                <h3>Profil</h3>
 
                 <form id="form-profile" method="post" action="">
                     <fieldset>

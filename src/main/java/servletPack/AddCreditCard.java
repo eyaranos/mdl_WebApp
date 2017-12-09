@@ -60,7 +60,7 @@ public class AddCreditCard extends HttpServlet {
 
 
         //customerId insert into the db. To user to charge client in the future
-        ConnectAPIUtilisateur connectAPIUtilisateur=new ConnectAPIUtilisateur();
+        ConnectAPIUtilisateur connectAPIUtilisateur=new ConnectAPIUtilisateur(user.getAuth());
         try{
             if(connectAPIUtilisateur.insertCreditCard(user.getId(),  customer.getId(),fourLastDigit).equals("ok")){
                 request.setAttribute("succesInsertCard", "Votre carte a bien été ajoutée !");
@@ -80,7 +80,7 @@ public class AddCreditCard extends HttpServlet {
 
 
         Utilisateur user = UserUtility.getUserFromSession(request);
-        ConnectAPIUtilisateur connectAPIUtilisateur=new ConnectAPIUtilisateur();
+        ConnectAPIUtilisateur connectAPIUtilisateur=new ConnectAPIUtilisateur(user.getAuth());
         String last4 = null;
         String apiResponse;
 

@@ -31,7 +31,7 @@ public class UpdateCreditCard extends HttpServlet {
         Utilisateur user = UserUtility.getUserFromSession(request);
         Customer customer = null;
 
-        ConnectAPIUtilisateur connectAPIUtilisateur=new ConnectAPIUtilisateur();
+        ConnectAPIUtilisateur connectAPIUtilisateur=new ConnectAPIUtilisateur(user.getAuth());
         String customerId = connectAPIUtilisateur.getUserCustomerId(user.getId());
 
         Stripe.apiKey = "sk_test_INynjhmwE2v6sEuUl19b8mIr";

@@ -35,7 +35,7 @@ public class Formule extends HttpServlet {
         //recup les variables dont on aura besoin
         int id_formule = Integer.valueOf(request.getParameter("id_formule"));
         Utilisateur user = Utils.UserUtility.getUserFromSession(request);
-        ConnectAPIUtilisateur connectAPIUtilisateur = new ConnectAPIUtilisateur();
+        ConnectAPIUtilisateur connectAPIUtilisateur = new ConnectAPIUtilisateur(user.getAuth());
 
         /*----------------- INSERT dans la table abonnement -------------------*/
         try{
@@ -55,10 +55,10 @@ public class Formule extends HttpServlet {
         String apiResponse2 = connectAPIUtilisateur.getFormule(id_formule);
         JSONObject jsonResponse2 = new JSONObject(apiResponse2);
         JSONObject formule = jsonResponse2.getJSONObject("object");
-        String tempPrix = String.valueOf(formule.getDouble("prix"));
+        Double pi = formule.getDouble("prix") * 10;
+        String tempPrix = String.valueOf(pi);
         String ifd = tempPrix.replace(".","");
         int prix = Integer.valueOf(ifd);
-        //beans.Formule formule = new Gson().fromJson(jsonResponse2.toString(), beans.Formule.class);
         /*-------------------------------------------------------------------------*/
 
         /*--------------------- On fait payer le client -------------------------*/
@@ -100,7 +100,7 @@ public class Formule extends HttpServlet {
 
 
         Utilisateur user = Utils.UserUtility.getUserFromSession(request);
-        ConnectAPIUtilisateur connectAPIUtilisateur=new ConnectAPIUtilisateur();
+        ConnectAPIUtilisateur connectAPIUtilisateur=new ConnectAPIUtilisateur(user.getAuth());
         List<beans.Formule> listeFormules = new ArrayList<beans.Formule>();
 
         String apiResponse = connectAPIUtilisateur.getFormules();
