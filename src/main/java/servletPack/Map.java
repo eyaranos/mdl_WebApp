@@ -29,10 +29,10 @@ public class Map extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        String velosJson = null;
-        String zonesJson = null;
-        JSONObject obj = null;
-        JSONObject obj2 = null;
+        String velosJson;
+        String zonesJson;
+        JSONObject obj;
+        JSONObject obj2;
         Utilisateur user = UserUtility.getUserFromSession(request);
 
         /* recup velos dans la bd */

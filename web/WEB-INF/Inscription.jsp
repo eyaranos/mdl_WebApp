@@ -25,7 +25,7 @@
                 <div class="row">
                     <div class="col-md-5" id="inscr-top-col">
                         <p>Si vous ne souhaitez pas compléter un formulaire complet, vous pouvez réduire celui-ci grâce au bouton
-                            ci-dessous
+                            ci-dessous. Un caution sera débitée dans ce cas.
                         </p>
                         <input type="submit" id="select_form_btn" value="Normale" class="btn btn-primary" />
                     </div>

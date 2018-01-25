@@ -47,7 +47,6 @@
         </tbody>
     </table>
 
-    <%--TODO : check what to do if getAbonnementEnCours is not null (cfr servlet)--%>
     <button class="btn btn-primary"><a href="/profile/formules" style="color:white">Souscrire un nouvel abonnement !</a></button>
 
 </div>

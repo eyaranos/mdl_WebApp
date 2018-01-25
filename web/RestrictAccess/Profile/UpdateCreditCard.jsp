@@ -38,9 +38,6 @@
 
                         <!-- Used to display Element errors -->
                         <div id="card-errors" role="alert"></div>
-
-                        <!-- Used to display if succes -->
-                   <%--     <div id="card-succes" class="alert alert-success"> ${succes}</div>--%>
                     </div>
 
                     <button class="btn" >Update credit card</button>

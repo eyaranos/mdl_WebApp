@@ -27,7 +27,6 @@ import java.util.Map;
 public class Formule extends HttpServlet {
 
     public static final String VUE = "/RestrictAccess/Profile/Formule.jsp";
-    public static final String REDIRECT = "/RestrictAccess/Profile/Abonnement.jsp";
     private String erreurs = null;
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

@@ -33,11 +33,14 @@ public class ConnectAPIUtilisateur {
         return auth;
     }
 
-    /*
-        Envoie dans un objet JSOn les données de l'utilisateur
-        return true si l'API a ajouté l'utilisateur à la db
-        Sinon false
-         */
+    /**
+     * Permet d'insérer un nouvel utilisateur lors de l'inscription de celui-ci
+     *
+     * @param utilisateur Utilisateur concerné par l'inscription
+     * @return true si ok, false si erreur
+     * @throws SQLException
+     * @throws IOException
+     */
     public boolean insertUser(Utilisateur utilisateur) throws SQLException, IOException {
 
         //Création de la connection à l'API
@@ -74,7 +77,14 @@ public class ConnectAPIUtilisateur {
         }
     }
 
-    public void updateUser(Utilisateur utilisateur) throws Exception {
+    /**
+     * Permet à un utilisateur de mettre ses informations de compte à jour
+     *
+     * @param utilisateur Utilisateur concerné
+     * @return true si ok, sinon false
+     * @throws Exception
+     */
+    public boolean updateUser(Utilisateur utilisateur) throws Exception {
 
         //Création de la connection à l'API
         HttpURLConnection con = this.connectAPI.connectAPIJSON("UserController/update/user/", "POST");
@@ -99,8 +109,55 @@ public class ConnectAPIUtilisateur {
         wr.flush();
 
         connectAPI.showBackMessage(con);
+
+        return (con.getResponseCode() != 400);
     }
 
+    /**
+     * Permet de mettre à jour le mot de passe d'un utilisateur avec un mot de passe temporaire si celui-ci à oublié
+     * le sien.
+     *
+     * @param utilisateur Utilisateur concerné
+     * @return true si ok, false sinon
+     * @throws Exception
+     */
+    public boolean updateUserForgotPassword(Utilisateur utilisateur) throws Exception {
+
+        //Création de la connection à l'API
+        HttpURLConnection con = this.connectAPI.connectAPIJSON("UserController/update/user/forget", "POST");
+
+        //Création du JSONObject à envoyer à l'API avec les info de l'utilisateur à ajouter
+        JSONObject uJson   = new JSONObject();
+
+        uJson.put("email",utilisateur.getEmail());
+        uJson.put("nom",utilisateur.getNom());
+        uJson.put("prenom",utilisateur.getPrenom());
+        uJson.put("mdp",utilisateur.getMdp());
+        uJson.put("id",utilisateur.getId());
+        uJson.put("ville",utilisateur.getVille());
+        uJson.put("adresse",utilisateur.getAdresse());
+        uJson.put("codeP",utilisateur.getCodePostal());
+        uJson.put("pays",utilisateur.getPays());
+        uJson.put("num",utilisateur.getNum());
+
+        //Envoie de l'objetJSON à l'API
+        OutputStreamWriter wr = new OutputStreamWriter(con.getOutputStream());
+        wr.write(uJson.toString());
+        wr.flush();
+
+        connectAPI.showBackMessage(con);
+
+        return (con.getResponseCode() != 400);
+    }
+
+
+    /**
+     * Permet de verifier l'existence d'un client et de créer sa session si ok
+     *
+     * @param utilisateur Utilisateur concerné
+     * @return Json, les infos liées à cet utilisateur
+     * @throws IOException si erreur E/S
+     */
     public String checkConnectionUser(Utilisateur utilisateur) throws IOException {
 
         //Création URL pour connection à l'API
@@ -381,9 +438,9 @@ public class ConnectAPIUtilisateur {
     /**
      * Permet de mettre à jour les infos d'une carte de credit liée à un client.
      *
-     * @param customerId
-     * @param partialCardNumber
-     * @return
+     * @param customerId String, le token renvoyé par Stripe qui permet d'identifier chaque client sur leur serveur
+     * @param partialCardNumber String, les 4 derniers chiffre de la carte du client
+     * @return String, message de feedback ok ou nok
      * @throws SQLException
      * @throws IOException
      */
@@ -400,6 +457,14 @@ public class ConnectAPIUtilisateur {
         }
     }
 
+    /**
+     * Permet à un client de supprimer sa carte de crédit couramment liée à son compte
+     *
+     * @param customerId String, le token renvoyé par Stripe qui permet d'identifier chaque client sur leur serveur
+     * @return String, message de feedback ok ou nok
+     * @throws SQLException
+     * @throws IOException
+     */
     public String deleteCreditCard(String customerId) throws SQLException, IOException {
 
         //Création de la connection à l'API

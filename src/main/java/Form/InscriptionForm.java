@@ -1,5 +1,6 @@
 package Form;
 
+import Utils.UserUtility;
 import beans.Utilisateur;
 
 import java.math.BigInteger;
@@ -16,17 +17,16 @@ import javax.servlet.http.HttpServletRequest;
 
 public final class InscriptionForm {
 
-    public static final String CHAMP_EMAIL = "email";
-    public static final String CHAMP_PASS = "mdp";
-    public static final String CHAMP_CONF = "confirmation";
-    public static final String CHAMP_NOM = "nom";
-    public static final String CHAMP_PRENOM = "prenom";
-    public static final String CHAMP_VILLE = "ville";
-    public static final String CHAMP_ADDRESS = "adresse";
-    public static final String CHAMP_ZIP = "code_postal";
-    public static final String CHAMP_PAYS = "pays";
-    public static final String CHAMP_TEL = "num_tel";
-    public static final String CHAMP_NAISSANCE = "date_naissance";
+    private static final String CHAMP_EMAIL = "email";
+    private static final String CHAMP_PASS = "mdp";
+    private static final String CHAMP_CONF = "confirmation";
+    private static final String CHAMP_NOM = "nom";
+    private static final String CHAMP_PRENOM = "prenom";
+    private static final String CHAMP_VILLE = "ville";
+    private static final String CHAMP_ADDRESS = "adresse";
+    private static final String CHAMP_ZIP = "code_postal";
+    private static final String CHAMP_PAYS = "pays";
+    private static final String CHAMP_TEL = "num_tel";
 
     private String resultat;
     private Map<String, String> erreurs = new HashMap<String, String>();
@@ -50,7 +50,6 @@ public final class InscriptionForm {
         String code_postal = getValeurChamp(request, CHAMP_ZIP);
         String pays = getValeurChamp(request, CHAMP_PAYS);
         String num_tel = getValeurChamp(request, CHAMP_TEL);
-        //String date_naissance =  getValeurChamp(request, CHAMP_NAISSANCE);
 
         Utilisateur utilisateur = new Utilisateur();
 
@@ -62,7 +61,7 @@ public final class InscriptionForm {
         utilisateur.setEmail(email);
 
         try {
-            validationMotsDePasse(motDePasse, confirmation);
+            UserUtility.validationMotsDePasse(motDePasse, confirmation);
         } catch (Exception e) {
             setErreur(CHAMP_PASS, e.getMessage());
             setErreur(CHAMP_CONF, null);
@@ -87,7 +86,6 @@ public final class InscriptionForm {
 
             utilisateur.setAdresse(adresse);
             utilisateur.setCodePostal(code_postal);
-            //utilisateur.setDateNaissance(date_naissance);
             utilisateur.setNum(num_tel);
             utilisateur.setNom(nom);
             utilisateur.setPrenom(prenom);
@@ -111,18 +109,6 @@ public final class InscriptionForm {
             }
         } else {
             throw new Exception("Merci de saisir une adresse mail.");
-        }
-    }
-
-    private void validationMotsDePasse(String motDePasse, String confirmation) throws Exception {
-        if (motDePasse != null && confirmation != null) {
-            if (!motDePasse.equals(confirmation)) {
-                throw new Exception("Les mots de passe entrés sont différents, merci de les saisir à nouveau.");
-            } else if (motDePasse.length() < 3) {
-                throw new Exception("Les mots de passe doivent contenir au moins 3 caractères.");
-            }
-        } else {
-            throw new Exception("Merci de saisir et confirmer votre mot de passe.");
         }
     }
 

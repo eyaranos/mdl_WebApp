@@ -1,22 +1,13 @@
 package Form;
 
 import ConnecteurAPI.ConnectAPIUtilisateur;
-import DAO.DAOFactory;
-import DAO.UtilisateurDao;
 import beans.Utilisateur;
-import ConnecteurAPI.ConnectAPI;
-import jdk.nashorn.internal.parser.JSONParser;
 import org.json.*;
-
-import javax.crypto.SecretKeyFactory;
-import javax.crypto.spec.PBEKeySpec;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
-import java.io.StringReader;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class ConnexionForm {
@@ -27,13 +18,11 @@ public class ConnexionForm {
     private static final String NOT_FOUND_MDP   = "wrongPwd";
     private static final String NOT_ACTIVATED  = "not_activated";
 
-    private String              resultat;
+    private String resultat;
     private Map<String, String> erreurs      = new HashMap<String, String>();
-
     public String getResultat() {
         return resultat;
     }
-
     public Map<String, String> getErreurs() {
         return erreurs;
     }

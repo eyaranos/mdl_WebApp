@@ -20,7 +20,7 @@
     </div>
 
     <h3 style="margin-top:70px;">Map</h3>
-    <p>Vous pouvez voir sur cette carte, l'ensemble des vélos disponibles</p>
+    <p>Vous pouvez voir sur cette carte, l'ensemble des vélos</p>
     <div id="map"></div>
 
 
@@ -56,6 +56,28 @@
 
         });
 
+        var results_velo_casser = ${liste_velo_casser};
+
+        if(results_velo_casser.length != 0){
+            $.each(results_velo_casser, function(key, data){
+
+                var latLng = new google.maps.LatLng(data.latitude, data.longitude);
+
+                var marker = new google.maps.Marker({
+                    position: latLng,
+                    map: map,
+                    icon: "http://maps.google.com/mapfiles/ms/icons/blue-dot.png"
+                });
+
+                var infowindow = new google.maps.InfoWindow({
+                    content: "id vélo cassé : " +(data.id).toString()
+                });
+
+                bindInfoWindow(marker, map, infowindow);
+
+            });
+        }
+
         var results_zone = ${liste_zone};
 
         $.each(results_zone, function(key, data) {
@@ -71,6 +93,23 @@
                 radius: (data.rayon)
             });
         });
+
+
+    var results_station = ${liste_station};
+
+    $.each(results_station, function(key, data) {
+
+        var cityCircle = new google.maps.Circle({
+            strokeColor: '#f8251d',
+            strokeOpacity: 0.8,
+            strokeWeight: 2,
+            fillColor: '#f84e39',
+            fillOpacity: 0.35,
+            map: map,
+            center: {lat:data.latitude, lng:data.longitude},
+            radius: (data.rayon)
+        });
+    });
     }
 
     function bindInfoWindow(marker, map, infowindow) {

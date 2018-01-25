@@ -1,9 +1,7 @@
 package servletPack;
 
-import ConnecteurAPI.ConnectAPI;
+
 import ConnecteurAPI.ConnectAPIUtilisateur;
-import DAO.DAOFactory;
-import DAO.UtilisateurDao;
 import Form.InscriptionForm;
 import Utils.EmailUtility;
 import beans.Utilisateur;
@@ -19,16 +17,11 @@ import java.io.IOException;
 @WebServlet(name = "Inscription")
 public class Inscription extends HttpServlet {
 
-    private UtilisateurDao utilisateurDao;
 
-    public static final String ATT_USER = "utilisateur";
-    public static final String ATT_FORM = "form";
-    public static final String VUE = "/WEB-INF/Inscription.jsp";
+   private static final String ATT_USER = "utilisateur";
+    private static final String ATT_FORM = "form";
+    private static final String VUE = "/WEB-INF/Inscription.jsp";
 
-    public void init()throws ServletException{
-        DAOFactory daoFactory= DAOFactory.getInstance();
-        this.utilisateurDao=daoFactory.getUtilisateurDao();
-    }
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
          /* Préparation de l'objet formulaire */
@@ -52,7 +45,7 @@ public class Inscription extends HttpServlet {
             form.setResultat("Echec de l'inscription");
             e.printStackTrace();
         }
-        if(inscriptionValide){
+        if(inscriptionValide && form.getErreurs().isEmpty()){
             //---envoi du mail de confirmation------------------------//
             // reads SMTP server setting from web.xml file
             ServletContext context = getServletContext();

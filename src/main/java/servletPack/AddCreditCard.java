@@ -81,7 +81,7 @@ public class AddCreditCard extends HttpServlet {
 
         Utilisateur user = UserUtility.getUserFromSession(request);
         ConnectAPIUtilisateur connectAPIUtilisateur=new ConnectAPIUtilisateur(user.getAuth());
-        String last4 = null;
+        String last4;
         String apiResponse;
 
         if ((apiResponse = connectAPIUtilisateur.getLast4(user.getId())).equals("400")){

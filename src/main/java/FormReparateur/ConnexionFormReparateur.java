@@ -77,7 +77,6 @@ public class ConnexionFormReparateur {
             setErreur( NOT_FOUND_EMAIL,"Wrong email" );
         }
 
-
         /* Initialisation du résultat global de la validation. */
         if ( erreurs.isEmpty()) {
             resultat = "Succès de la connexion.";

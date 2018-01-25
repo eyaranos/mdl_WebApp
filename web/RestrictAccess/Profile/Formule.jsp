@@ -59,13 +59,7 @@
         </tbody>
     </table>
 
-  <%--  <c:if test="${erreur_abonnement == 1}">--%>
         <button id="btn-choose-formule" type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-confirm" disabled>Choisir</button>
-   <%-- </c:if>--%>
-
- <%--   <c:if test="${erreur_abonnement == 0}">
-        <p style="color:#f8c74b;">Vous avez déjà un abonnement en cours...</p>
-    </c:if>--%>
 
     <c:if test="${noCreditCard != null}">
         <p style="color:darkred;">${noCreditCard}</p>
@@ -116,17 +110,6 @@
             }
         });
 
-        /*TODO : display alert message. NOT WORKING because disabled button doesnt take the hover effect*/
-        $("#btn-wrapper").hover(function(){
-           if($("#btn-choose-formule").is(":disabled")){
-
-                $("#warning-text").show();
-           }
-           else{
-               $("#warning-text").hide();
-           }
-        });
-
         $('#btn-choose-formule-confirm').on('click', function(){
 
             var id_formule =  $('input[name="checkbox-formule"]:checked').val();
@@ -144,14 +127,10 @@
                    $('#btn-choose-formule-confirm').removeClass("btn-danger");
                    $('#btn-choose-formule-confirm').addClass("btn-success");
                }
-
-
             })
         });
     });
 
 </script>
-
-
 </body>
 </html>

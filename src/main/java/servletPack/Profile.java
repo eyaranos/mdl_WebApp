@@ -1,8 +1,6 @@
 package servletPack;
 
 import ConnecteurAPI.ConnectAPIUtilisateur;
-import DAO.UtilisateurDao;
-import Form.InscriptionForm;
 import Form.ProfileForm;
 import Utils.UserUtility;
 import beans.Reparateur;
@@ -20,9 +18,9 @@ import java.io.IOException;
 @WebServlet(name = "Profile")
 public class Profile extends HttpServlet {
 
-    public static final String ATT_USER = "utilisateur";
-    public static final String ATT_FORM = "form";
-    public static final String VUE = "/RestrictAccess/Profile/Profile.jsp";
+   private static final String ATT_USER = "utilisateur";
+   private static final String ATT_FORM = "form";
+   private static final String VUE = "/RestrictAccess/Profile/Profile.jsp";
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         /* Préparation de l'objet formulaire */
@@ -52,7 +50,6 @@ public class Profile extends HttpServlet {
         }
 
         this.getServletContext().getRequestDispatcher( VUE ).forward( request, response );
-
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

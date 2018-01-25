@@ -36,7 +36,8 @@
                         <p>Vous pouvez modifier vos informations personnelles via ce formulaire.</p>
 
                         <label for="email">Adresse email <span class="requis">*</span></label>
-                        <input id="email" name="email" value="<c:out value="${utilisateur.email}"/>" size="20" maxlength="60" />
+                        <input id="email" name="email" disabled value="<c:out value="${utilisateur.email}"/>" size="20" maxlength="60" />
+                        <input id="email" name="email" style="visibility:hidden;position:absolute;" value="<c:out value="${utilisateur.email}"/>" size="20" maxlength="60" />
                         <span class="erreur">${form.erreurs['email']}</span>
                         <br>
                         <label for="mdp">Mot de passe <span class="requis">*</span></label>
@@ -73,13 +74,9 @@
                         <input id="pays" name="pays" value="<c:out value="${utilisateur.pays}"/>" size="20" maxlength="20" />
                         <br />
 
-                        <label for="num_tel">Telephone</label>
-                        <input id="num_tel" name="tel" value="<c:out value="${utilisateur.num}"/>" size="20" maxlength="20" />
+                        <label style="visibility:hidden" for="num_tel">Telephone</label>
+                        <input style="visibility:hidden" id="num_tel" name="tel" value="<c:out value="${utilisateur.num}"/>" size="20" maxlength="20" />
                         <br />
-
-                        <%--<label for="date_naissance">Date de naissance</label>
-                                       <input id="date_naissance" name="date_naissance" value="<c:out value="${utilisateur.date_naissance}"/>" size="20" maxlength="20" />
-                                       <br />--%>
 
                         <input type="submit" value="Modifier" class="sansLabel" />
                         <br />

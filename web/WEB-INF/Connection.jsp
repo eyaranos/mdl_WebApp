@@ -35,9 +35,9 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="motdepasse" class="col-sm-2 control-label">Password</label>
+                            <label for="motdepasse" class="col-sm-2 control-label">Mot de passe</label>
                             <div class="col-sm-10">
-                                <input type="password" id="motdepasse" class="form-control" placeholder="Password" name="motdepasse" value="" size="20" maxlength="20" />
+                                <input type="password" id="motdepasse" class="form-control" placeholder="Mot de passe" name="motdepasse" value="" size="20" maxlength="20" />
                                 <span class="erreur">${form.erreurs['motdepasse']}</span>
                             </div>
                         </div>
@@ -45,7 +45,7 @@
                             <div class="col-sm-offset-2 col-sm-10">
                                 <div class="checkbox">
                                     <label>
-                                        <input type="checkbox" id="memoire" name="memoire"> Remember me
+                                        <input type="checkbox" id="memoire" name="memoire"> Se souvenir de moi
                                     </label>
                                 </div>
                             </div>
@@ -57,7 +57,6 @@
                             <p class="${empty form.erreurs ? 'succes' : 'erreur'}">${form.resultat}</p>
                         </div>
                     </form>
-                    <a href="forgetPassword">Mot de passe oublié ?</a>
                 </div>
             </div>
         </div>

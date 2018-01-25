@@ -12,35 +12,19 @@ import java.sql.SQLException;
 
 public class ConnectAPIReparateur {
     private ConnectAPI connectAPI;
+    private String auth;
 
     public ConnectAPIReparateur(String auth){
         this.connectAPI =new ConnectAPI(auth);
+        this.auth = auth;
     }
 
     public ConnectAPIReparateur(){
-
+        this.connectAPI = new ConnectAPI();
     }
 
-
-    public void insertReparateur(Reparateur reparateur) throws Exception {
-
-        //Création de la connection à l'API
-        HttpURLConnection con = this.connectAPI.connectAPIJSON("insert/reparateur/", "POST");
-
-        //Création du JSONObject à envoyer à l'API avec les info de l'reparateur à ajouter
-        JSONObject json   = new JSONObject();
-
-        json.put("email",reparateur.getEmail());
-        json.put("nom",reparateur.getNom());
-        json.put("prénom",reparateur.getPrenom());
-        json.put("mdp",reparateur.getMdp());
-
-        //Envoie de l'objetJSON à l'API
-        OutputStreamWriter wr = new OutputStreamWriter(con.getOutputStream());
-        wr.write(json.toString());
-        wr.flush();
-
-        connectAPI.showBackMessage(con);
+    public String getAuth() {
+        return auth;
     }
 
     public String checkConnectionRepa(Reparateur reparateur) throws IOException {
@@ -193,7 +177,7 @@ public class ConnectAPIReparateur {
         conn.setInstanceFollowRedirects( false );
         conn.setRequestMethod( "POST" );
         conn.setRequestProperty( "Content-Type", "application/x-www-form-urlencoded");
-        conn.setRequestProperty( "charset", "utf-8");
+        conn.setRequestProperty("Authorization", getAuth());
         conn.setUseCaches( false );
 
         //Création des params pour l'url
@@ -213,4 +197,130 @@ public class ConnectAPIReparateur {
             return false;
         }
     }
+
+    /**
+     * Renvoie tous les vélos
+     *
+     * @return String une liste JSON avec l'ensemble des objets Vélo
+     * @throws IOException si erreur E/S
+     */
+    public String getBikes() throws IOException {
+
+        //Création de la connection à l'API
+        HttpURLConnection conn = this.connectAPI.connectAPIJSON("VeloController/getvelos", "GET");
+
+        String rep=connectAPI.showBackMessage(conn);
+
+        return rep;
+    }
+
+    /**
+     * Renvoie tous les vélos cassés
+     *
+     * @return String une liste JSON avec l'ensemble des objets Vélo qui présente un dommage
+     * @throws IOException
+     */
+    public String getBrokenBikes() throws IOException {
+
+        //Création de la connection à l'API
+        HttpURLConnection conn = this.connectAPI.connectAPIJSON("VeloController/getAllVeloCasse", "GET");
+
+        String rep=connectAPI.showBackMessage(conn);
+
+        return rep;
+    }
+
+    /**
+     * Renvoie les zone de lock pour les afficher sur la carte
+     *
+     * @return String une liste JSON avec les objets ZoneLock
+     * @throws IOException si erreur E/S
+     */
+    public String getZoneLock() throws IOException {
+
+        //Création de la connection à l'API
+        HttpURLConnection conn = this.connectAPI.connectAPIJSON("ZoneLockController/getZoneLock", "GET");
+
+        String rep=connectAPI.showBackMessage(conn);
+
+        return rep;
+    }
+
+    /**
+     * Renvoie les stations pour les afficher sur la carte
+     *
+     * @return String une liste JSON avec les objets Station
+     * @throws IOException si erreur E/S
+     */
+    public String getStations() throws IOException {
+
+        //Création de la connection à l'API
+        HttpURLConnection conn = this.connectAPI.connectAPIJSON("StationController/getAllStation", "GET");
+
+        String rep=connectAPI.showBackMessage(conn);
+
+        return rep;
+    }
+
+    //--------------------- ADMIN SECTION --------------------------
+    public String startAlgo() throws IOException {
+
+        //Création de la connection à l'API
+        HttpURLConnection conn = this.connectAPI.connectAPIJSON("Admin/startAlgo", "GET");
+
+        String rep=connectAPI.showBackMessage(conn);
+
+        return rep;
+    }
+
+    public String getTrajets() throws IOException {
+
+        //Création de la connection à l'API
+        HttpURLConnection conn = this.connectAPI.connectAPIJSON("Admin/getAllTrajet", "GET");
+
+        String rep=connectAPI.showBackMessage(conn);
+
+        return rep;
+    }
+
+    public String getNbClient() throws IOException {
+
+        //Création de la connection à l'API
+        HttpURLConnection conn = this.connectAPI.connectAPIJSON("Admin/getNbClient", "GET");
+
+        String rep=connectAPI.showBackMessage(conn);
+
+        return rep;
+    }
+
+    public String getNbClientAbo() throws IOException {
+
+        //Création de la connection à l'API
+        HttpURLConnection conn = this.connectAPI.connectAPIJSON("Admin/getNbClientAvecAbo", "GET");
+
+        String rep=connectAPI.showBackMessage(conn);
+
+        return rep;
+    }
+
+    public String getEmploye() throws IOException {
+
+        //Création de la connection à l'API
+        HttpURLConnection conn = this.connectAPI.connectAPIJSON("Admin/getAllEmp", "GET");
+
+        String rep=connectAPI.showBackMessage(conn);
+
+        return rep;
+    }
+
+    public String getAllVeloForStation() throws IOException {
+
+        //Création de la connection à l'API
+        HttpURLConnection conn = this.connectAPI.connectAPIJSON("Admin/getAllVeloForAllStation", "GET");
+
+        String rep=connectAPI.showBackMessage(conn);
+
+        return rep;
+    }
+
 }

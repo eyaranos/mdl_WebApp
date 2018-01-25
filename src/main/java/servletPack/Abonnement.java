@@ -49,9 +49,6 @@ public class Abonnement extends HttpServlet {
             request.setAttribute("listeAbos", listeAbos);
         }
 
-        //todo : write method getAbonnementEnCours(id_client) pour eviter de permettre à un utilisateur de prendre un abonemment
-        //todo :    alors qu'il en a encore un
-
         this.getServletContext().getRequestDispatcher(VUE).forward( request, response );
     }
 }

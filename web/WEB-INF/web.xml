@@ -115,6 +115,17 @@
     </servlet-mapping>
 
     <servlet>
+        <servlet-name>mapReparateur</servlet-name>
+        <servlet-class>servletPackReparateur.MapReparateur</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>mapReparateur</servlet-name>
+        <url-pattern>/map/employe</url-pattern>
+    </servlet-mapping>
+
+
+    <servlet>
         <servlet-name>addCreditCard</servlet-name>
         <servlet-class>servletPack.AddCreditCard</servlet-class>
     </servlet>
@@ -166,6 +177,17 @@
     </servlet-mapping>
 
 
+    <servlet>
+        <servlet-name>admin</servlet-name>
+        <servlet-class>servletPack.Admin</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>admin</servlet-name>
+        <url-pattern> /admin</url-pattern>
+    </servlet-mapping>
+
+
     <!--- FILTER -->
     <filter>
         <filter-name>RestrictionFilter</filter-name>
@@ -175,23 +197,6 @@
         <filter-name>RestrictionFilter</filter-name>
         <url-pattern>/RestrictAccess/*</url-pattern>
     </filter-mapping>
-
-   <!-- <filter>
-        <filter-name>Set Character Encoding</filter-name>
-        <filter-class>org.apache.catalina.filters.SetCharacterEncodingFilter</filter-class>
-        <init-param>
-            <param-name>encoding</param-name>
-            <param-value>UTF-8</param-value>
-        </init-param>
-        <init-param>
-            <param-name>ignore</param-name>
-            <param-value>false</param-value>
-        </init-param>
-    </filter>
-    <filter-mapping>
-        <filter-name>Set Character Encoding</filter-name>
-        <url-pattern>/*</url-pattern>
-    </filter-mapping>-->
 
     <!-- SMTP Configuration -->
     <context-param>
@@ -209,9 +214,11 @@
         <param-value>eyaranossian@gmail.com</param-value>
     </context-param>
 
+    <!-- Pour des raison que vous comprenez bien j'ai enlevé mon mdp ci-dessous. Afin de faire fonctionner le SMTP il
+        vous faudra fournir un email et mdp google -->
     <context-param>
         <param-name>pass</param-name>
-        <param-value>E06061993E</param-value>
+        <param-value>**********</param-value>
     </context-param>
 
 </web-app>

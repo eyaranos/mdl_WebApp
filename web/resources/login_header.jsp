@@ -10,15 +10,29 @@
             <li class="nav-item">
                 <a class="nav-item nav-link active" href="/">Home <span class="sr-only">(current)</span></a>
             </li>
-            <li class="nav-item">
-                <a class="nav-item nav-link" href="/profile">Profil</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-item nav-link" href="/map">Carte</a>
-            </li>
+            <c:if test="${!empty sessionScope.sessionUtilisateur}">
+                <li class="nav-item">
+                    <a class="nav-item nav-link" href="/profile">Profil</a>
+                </li>
+            </c:if>
+            <c:if test="${!empty sessionScope.sessionUtilisateur}">
+                <li class="nav-item">
+                    <a class="nav-item nav-link" href="/map">Carte</a>
+                </li>
+            </c:if>
+            <c:if test="${!empty sessionScope.sessionReparateur}">
+                <li class="nav-item">
+                    <a class="nav-item nav-link" href="/map/employe">Carte</a>
+                </li>
+            </c:if>
             <c:if test="${!empty sessionScope.sessionReparateur}">
                 <li class="nav-item">
                     <a class="nav-item nav-link" href="/work/reparateur/liste">Liste des velos</a>
+                </li>
+            </c:if>
+            <c:if test="${!empty sessionScope.sessionReparateur}">
+                <li class="nav-item">
+                    <a class="nav-item nav-link" href="/admin">Admin</a>
                 </li>
             </c:if>
             <li class="nav-item">

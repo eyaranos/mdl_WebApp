@@ -46,7 +46,7 @@
 
                     <c:if test="${velo.type == 'terminated'}">
                         <td><form class="form-repa-encours"> <input type="checkbox" disabled></form></td>
-                        <td><b>${velo.reparateur.nom}</b> a réparé ce velo <%--le ${casB.date_fin_rep}--%></td>
+                        <td><b>${velo.reparateur.nom}</b> a réparé ce velo </td>
                     </c:if>
 
                     <c:if test="${empty velo.reparateur}">

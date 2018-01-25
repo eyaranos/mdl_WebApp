@@ -21,6 +21,7 @@ import java.net.URL;
 public class ConnectAPI {
 
     private final String USER_AGENT = "Mozilla/5.0";
+    //url à changer en fonction de si on se connecte en local à l'API rest ou sur le serveur en ligne
     private String url_API ="http://188.226.175.148:8080/MDL-API-0.0.1-SNAPSHOT/restservices/";
    //private String url_API ="http://localhost:8080/restservices/";
     private String auth;
@@ -77,6 +78,7 @@ public class ConnectAPI {
         con.setDoInput(true);
         con.setRequestProperty("Content-Type", "application/json");
         con.setRequestProperty("Accept", "application/json");
+        //token de sécurité pour accéder à l'API rest
         con.setRequestProperty("Authorization", getAuth() );
         con.setRequestMethod(method);
 

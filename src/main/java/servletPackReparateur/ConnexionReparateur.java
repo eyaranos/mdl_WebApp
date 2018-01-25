@@ -14,11 +14,11 @@ import java.io.IOException;
 @WebServlet(name = "ConnexionReparateur")
 public class ConnexionReparateur extends HttpServlet {
 
-    public static final String ATT_USER         = "reparateur";
-    public static final String ATT_FORM         = "form";
-    public static final String ATT_SESSION_USER = "sessionReparateur";
-    public static final String VUE              = "/WEB-INF/Connection_Repa.jsp";
-    public static final String VUE_AFTER_CONN   = "/WEB-INF/Accueil.jsp";
+    private static final String ATT_USER         = "reparateur";
+    private static final String ATT_FORM         = "form";
+    private static final String ATT_SESSION_USER = "sessionReparateur";
+    private static final String VUE              = "/WEB-INF/Connection_Repa.jsp";
+    private static final String VUE_AFTER_CONN   = "/WEB-INF/Accueil.jsp";
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         /* Préparation de l'objet formulaire */

@@ -30,7 +30,7 @@
                 <form action="" method="post" id="payment-form">
                     <div class="form-row">
                         <label for="card-element">
-                            Credit or debit card
+                            Carte de crédit ou de débit
                         </label>
                         <div id="card-element">
                             <!-- a Stripe Element will be inserted here. -->
@@ -44,13 +44,13 @@
                     </div>
 
                     <c:if test="${!empty cardExistAlready}">
-                        <button class="btn" disabled >Add credit card</button>
+                        <button class="btn" disabled >Ajoutez</button>
                         <p  style="color:#f8c74b;">${cardExistAlready}</p>
                     </c:if>
 
 
                     <c:if test="${empty cardExistAlready}">
-                        <button class="btn">Add credit card</button>
+                        <button class="btn">Ajoutez</button>
                     </c:if>
 
                 </form>
@@ -60,7 +60,6 @@
                         <h4 class="card-header">Carte active</h4>
                         <div class="card-block" style="padding:30px;">
                             <p class="card-text">${last4}</p>
-                            <a href="/profile/update/creditCard" class="btn btn-outline-primary btn-sm">Mettre à jour</a>
                             <a href="/profile/delete/creditCard" class="btn btn-outline-danger btn-sm">Supprimer</a>
                         </div>
                     </div>

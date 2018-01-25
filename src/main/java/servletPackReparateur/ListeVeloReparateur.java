@@ -36,7 +36,6 @@ public class ListeVeloReparateur extends HttpServlet {
         ConnectAPIReparateur connectAPIReparateur = new ConnectAPIReparateur(reparateur.getAuth());
         String commentaire_repa;
 
-        //todo : seems like it wont go through the else part.
         if (request.getParameter("commentaire") != null){
             commentaire_repa = request.getParameter("commentaire");
         }
@@ -76,8 +75,6 @@ public class ListeVeloReparateur extends HttpServlet {
             }
         }
 
-      //  response.sendRedirect("http://localhost:8081/work/reparateur/liste");
-
         response.setContentType("text/plain");
         response.setCharacterEncoding("UTF-8");
         response.getWriter().write(msg);
@@ -91,7 +88,6 @@ public class ListeVeloReparateur extends HttpServlet {
         ConnectAPIReparateur connectAPIReparateur = new ConnectAPIReparateur(employe.getAuth());
 
         /*-------------------- PARTIE liste des velos dans un centre en particulier ---------------*/
-        //TODO : check that apiResponse doesnt send back an error (shouldnt append)
         String apiResponse = connectAPIReparateur.getIdCentreRepa(employe.getId());
         //converti string response en json response
         JSONObject jsonResponse = new JSONObject(apiResponse);
